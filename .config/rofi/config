@@ -1,0 +1,8 @@
+rofi.location:          0
+rofi.font:		Liberation Mono 12
+rofi.separator-style:   dash
+rofi.hide-scrollbar:    true
+rofi.terminal: gnome-terminal
+rofi.ssh-set-title: true
+#include "/usr/share//rofi/themes//gruvbox-dark-hard.theme"
+#include "/usr/share/rofi/themes//gruvbox-dark-hard.theme"
