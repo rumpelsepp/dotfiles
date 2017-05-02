@@ -1,0 +1,54 @@
+[core]
+	autocrlf = input
+	editor = nvim +1
+	excludesfile = ~/.gitignore
+
+[color]
+	ui = true
+
+[pack]
+	threads = 0
+
+[push]
+	default = simple
+
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	cm = commit -m
+	br = branch
+	ba = branch -a -vv
+	lg = log --pretty=format:'%C(auto)%h %<(55,trunc)%s %Cblue%<(18,trunc)%an%Creset %Cgreen%<(15)%ad%Creset %C(auto)%d' --abbrev-commit --date=relative
+	lol = log --decorate --oneline --abbrev-commit --all
+	today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+	changelog = log --pretty=format:'%C(auto)%h (%s, %ad)' --abbrev-commit --date=short
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	aliases = config --get-regexp alias
+
+[log]
+	decorate = short
+
+[status]
+	short = yes
+
+[pager]
+    diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+    log = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+    show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+    # diff = diff-so-fancy | less --tabs=4 -RFX
+    # log  = diff-so-fancy | less --tabs=4 -RFX
+    # show = diff-so-fancy | less --tabs=4 -RFX
+
+[sendemail]
+	smtpencryption = tls
+	smtpserver = mail.sevenbyte.org
+	smtpuser = rumpelsepp@sevenbyte.org
+	smtpserverport = 587
+
+[include]
+	path = ~/.config/git/user
+
+[user]
+	signingkey = 73998416
