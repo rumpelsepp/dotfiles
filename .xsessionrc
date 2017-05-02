@@ -1,0 +1,17 @@
+#!/bin/sh
+
+export LC_COLLATE="de_DE.UTF-8"
+export LC_CTYPE="de_DE.UTF-8"
+export LC_MONETARY="de_DE.UTF-8"
+export LC_MEASUREMENT="de_DE.UTF-8"
+#export LC_MESSAGES="de_DE.UTF-8"
+export LC_NUMERIC="de_DE.UTF-8"
+export LC_PAPER="de_DE.UTF-8"
+#export LC_RESPONSE="de_DE.UTF-8"
+export LC_TELEPHONE="de_DE.UTF-8"
+export LC_TIME="de_DE.UTF-8"
+
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --enable-remote-extensions"
+
+export GOPATH="$HOME/Go"
+export PATH="$GOPATH/bin:$HOME/.cargo/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.local/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
