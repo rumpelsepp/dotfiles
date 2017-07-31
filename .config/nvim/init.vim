@@ -27,7 +27,7 @@ Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 " Plug 'machakann/vim-highlightedyank'
 Plug 'rumpelsepp/neovim-gitignore', { 'do': ':UpdateRemotePlugins' }
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -204,13 +204,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " https://github.com/neovim/neovim/issues/5219#issuecomment-239365013
 autocmd filetype man nnoremap <buffer> q :q<CR>
 
-" Theme and highlighting
-if has("termguicolors")
-    set termguicolors
-else
-    let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
 
+" Theme
+set termguicolors
 let python_highlight_all = 1
 let g:tex_flavor = 'latex'
 set number
