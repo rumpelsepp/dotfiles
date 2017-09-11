@@ -1,41 +1,36 @@
+# I want to be able to specify a different user depending on the 
+# used machine. Since I use yadm to manage this file, I need to
+# externalize this setting into another file.
+[include]
+	path = ~/.config/git/user
+
 [core]
-    autocrlf = input
-    editor = nvim +1
-    excludesfile = ~/.gitignore
-
-[color]
-    ui = true
-
-[pack]
-    threads = 0
-
-[push]
-    default = simple
+	autocrlf = input
+	editor = nvim +1
+	excludesfile = ~/.gitignore
 
 [alias]
-    st = status
-    co = checkout
-    ci = commit
-    cm = commit -m
-    br = branch
-    ba = branch -a -vv
-    lg = log --pretty=format:'%C(auto)%h %<(55,trunc)%s %Cblue%<(18,trunc)%an%Creset %Cgreen%<(15)%ad%Creset %C(auto)%d' --abbrev-commit --date=relative
-    lol = log --decorate --oneline --abbrev-commit --all
-    today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
-    changelog = log --pretty=format:'%C(auto)%h (%s, %ad)' --abbrev-commit --date=short
-    unstage = reset HEAD --
-    aliases = config --get-regexp alias
+	st = status
+	co = checkout
+	ci = commit
+	cm = commit -m
+	br = branch
+	ba = branch -a -vv
+	lg = log --pretty=format:'%C(auto)%h %<(55,trunc)%s %Cblue%<(18,trunc)%an%Creset %Cgreen%<(15)%ad%Creset %C(auto)%d' --abbrev-commit --date=relative
+	lol = log --decorate --oneline --abbrev-commit --all
+	today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+	changelog = log --pretty=format:'%C(auto)%h (%s, %ad)' --abbrev-commit --date=short
+	unstage = reset HEAD --
+	aliases = config --get-regexp alias
+	pushall = !git remote | xargs -L1 git push --all
 
 [log]
-    decorate = short
+	decorate = short
 
 [status]
-    short = yes
+	short = yes
 
 [pager]
-    diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-    log = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-    show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-
-[include]
-    path = ~/.config/git/user
+	diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	log = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
