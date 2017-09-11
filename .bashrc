@@ -111,8 +111,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# Custom included stuff
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-exec fish
