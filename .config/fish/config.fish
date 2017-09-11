@@ -12,7 +12,7 @@ export TERMINAL="gnome-terminal"
 export BROWSER="chromium"
 export EDITOR="nvim"
 export PAGER="less"
-export MANWIDTH="78"
+export MANWIDTH="80"
 export MANOPT="--nj --nh"
 export MANPAGER="nvim -c 'set ft=man' -"
 #export MANPAGER="manpager.sh"
@@ -20,8 +20,19 @@ export MANPAGER="nvim -c 'set ft=man' -"
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
-export LESS='-F -g -i -M -R -S -w -X -z-4'
+export LESS="-F -g -i -M -R -S -w -X -z-4"
 alias dmesg="journalctl -keb"
 alias dmesgf="journalctl -kf"
 alias cal="ncal -b"
-alias dotfiles="git --git-dir $HOME/.dotfiles --work-tree $HOME"
+
+# Workaround for https://github.com/systemd/systemd/issues/6414
+#for line in (/usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+#    export $line
+#end
+
+function __fish_set_oldpwd --on-variable dirprev
+  set -g OLDPWD $dirprev[-1]
+end
+
+function fish_greeting
+end
