@@ -1,31 +1,19 @@
 "*":
-  "asciidoc-preview": {}
-  "atom-beautify":
-    c:
-      default_beautifier: "clang-format"
-    general:
-      _analyticsUserId: "5d296fb3-3fd4-4045-8cc4-b28534d01ab0"
+  "atom-alignment": {}
   "autocomplete-plus":
     confirmCompletion: "tab always, enter when suggestion explicitly selected"
+    enableAutoActivation: false
     useCoreMovementCommands: false
-  "autocomplete-python":
-    triggerCompletionRegex: "([.(]|[a-zA-Z_][a-zA-Z0-9_]{2,})"
-    useKite: false
-  "clang-format":
-    formatCOnSave: false
-    formatCPlusPlusOnSave: false
   core:
     audioBeep: false
     autoHideMenuBar: true
     automaticallyUpdate: false
     disabledPackages: [
-      "grepper"
       "editorconfig"
-      "linter"
+      "github"
+      "file-icons"
     ]
-    packagesWithKeymapsDisabled: [
-      "autocomplete-python"
-    ]
+    packagesWithKeymapsDisabled: []
     telemetryConsent: "limited"
   editor:
     invisibles: {}
@@ -38,31 +26,20 @@
     userId: "30bc5c0e-6f6c-81bb-ff01-fc1ecf0b3e16"
   "file-icons":
     onChanges: true
-  fonts:
-    fontFamily: "Inconsolata-g"
-  "fuzzy-finder": {}
-  "git-diff": {}
-  "git-plus":
-    diffs:
-      wordDiff: false
   "go-plus":
     disabledBundledPackages: [
+      "hyperclick"
       "go-debug"
       "linter"
-      "hyperclick"
     ]
-    format:
-      formatOnSave: false
-    formatTool: "gofmt"
-    goPath: "~/Go"
     guru:
       highlightIdentifiers: false
-    panelDisplayMode: "closed"
-    panelOrientation: "vertical"
+    panel:
+      displayMode: "closed"
     test:
       runTestsOnSave: false
-  gofmt:
-    formatOnSave: false
+      runTestsWithCoverage: false
+      runTestsWithShortFlag: false
   "one-dark-ui": {}
   "one-light-ui": {}
   "spell-check":
@@ -77,9 +54,9 @@
       "en-US"
       "de-DE"
     ]
-  "vim-mode-plus":
-    statusBarModeStringStyle: "long"
-    useSmartcaseForSearch: true
+  "tree-view":
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
   welcome:
     showOnStartup: false
 ".c.source":
