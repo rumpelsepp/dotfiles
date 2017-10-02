@@ -13,5 +13,6 @@ language-meson
 language-protobuf
 language-rust
 pdf-view
+README.md
 sort-lines
 vim-mode-plus
