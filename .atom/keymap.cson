@@ -1,0 +1,20 @@
+'.platform-linux atom-text-editor':
+  'ctrl-shift-G': 'grammar-selector:show'
+
+'atom-workspace atom-text-editor:not([mini])':
+  'ctrl-shift-L': 'editor:split-selections-into-lines'
+
+'body atom-text-editor.autocomplete-active':
+  'ctrl-p': 'autocomplete-plus:move-up'
+  'ctrl-n': 'autocomplete-plus:move-down'
+  'pageup': 'autocomplete-plus:page-up'
+  'pagedown': 'autocomplete-plus:page-down'
+  'home': 'autocomplete-plus:move-to-top'
+  'end': 'autocomplete-plus:move-to-bottom'
+
+'.platform-linux':
+  # ctrl-b is occupied by vim-plus... :(
+  'alt-b': 'fuzzy-finder:toggle-buffer-finder'
+
+'body':
+  'ctrl-q': 'unset!'
