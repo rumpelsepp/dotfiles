@@ -1,0 +1,2 @@
+#!/bin/bash
+unset DESKTOP_AUTOSTART_ID && exec /usr/bin/caja --no-desktop $@
