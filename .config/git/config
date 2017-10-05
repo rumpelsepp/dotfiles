@@ -4,6 +4,9 @@
 [include]
 	path = ~/.config/git/user
 
+#[includeIf "gitdir:~/Projects/"]
+#	path = ~/.config/git/workuser
+
 [core]
 	autocrlf = input
 	editor = nvim +1

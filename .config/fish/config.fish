@@ -15,7 +15,6 @@ export PAGER="less"
 export MANWIDTH="80"
 export MANOPT="--nj --nh"
 export MANPAGER="nvim -c 'set ft=man' -"
-#export MANPAGER="manpager.sh"
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
@@ -25,14 +24,19 @@ alias dmesg="journalctl -keb"
 alias dmesgf="journalctl -kf"
 alias cal="ncal -b"
 
-# Workaround for https://github.com/systemd/systemd/issues/6414
-#for line in (/usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-#    export $line
-#end
-
 function __fish_set_oldpwd --on-variable dirprev
   set -g OLDPWD $dirprev[-1]
 end
 
 function fish_greeting
+end
+
+function man
+    if test $argv[1] = "--web"
+        set -l codename (lsb_release -c | awk '{print $2}')
+        set -l url https://manpages.debian.org/$codename/$argv[2]
+        gnome-open $url
+    else
+        command man $argv
+    end
 end

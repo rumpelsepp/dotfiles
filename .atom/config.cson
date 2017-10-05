@@ -10,8 +10,9 @@
     automaticallyUpdate: false
     disabledPackages: [
       "editorconfig"
-      "github"
       "file-icons"
+      "github"
+      "autocomplete-paths"
     ]
     packagesWithKeymapsDisabled: []
     telemetryConsent: "limited"
@@ -27,6 +28,8 @@
   "file-icons":
     onChanges: true
   "go-plus":
+    autocomplete:
+      suppressBuiltinAutocompleteProvider: false
     disabledBundledPackages: [
       "hyperclick"
       "go-debug"
@@ -36,6 +39,7 @@
       highlightIdentifiers: false
     panel:
       displayMode: "closed"
+      focusOnFailure: false
     test:
       runTestsOnSave: false
       runTestsWithCoverage: false
@@ -54,9 +58,12 @@
       "en-US"
       "de-DE"
     ]
-  "tree-view":
-    hideIgnoredNames: true
-    hideVcsIgnoredFiles: true
+  "tree-view": {}
+  "vim-mode-plus":
+    findAcrossLines: true
+    keymapYToYankToLastCharacterOfLine: true
+    reuseFindForRepeatFind: true
+    useSmartcaseForFind: true
   welcome:
     showOnStartup: false
 ".c.source":
