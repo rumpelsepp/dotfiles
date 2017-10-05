@@ -33,4 +33,4 @@ fi
 # Not sure if I need this here.
 shift $((OPTIND - 1))
 
-xdg-open "https://packages.debian.org/search?keywords=${KEYWORDS}&searchon=names&suite=${SUITE}" > /dev/null
+gnome-open "https://packages.debian.org/search?keywords=${KEYWORDS}&searchon=names&suite=${SUITE}" > /dev/null

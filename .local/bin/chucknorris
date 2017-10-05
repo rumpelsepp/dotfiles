@@ -1,2 +1,2 @@
 #!/bin/sh
-curl -Ls "http://api.icndb.com/jokes/random" | json_pp | grep "joke" | sed "s/.*:\s//g" | sed "s/,\$//"
+curl -Ls "http://api.icndb.com/jokes/random" | jq '.value.joke' | cat
