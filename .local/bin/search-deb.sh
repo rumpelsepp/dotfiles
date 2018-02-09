@@ -33,4 +33,4 @@ fi
 # Not sure if I need this here.
 shift $((OPTIND - 1))
 
-gnome-open "https://packages.debian.org/search?keywords=${KEYWORDS}&searchon=names&suite=${SUITE}" > /dev/null
+gio open "https://packages.debian.org/search?keywords=${KEYWORDS}&searchon=names&suite=${SUITE}" > /dev/null

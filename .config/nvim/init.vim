@@ -1,13 +1,9 @@
-"call plug#begin('~/.local/share/nvim/plugged')
-"Plug 'junegunn/fzf'
-"Plug 'junegunn/fzf.vim'
-"call plug#end()
-
 " set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
+set smarttab
 set undofile
 
 " More natural splits
@@ -31,7 +27,7 @@ let python_highlight_all = 1
 let g:tex_flavor = 'latex'
 let g:is_bash = 1
 set number
-" set termguicolors
+"set termguicolors
 set background=dark
 
 " Fix Hexmensch Foo with softwrap.
@@ -41,7 +37,7 @@ nnoremap <silent> j gj
 nnoremap <space> a<space><esc>
 nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 
-augroup vimrcEx
+augroup autocmds
     autocmd!
 
     " For all text files set 'textwidth' to 78 characters.

@@ -2,12 +2,13 @@
   "atom-alignment": {}
   "autocomplete-plus":
     confirmCompletion: "tab always, enter when suggestion explicitly selected"
-    enableAutoActivation: false
     useCoreMovementCommands: false
+  "bracket-matcher": {}
   core:
     audioBeep: false
     autoHideMenuBar: true
     automaticallyUpdate: false
+    closeDeletedFileTabs: true
     disabledPackages: [
       "editorconfig"
       "file-icons"
@@ -16,6 +17,12 @@
     ]
     packagesWithKeymapsDisabled: []
     telemetryConsent: "limited"
+    themes: [
+      "one-light-ui"
+      "one-light-syntax"
+    ]
+  docblockr:
+    c_style_block_comments: true
   editor:
     invisibles: {}
     scrollPastEnd: true
@@ -35,6 +42,8 @@
       "go-debug"
       "linter"
     ]
+    format:
+      tool: "gofmt"
     guru:
       highlightIdentifiers: false
     panel:
@@ -64,6 +73,7 @@
     keymapYToYankToLastCharacterOfLine: true
     reuseFindForRepeatFind: true
     useSmartcaseForFind: true
+    useSmartcaseForSearch: true
   welcome:
     showOnStartup: false
 ".c.source":

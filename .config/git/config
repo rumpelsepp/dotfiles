@@ -26,6 +26,9 @@
 	unstage = reset HEAD --
 	aliases = config --get-regexp alias
 	pushall = !git remote | xargs -L1 git push --all
+	rg = grep --heading --break
+	exec = "!exec "
+	root = rev-parse --show-toplevel
 
 [log]
 	decorate = short
@@ -37,3 +40,12 @@
 	diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 	log = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 	show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+
+[color "grep"]
+        filename = magenta
+	match = bold red
+	linenumber = green
+
+[grep]
+	linenumber = true
+	fallbackToNoIndex = true

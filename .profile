@@ -9,6 +9,8 @@
 #umask 022
 
 SHELL=/usr/bin/fish
+export DEBEMAIL="stefan.tatschner@gmail.com"
+export DEBFULLNAME="Stefan Tatschner"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -33,5 +35,9 @@ fi
 
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$HOME/.gem/bin" ] ; then
+    PATH="$HOME/.gem/bin:$PATH"
 fi
 

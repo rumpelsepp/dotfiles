@@ -72,11 +72,10 @@ fi
 
 json="$(curl -Ls $GITHUB_API/$api_path | jq "$jq_filter")"
 download_url="$(echo "$json" | jq '.assets[] | select(.content_type == "application/x-debian-package") | .browser_download_url' | sed 's/\"//g')"
-remote_version="$(echo "$json" | jq '.tag_name' | sed -e 's/\"//g' -e 's/^v//')"
 
 if atom_is_installed; then
-    local local_version
     local_version=$(atom_version)
+    remote_version="$(echo "$json" | jq '.tag_name' | sed -e 's/\"//g' -e 's/^v//')"
 
     if [[ "$local_version" == "$remote_version" ]]; then
         echo "$ATOM_PACKAGE_NAME is up to date!"
