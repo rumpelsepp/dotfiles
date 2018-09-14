@@ -1,10 +1,23 @@
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-clang', { 'do': ':UpdateRemotePlugins' }
+
+call plug#end()
+
+" Gives a small startup performance boost
+let g:python3_host_prog = '/usr/bin/python3'
+
+let g:deoplete#enable_at_startup = 1
+
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+
 " set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-set smarttab
-set undofile
 
 " More natural splits
 set splitbelow
@@ -27,7 +40,7 @@ let python_highlight_all = 1
 let g:tex_flavor = 'latex'
 let g:is_bash = 1
 set number
-"set termguicolors
+" set termguicolors
 set background=dark
 
 " Fix Hexmensch Foo with softwrap.

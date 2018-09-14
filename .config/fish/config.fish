@@ -10,7 +10,6 @@
 
 if status --is-interactive
     export TERMINAL="gnome-terminal"
-    export BROWSER="chromium"
     export EDITOR="nvim"
     export PAGER="less"
     export MANWIDTH="80"
@@ -22,6 +21,8 @@ if status --is-interactive
     # Remove -X and -F (exit if the content fits on one screen) to enable it.
     export LESS="-F -g -i -M -R -S -w -X -z-4"
     alias cal="ncal -b"
+    alias e='env TERM=xterm-256color emacsclient -t'
+    alias emacs='env TERM=xterm-256color emacs'
 
     function __fish_set_oldpwd --on-variable dirprev
         set -g OLDPWD $dirprev[-1]
@@ -32,5 +33,9 @@ if status --is-interactive
     end
 
     function fish_greeting
+    end
+
+    function now
+        date +%F_%T
     end
 end
