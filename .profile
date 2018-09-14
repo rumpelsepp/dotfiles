@@ -11,6 +11,8 @@
 SHELL=/usr/bin/fish
 export DEBEMAIL="stefan.tatschner@gmail.com"
 export DEBFULLNAME="Stefan Tatschner"
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -24,17 +26,21 @@ fi
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games"
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/Go" ] ; then
-    export GOPATH=$HOME/Go
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$HOME/go" ] ; then
+    export GOPATH=$HOME/go
     PATH="$GOPATH/bin:$PATH"
 fi
 
 if [ -d "$HOME/.cargo/bin" ] ; then
     PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
 fi
 
 if [ -d "$HOME/.gem/bin" ] ; then
