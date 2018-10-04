@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "stashing to save fish history"
-yadm stash
