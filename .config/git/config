@@ -10,7 +10,7 @@
 #
 [core]
 	autocrlf = input
-	editor = emacs
+	editor = nvim +1
 	excludesfile = ~/.gitignore
 
 [alias]
