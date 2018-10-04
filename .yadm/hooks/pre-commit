@@ -1,6 +1,0 @@
-#!/bin/bash
-
-#echo "Saving atom package list"
-#cd ~/.atom
-#ls packages > package-list.txt
-#yadm add ~/.atom/package-list.txt

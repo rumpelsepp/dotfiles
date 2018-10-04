@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "restoring stash"
+yadm stash pop
