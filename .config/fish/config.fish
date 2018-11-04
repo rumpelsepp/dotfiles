@@ -22,6 +22,7 @@ if status --is-interactive
     export LESS="-F -g -i -M -R -S -w -X -z-4"
     alias cal="ncal -b"
     alias e='emacsclient -t'
+    alias mu4e='emacs -e "mu4e"'
 
     function __fish_set_oldpwd --on-variable dirprev
         set -g OLDPWD $dirprev[-1]

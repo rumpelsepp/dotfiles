@@ -11,6 +11,7 @@
 [core]
 	autocrlf = input
 	editor = nvim +1
+	#editor = emacs
 	excludesfile = ~/.gitignore
 
 [alias]
