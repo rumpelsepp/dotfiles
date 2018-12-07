@@ -8,34 +8,29 @@
 #   ...
 # end
 
-if status --is-interactive
-    export TERMINAL="kitty"
-    export EDITOR="emacs"
-    export PAGER="less"
-    export MANWIDTH="80"
-    export MANOPT="--nj --nh"
-    export MANPAGER="nvim -c 'set ft=man' -"
+if not status --is-interactive
+    exit 0
+end
 
-    # Set the default Less options.
-    # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-    # Remove -X and -F (exit if the content fits on one screen) to enable it.
-    export LESS="-F -g -i -M -R -S -w -X -z-4"
-    alias cal="ncal -b"
-    alias e='emacsclient -t'
-    alias mu4e='emacs -e "mu4e"'
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS="-F -g -i -M -R -S -w -X -z-4"
+alias cal="ncal -b"
+alias mu4e='emacs -e "mu4e"'
+alias emacs='emacs -nw'
 
-    function __fish_set_oldpwd --on-variable dirprev
-        set -g OLDPWD $dirprev[-1]
-    end
+function __fish_set_oldpwd --on-variable dirprev
+    set -g OLDPWD $dirprev[-1]
+end
 
-    function __fish_set_gitroot --on-variable PWD
-        set -g GITROOT (git rev-parse --show-toplevel 2> /dev/null)
-    end
+function __fish_set_gitroot --on-variable PWD
+    set -g GITROOT (git rev-parse --show-toplevel 2> /dev/null)
+end
 
-    function fish_greeting
-    end
+function fish_greeting
+end
 
-    function now
-        date +%F_%T
-    end
+function now
+    date +%F_%T
 end

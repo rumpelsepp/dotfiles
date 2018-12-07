@@ -10,10 +10,6 @@
 (require 'evil)
 (evil-mode 1)
 
-;; use evil mode as usual in git commit editor
-(if (require 'git-commit nil t)
-    (add-hook 'git-commit-mode-hook 'evil-normal-state))
-
 ;; use settings from .editorconfig file when present
 ;; nice to have, thus optional plugin
 (if (require 'editorconfig nil t)
@@ -92,11 +88,11 @@
 
 ;;
 ;; keybindings
-;;
+
 
 (global-set-key (kbd "M-/") 'hippie-expand)
-;; Bug? the default shortcut does not work?
-(global-set-key (kbd "C-x ;") 'comment-line)
+;; C-x C-; does not work in a terminal.
+(global-set-key (kbd "C-x /") 'comment-line)
 
 ;;
 ;; whitespace settings
@@ -116,7 +112,6 @@
 (setq c-default-style "linux")
 
 ;; go
-
 (set 'gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
@@ -145,11 +140,11 @@
     message-citation-line-function 'message-insert-formatted-citation-line)
 
 (setq
-mu4e-maildir       "~/mail"   ;; top-level Maildir
-mu4e-sent-folder   "/stefan@rumpelsepp.org/Sent"       ;; folder for sent messages
-mu4e-drafts-folder "/stefan@rumpelsepp.org/Drafts"     ;; unfinished messages
-mu4e-trash-folder  "/stefan@rumpelsepp.org/Trash"      ;; trashed messages
-mu4e-refile-folder "/stefan@rumpelsepp.org/Archive")   ;; saved messages
+ mu4e-maildir       "~/mail"   ;; top-level Maildir
+ mu4e-sent-folder   "/stefan@rumpelsepp.org/Sent"       ;; folder for sent messages
+ mu4e-drafts-folder "/stefan@rumpelsepp.org/Drafts"     ;; unfinished messages
+ mu4e-trash-folder  "/stefan@rumpelsepp.org/Trash"      ;; trashed messages
+ mu4e-refile-folder "/stefan@rumpelsepp.org/Archive")   ;; saved messages
 
 (add-to-list 'mu4e-bookmarks
   (make-mu4e-bookmark

@@ -8,11 +8,14 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-SHELL=/usr/bin/fish
-export DEBEMAIL="stefan.tatschner@gmail.com"
+export SHELL=/usr/bin/fish
+export DEBEMAIL="stefan@rumpelsepp.org"
 export DEBFULLNAME="Stefan Tatschner"
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export EDITOR="nvim"
+export PAGER="less"
+export MANWIDTH="80"
+export MANOPT="--nj --nh"
+export MANPAGER="nvim -c 'set ft=man' -"
 
 # Only works when ssh component of gnome-keyring is disabled
 # https://wiki.archlinux.org/index.php/GNOME/Keyring#Disable_keyring_daemon_components

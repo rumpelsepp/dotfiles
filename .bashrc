@@ -10,14 +10,14 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=100000
+HISTFILESIZE=100000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -79,7 +79,7 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
+    alias grep='grep --color=auto'
     #alias fgrep='fgrep --color=auto'
     #alias egrep='egrep --color=auto'
 fi
@@ -111,3 +111,19 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+source /usr/share/bash-completion/completions/fzf
+source /usr/share/doc/fzf/examples/key-bindings.bash
+
+# pass completion suggested by @d4ndo (#362)
+_fzf_complete_pass() {
+  _fzf_complete '+m' "$@" < <(
+    pwdir=${PASSWORD_STORE_DIR-~/.password-store/}
+    stringsize="${#pwdir}"
+    find "$pwdir" -name "*.gpg" -print |
+        cut -c "$((stringsize + 1))"-  |
+        sed -e 's/\(.*\)\.gpg/\1/'
+  )
+}
+
+[ -n "$BASH" ] && complete -F _fzf_complete_pass -o default -o bashdefault pass
