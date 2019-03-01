@@ -15,7 +15,7 @@ export EDITOR="nvim"
 export PAGER="less"
 export MANWIDTH="80"
 export MANOPT="--nj --nh"
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER="nvim +Man!"
 
 # Only works when ssh component of gnome-keyring is disabled
 # https://wiki.archlinux.org/index.php/GNOME/Keyring#Disable_keyring_daemon_components
@@ -29,7 +29,6 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# Set PATH
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games"
 
 # set PATH so it includes user's private bin if it exists

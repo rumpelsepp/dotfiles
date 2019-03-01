@@ -54,13 +54,8 @@
 ;; ido-mode has a *much* better buffer selection (and file opening) :).
 (ido-mode)
 
-;; emacs 26 options
-;; TODO: might not work ?
-(if (> emacs-major-version 26)
-    ;; do not clutter the filesystem with stuff
-    ((auto-save-visited-mode)
-    ;; show line numbers, on emacs >= 26
-    (global-display-line-numbers-mode)))
+(global-display-line-numbers-mode)
+(auto-save-visited-mode)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 

@@ -20,6 +20,10 @@ alias cal="ncal -b"
 alias mu4e='emacs -e "mu4e"'
 alias emacs='emacs -nw'
 
+if which fzf > /dev/null
+    fzf_key_bindings
+end
+
 function __fish_set_oldpwd --on-variable dirprev
     set -g OLDPWD $dirprev[-1]
 end
@@ -34,3 +38,4 @@ end
 function now
     date +%F_%T
 end
+

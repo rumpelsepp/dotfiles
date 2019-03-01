@@ -11,8 +11,6 @@
 [core]
 	autocrlf = input
 	editor = nvim +1
-	#editor = emacs
-	excludesfile = ~/.gitignore
 
 [alias]
 	st = status
@@ -29,7 +27,6 @@
 	aliases = config --get-regexp alias
 	pushall = !git remote | xargs -L1 git push --all
 	rg = grep --heading --break
-	exec = "!exec "
 	root = rev-parse --show-toplevel
 
 [log]
@@ -44,10 +41,22 @@
 	show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 
 [color "grep"]
-        filename = magenta
+    filename = magenta
 	match = bold red
 	linenumber = green
 
 [grep]
 	linenumber = true
 	fallbackToNoIndex = true
+
+#[url "git@git-int.aisec.fraunhofer.de:"]
+#    insteadOf = https://git-int.aisec.fraunhofer.de/
+#[url "https://git-int.aisec.fraunhofer.de/"]
+#    insteadOf = git@git-int.aisec.fraunhofer.de:
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper = cache
