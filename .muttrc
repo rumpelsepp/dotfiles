@@ -1,0 +1,46 @@
+set realname = "Stefan Tatschner"
+set from = "stefan@rumpelsepp.org"
+alternates "stefan@sevenbyte.org" "rumpelsepp@sevenbyte.org" "stefan.tatschner@gmail.com" "stefan.tatschner@googlemail.com"
+ set imap_user = "stefan@rumpelsepp.org"
+# set imap_pass = `pass private/rumpelsepp-mail`
+# set folder = "imaps://coruscant.sevenbyte.org:993"
+set folder = "~/mail/stefan@rumpelsepp.org"
+set smtp_url = "smtp://$imap_user@coruscant.sevenbyte.org:587"
+set smtp_pass = `pass private/rumpelsepp-mail`
+set ssl_starttls = yes
+
+set header_cache = "~/.cache/mutt"
+set message_cachedir = "~/.cache/mutt"
+
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+set record = "+Sent"
+
+# Delete via trash
+unset confirmappend
+set trash="=Trash"
+
+# Change the following line to a different editor you prefer.
+set editor = 'nvim + -c "set textwidth=72" -c "set wrap"'
+
+# Basic config
+set imap_idle = yes
+set imap_check_subscribed = yes
+unset imap_passive
+set mail_check = 120
+
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+set pager_index_lines = 10
+hdr_order Date From To Cc
+alternative_order text/plain text/html *
+auto_view text/html
+bind editor <Tab> complete-query
+bind editor ^T complete
+bind editor <space> noop
+
+# mutt macros for mu
+# macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~/mail/search " "mu find"
+# macro index <F9> "<change-folder-readonly>~/mail/search" "mu find results"
