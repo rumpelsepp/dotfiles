@@ -17,8 +17,6 @@ end
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 export LESS="-F -g -i -M -R -S -w -X -z-4"
 alias cal="ncal -b"
-alias mu4e='emacs -e "mu4e"'
-alias emacs='emacs -nw'
 
 if which fzf > /dev/null
     fzf_key_bindings
