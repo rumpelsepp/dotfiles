@@ -36,9 +36,9 @@
 	short = yes
 
 [pager]
-	diff = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-	log = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
-	show = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	diff = perl /usr/share/git/diff-highlight/diff-highlight | less
+	log = perl /usr/share/git/diff-highlight/diff-highlight | less
+	show = perl /usr/share/git/diff-highlight/diff-highlight | less
 
 [color "grep"]
     filename = magenta
