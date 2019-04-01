@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+bluetoothctl -- power on
+nmcli conn up "Nokia 7 plus Network"
+sudo wg-quick up wg0

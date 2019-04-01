@@ -1,0 +1,13 @@
+#!/bin/bash
+
+MOUNTPOINT="/tmp/mnt"
+USERNAME="tatschne"
+REMOTE="//fileserver.aisec.fraunhofer.de/AISEC"
+
+if [[ ! -d "$MOUNTPOINT" ]]; then
+    mkdir "$MOUNTPOINT"
+fi
+
+echo "mounting $REMOTE at $MOUNTPOINT"
+
+sudo mount -o vers=2.0 -o username="$USERNAME" -o domain="aisec" -t cifs "$REMOTE" "$MOUNTPOINT"

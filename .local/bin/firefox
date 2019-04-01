@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export GDK_BACKEND=wayland
+exec  /usr/bin/firefox $@

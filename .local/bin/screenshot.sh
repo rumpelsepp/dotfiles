@@ -1,11 +1,41 @@
-#!/bin/sh
+#!/bin/bash
 
-SCREENDIR="/var/tmp/Screenshots"
-SCREENFILE="${SCREENDIR}/Screenshot-$(date +'%F-%T').png"
+set -e
+
+SCREENDIR="/var/tmp/screenshots"
+SCREENFILE="${SCREENDIR}/screenshot-$(date +'%F-%T').png"
 LINKLATEST="${SCREENDIR}/latest"
 
-[ ! -d "$SCREENDIR" ] && mkdir "$SCREENDIR"
+usage() {
+    echo "usage: $(basename $0) [-sch]"
+    echo ""
+    echo "options:"
+    echo " -c   capture current workspace"
+    echo " -s   select capture area"
+    echo " -h   show help"
+}
 
-sleep 0.5
-maim -i $(xdotool getactivewindow) "$SCREENFILE"
+# FIXME: make this prettier...
+current_output() {
+    swaymsg -t get_outputs | jq '.[] | if .focused == true then .name else null end' | grep -v 'null' | sed 's/"//g'
+}
+
+if [[ ! -d "$SCREENDIR" ]]; then
+    mkdir "$SCREENDIR"
+fi
+
+while getopts "csh" arg; do
+    case "$arg" in
+        s)  grim -g "$(slurp)" "$SCREENFILE";;
+        c)  grim -o "$(current_output)" "$SCREENFILE";;
+        h)  usage && exit 0;;
+        *)  usage && exit 1;;
+    esac
+done
+
+if (( $# < 1 )); then
+    usage
+    exit 1
+fi
+
 ln -sf "$SCREENFILE" "$LINKLATEST"
