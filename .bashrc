@@ -10,6 +10,6 @@ PS1='[\u@\h \W]\$ '
 
 # If running from tty1 start sway
 if [ "$(tty)" = "/dev/tty1" ]; then
-	sway 
+	sway
 	exit 0
 fi
