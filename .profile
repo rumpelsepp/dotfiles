@@ -9,8 +9,6 @@
 #umask 022
 
 export SHELL="/usr/bin/fish"
-export DEBEMAIL="stefan@rumpelsepp.org"
-export DEBFULLNAME="Stefan Tatschner"
 export EDITOR="nvim"
 export PAGER="less"
 export MANWIDTH="80"

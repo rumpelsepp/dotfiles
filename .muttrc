@@ -15,6 +15,9 @@ set message_cachedir = "~/.cache/mutt"
 set spoolfile = "+INBOX"
 set postponed = "+Drafts"
 set record = "+Sent"
+set virtual_spoolfile = yes
+
+virtual-mailboxes "inbox" "notmuch://?query=tag:inbox or folder:Sent"
 
 # Delete via trash
 unset confirmappend
@@ -41,6 +44,19 @@ bind editor <Tab> complete-query
 bind editor ^T complete
 bind editor <space> noop
 
-# mutt macros for mu
-# macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~/mail/search " "mu find"
-# macro index <F9> "<change-folder-readonly>~/mail/search" "mu find results"
+macro index A "<modify-labels>+archive -unread -inbox\\n" "Archive message"
+macro index c "<change-vfolder>?" "Change to vfolder overview"
+macro index \\\\ "<vfolder-from-query>" "Search mailbox"
+macro index,pager \ct "<entire-thread>" "Show entire thread of current message"
+
+#bind pager j next-line
+#bind pager k previous-line
+#bind attach,index,pager \CD next-page
+#bind attach,index,pager \CU previous-page
+#bind pager g top
+#bind pager G bottom
+#bind attach,index g first-entry
+#bind attach,index G last-entry
+
+source /usr/share/doc/neomutt/samples/colors.linux
+source /usr/share/doc/neomutt/samples/gpg.rc

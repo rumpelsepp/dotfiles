@@ -11,6 +11,7 @@
 [core]
 	autocrlf = input
 	editor = nvim +1
+	hooksPath = /home/rumpelsepp/.config/git/hooks
 
 [alias]
 	st = status
@@ -21,7 +22,6 @@
 	ba = branch -a -vv
 	lg = log --pretty=format:'%C(auto)%h %<(55,trunc)%s %Cblue%<(18,trunc)%an%Creset %Cgreen%<(15)%ad%Creset %C(auto)%d' --abbrev-commit --date=relative
 	lol = log --decorate --oneline --abbrev-commit --all
-	today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
 	changelog = log --pretty=format:'%C(auto)%h (%s, %ad)' --abbrev-commit --date=short
 	unstage = reset HEAD --
 	aliases = config --get-regexp alias

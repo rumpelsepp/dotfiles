@@ -1,7 +1,7 @@
 IMAPAccount stefan@rumpelsepp.org
 Host coruscant.sevenbyte.org
 User stefan@rumpelsepp.org
-Pass Tkicug1603
+PassCmd "pass private/email/stefan@rumpelsepp.org"
 SSLType IMAPS
 
 IMAPStore stefan@rumpelsepp.org-remote

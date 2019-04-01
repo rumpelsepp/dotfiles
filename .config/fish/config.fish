@@ -16,7 +16,6 @@ end
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 export LESS="-F -g -i -M -R -S -w -X -z-4"
-alias cal="ncal -b"
 
 if which fzf > /dev/null
     fzf_key_bindings
@@ -33,7 +32,7 @@ end
 function fish_greeting
 end
 
-function now
-    date +%F_%T
-end
-
+alias now "date +%F_%T"
+alias hd "hexdump -C"
+alias mutt "neomutt"
+alias pacman "yay"

@@ -29,7 +29,6 @@ let python_highlight_all = 1
 let g:tex_flavor = 'latex'
 let g:is_bash = 1
 set number
-" set background=dark
 " set termguicolors
 
 " speed up grep if available
