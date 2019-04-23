@@ -15,7 +15,6 @@ usage() {
     echo " -h   show help"
 }
 
-# FIXME: make this prettier...
 current_output() {
     swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | .name'
 }
