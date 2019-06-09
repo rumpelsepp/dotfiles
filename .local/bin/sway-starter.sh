@@ -11,4 +11,5 @@ if [[ ! -f "$HISTFILE" ]]; then
     touch "$HISTFILE"
 fi
 
-compgen -c | sort -u | fzf --history "$HISTFILE" --no-extended --print-query | tail -n1 | xargs -r swaymsg -t command exec
+cmd=("$(compgen -c | sort -u | fzf --history "$HISTFILE" --no-extended --print-query | tail -n1)")
+swaymsg -t command exec "systemd-cat -t ${cmd[0]} ${cmd[@]}"
