@@ -9,7 +9,6 @@ alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
 # If running from tty1 start sway
-if [ "$(tty)" = "/dev/tty1" ]; then
-	sway
-	exit 0
+if [[ "$(tty)" == "/dev/tty1" ]]; then
+	exec systemd-cat -t sway sway
 fi
