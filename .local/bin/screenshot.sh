@@ -2,7 +2,7 @@
 
 set -e
 
-SCREENDIR="$HOME/Pircture/screenshots"
+SCREENDIR="$HOME/Pictures/screenshots"
 SCREENFILE="${SCREENDIR}/screenshot-$(date +'%F-%T').png"
 LINKLATEST="${SCREENDIR}/latest"
 
@@ -20,7 +20,7 @@ current_output() {
 }
 
 if [[ ! -d "$SCREENDIR" ]]; then
-    mkdir "$SCREENDIR"
+    mkdir -p "$SCREENDIR"
 fi
 
 while getopts "csh" arg; do
