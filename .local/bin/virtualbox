@@ -1,4 +1,4 @@
 #!/bin/bash
 
-export QT_QPA_PLATFORM=xcb
-/usr/bin/virtualbox $@
+export QT_QPA_PLATFORM=
+/usr/bin/virtualbox "$@"

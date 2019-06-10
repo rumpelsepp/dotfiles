@@ -1,65 +1,67 @@
 (require 'package)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  (when no-ssl
-    (warn "\
-Your version of Emacs does not support SSL connections,
-which is unsafe because it allows man-in-the-middle attacks.
-There are two things you can do about this warning:
-1. Install an Emacs version that does support SSL and be safe.
-2. Remove this warning from your init file so you won't see it again."))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  ;;(add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+(savehist-mode 1)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+
+(setq package-enable-at-startup nil)
+(setq inhibit-startup-message t)
+(set-window-buffer nil (current-buffer))
+;; (global-linum-mode t)
 (package-initialize)
+
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode t)
+  (modify-syntax-entry ?_ "w")
+  (setq evil-want-C-u-scroll t)
+  (use-package evil-commentary
+    :ensure t
+    :config
+    (evil-commentary-mode))
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode)
+    (evil-leader/set-leader ",")
+    (evil-leader/set-key
+      "m" 'helm-M-x))
+  (use-package evil-collection
+    :ensure t
+    :config
+    (evil-collection-init 'outline)))
+
+(use-package helm
+  :ensure t
+  :config
+  (helm-mode 1)
+  (global-set-key (kbd "M-x") 'helm-M-x))
+
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode))
+
+(use-package neotree
+  :ensure t
+  :config
+  (evil-leader/set-key
+    "t" 'neotree-toggle)
+  (setq neo-smart-open t))
 
 ;;
 ;; Plugins
 ;;
-
-;; evil mode for vim keybindings
-(setq evil-want-C-u-scroll t)
-(require 'evil)
-(evil-mode 1)
-
-;; use settings from .editorconfig file when present
-;; nice to have, thus optional plugin
-(if (require 'editorconfig nil t)
-    (editorconfig-mode 1))
-
-;;
-;; editor settings
-;;
-
-;; fix terminal in tmux and in kitty
-(add-to-list 'term-file-aliases
-    '("tmux-256color" . "xterm-256color"))
-(add-to-list 'term-file-aliases
-    '("tmux" . "xterm-256color"))
-(add-to-list 'term-file-aliases
-    '("xterm-kitty" . "xterm-256color"))
-
-;; I almost always use a dark terminal. Auto detection only works in tmux. ?
-(setq frame-background-mode 'dark)
-
-;; enable mouse
-(xterm-mouse-mode 1)
-
-;; No toolbar.
-(tool-bar-mode -1)
-
-;; Disable the menu bar by default. Use M-x menu-bar-mode to make it re-appear.
-(menu-bar-mode -1)
-
-;; Enable minibuffer history.
-(savehist-mode 1)
-
-;; Show column in status bar.
-(setq column-number-mode t)
 
 ;; Highlight matching brackets.
 (show-paren-mode 1)
@@ -69,6 +71,16 @@ There are two things you can do about this warning:
 
 ;; ido-mode has a *much* better buffer selection (and file opening) :).
 (ido-mode)
+
+;; fix terminal in tmux and in kitty
+(add-to-list 'term-file-aliases
+     '("tmux-256color" . "xterm-256color"))
+(add-to-list 'term-file-aliases
+     '("tmux" . "xterm-256color"))
+(add-to-list 'term-file-aliases
+     '("xterm-kitty" . "xterm-256color"))
+(add-to-list 'term-file-aliases
+     '("alacritty" . "xterm-256color"))
 
 (global-display-line-numbers-mode)
 (auto-save-visited-mode)
@@ -82,28 +94,16 @@ There are two things you can do about this warning:
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;; (setq
-;;  backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
-;;  delete-old-versions t
-;;  backup-by-copying t
-;;  kept-new-versions 6
-;;  kept-old-versions 2
-;;  version-control t)
-
 ;; Highlight useful keywords
 (add-hook 'prog-mode-hook
            (lambda ()
             (font-lock-add-keywords nil
-             '(("\\<\\(FIXME\\|TODO\\|BUG\\|XXX\\):" 1
+             '(("\\<\\(FIXME\\|TODO\\|BUG\\|XXX\\):"
                 font-lock-warning-face t)))))
 
 ;;
 ;; keybindings
-
-
-(global-set-key (kbd "M-/") 'hippie-expand)
-;; C-x C-; does not work in a terminal.
-(global-set-key (kbd "C-x /") 'comment-line)
+;;
 
 ;;
 ;; whitespace settings
@@ -132,56 +132,14 @@ There are two things you can do about this warning:
 ;; (eval-after-load "company"
 ;;   '(add-to-list 'company-backends 'company-anaconda))
 ;; (add-hook 'python-mode-hook 'anaconda-mode)
-
-;(require 'mu4e)
-;
-;(define-key mu4e-compose-mode-map (kbd "C-c u") 'mu4e-update-mail-and-index)
-;
-;;; email
-;(setq message-send-mail-function 'smtpmail-send-it
-;    smtpmail-smtp-server  "coruscant.sevenbyte.org"
-;    smtpmail-stream-type  'starttls
-;    smtpmail-smtp-service 587
-;    user-full-name "Stefan Tatschner"
-;    user-mail-address "stefan@rumpelsepp.org"
-;    user-login-name user-mail-address
-;    mu4e-get-mail-command "mbsync private"
-;    mml-secure-openpgp-encrypt-to-self t
-;    mml-secure-openpgp-sign-with-sender t
-;    message-citation-line-function 'message-insert-formatted-citation-line)
-;
-;(setq
-; mu4e-maildir       "~/mail"   ;; top-level Maildir
-; mu4e-sent-folder   "/stefan@rumpelsepp.org/Sent"       ;; folder for sent messages
-; mu4e-drafts-folder "/stefan@rumpelsepp.org/Drafts"     ;; unfinished messages
-; mu4e-trash-folder  "/stefan@rumpelsepp.org/Trash"      ;; trashed messages
-; mu4e-refile-folder "/stefan@rumpelsepp.org/Archive")   ;; saved messages
-;
-;(add-to-list 'mu4e-bookmarks
-;  (make-mu4e-bookmark
-;    :name  "INBOX"
-;    :query "maildir:/stefan@rumpelsepp.org/INBOX"
-;    :key ?i))
-;
-;;; autogenerated (??)
-;(custom-set-variables
-; ;; custom-set-variables was added by Custom.
-; ;; If you edit it by hand, you could mess it up, so be careful.
-; ;; Your init file should contain only one such instance.
-; ;; If there is more than one, they won't work right.
-; '(auth-source-save-behavior nil))
-;(custom-set-faces
-; ;; custom-set-faces was added by Custom.
-; ;; If you edit it by hand, you could mess it up, so be careful.
-; ;; Your init file should contain only one such instance.
-; ;; If there is more than one, they won't work right.
-; )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (notmuch evil))))
+ '(package-selected-packages
+   (quote
+    (evil-collection evil-leader evil-commentary use-package go-mode evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

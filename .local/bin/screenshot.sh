@@ -2,7 +2,7 @@
 
 set -e
 
-SCREENDIR="/var/tmp/screenshots"
+SCREENDIR="$HOME/Pictures/screenshots"
 SCREENFILE="${SCREENDIR}/screenshot-$(date +'%F-%T').png"
 LINKLATEST="${SCREENDIR}/latest"
 
@@ -15,13 +15,12 @@ usage() {
     echo " -h   show help"
 }
 
-# FIXME: make this prettier...
 current_output() {
-    swaymsg -t get_outputs | jq '.[] | if .focused == true then .name else null end' | grep -v 'null' | sed 's/"//g'
+    swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | .name'
 }
 
 if [[ ! -d "$SCREENDIR" ]]; then
-    mkdir "$SCREENDIR"
+    mkdir -p "$SCREENDIR"
 fi
 
 while getopts "csh" arg; do

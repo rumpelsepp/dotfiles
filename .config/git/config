@@ -28,6 +28,7 @@
 	pushall = !git remote | xargs -L1 git push --all
 	rg = grep --heading --break
 	root = rev-parse --show-toplevel
+    fuckpush = !git stash && git pull --rebase && git push && git stash pop
 
 [log]
 	decorate = short
@@ -48,6 +49,12 @@
 [grep]
 	linenumber = true
 	fallbackToNoIndex = true
+
+[sendemail]
+	smtpserver = coruscant.sevenbyte.org
+	smtpuser = stefan@rumpelsepp.org
+	smtpencryption = tls
+	smtpserverport = 587
 
 #[url "git@git-int.aisec.fraunhofer.de:"]
 #    insteadOf = https://git-int.aisec.fraunhofer.de/

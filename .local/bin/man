@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# Why, the hell?
-# https://github.com/neovim/neovim/commit/9081cad514d27ed67f0e348e9db56eddb296cc1d
-MANWIDTH=80 exec /usr/bin/man $@

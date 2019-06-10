@@ -1,5 +1,5 @@
 function fish_prompt --description 'Write out the prompt'
-	set -l last_status $status
+    set -l last_status $status
     set -l normal (set_color normal)
 
     # Hack; fish_config only copies the fish_prompt function (see #736)
@@ -55,7 +55,7 @@ function fish_prompt --description 'Write out the prompt'
             set suffix '#'
         case '*'
             set color_cwd $fish_color_cwd
-            set suffix '>'
+            set suffix '$'
     end
 
     set -l prompt_status
