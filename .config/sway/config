@@ -2,7 +2,6 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-# Your preferred terminal emulator
 set $term alacritty
 set $launcher alacritty --title launcher --class launcher -e
 
@@ -12,17 +11,16 @@ set $launcher alacritty --title launcher --class launcher -e
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ### Idle configuration
-#
-# Example configuration:
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
 
-exec swayidle -w before-sleep 'pidof swaylock > /dev/null || swaylock -f'
-exec mako
+exec swayidle -w \
+    lock 'swaylock -f' \
+    timeout 30 'pidof swaylock > /dev/null && swaymsg "output * dpms off"' \
+    resume 'pidof swaylock > /dev/null && swaymsg "output * dpms on"' \
+    before-sleep 'pidof swaylock > /dev/null || swaylock -f' \
+
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec xrdb -load ~/.Xresources
+exec systemd-cat mako
 # exec i3-cycle-focus
 
 ### Input configuration
@@ -35,7 +33,7 @@ exec xrdb -load ~/.Xresources
     }
 
     input "*" {
-        xkb_layout us(altgr-intl)
+        xkb_layout de(neo)
     }
 
 ### Key bindings
@@ -43,7 +41,8 @@ exec xrdb -load ~/.Xresources
 # Basics:
 #
     bindsym $mod+grave workspace back_and_forth
-    bindsym $mod+l exec lock.sh
+    # bindsym $mod+l exec lock.sh
+    bindsym $mod+l exec loginctl lock-session
     bindsym $mod+x [urgent="latest"] focus
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -219,3 +218,4 @@ bar {
 }
 
 include /etc/sway/config.d/*
+include ~/.config/sway/$(hostname)
