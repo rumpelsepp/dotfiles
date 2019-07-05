@@ -1,17 +1,28 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tomtom/tcomment_vim'
-" Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'cohama/lexima.vim'
+Plug 'tpope/vim-fugitive'
+
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python'}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make', 'for': 'go'}
 " Plug 'Shougo/neosnippet.vim'
 " Plug 'Shougo/neosnippet-snippets'
 call plug#end()
@@ -37,6 +48,34 @@ set magic
 set showmatch
 set wrapmargin=2
 set linebreak
+set hidden
+set signcolumn=yes
+
+let g:LanguageClient_serverCommands = {
+    \ 'go': ['gopls', 'serve'],
+    \ 'python': ['pyls'],
+    \ }
+
+let g:LanguageClient_useVirtualText = 0	
+
+" augroup LSP
+"     autocmd!
+"     autocmd User lsp_setup call lsp#register_server({
+"             \ 'name': 'pyls',
+"             \ 'cmd': {server_info->['pyls']},
+"             \ 'whitelist': ['python'],
+"             \ })
+"     autocmd BufWritePre *.py LspDocumentFormatSync
+"
+"     autocmd User lsp_setup call lsp#register_server({
+"             \ 'name': 'go',
+"             \ 'cmd': {server_info->['gopls', 'serve']},
+"             \ 'whitelist': ['go'],
+"             \ })
+"     autocmd BufWritePre *.go LspDocumentFormatSync
+" augroup END
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 " theme
 let python_highlight_all = 1
@@ -54,7 +93,9 @@ if executable("rg")
 endif
 
 " plugins
-call deoplete#custom#option('auto_complete_delay', 200)
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('auto_complete_delay', 500)
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -79,22 +120,6 @@ let g:fzf_colors =
 let g:go_fmt_command = "goimports"
 let g:man_hardwrap = 1
 
-" functions
-function! TrimWhitespace() range
-    for lineno in range(a:firstline, a:lastline)
-        let line = getline(lineno)
-        let clean_line = substitute(line, '\s\+$', '', 'e')
-        call setline(lineno, clean_line)
-    endfor
-endfunction
-
-function! TrimNewlines()
-    " http://stackoverflow.com/a/7496112/2587286
-    if line('$') > 1
-        %s/\($\n\)\+\%$//e
-    endif
-endfunction
-
 function! s:todo() abort
   let entries = []
   for cmd in ['git grep -niI -e TODO -e FIXME -e XXX 2> /dev/null',
@@ -115,9 +140,9 @@ function! s:todo() abort
 endfunction
 command! TODO call s:todo()
 
-" commands
-command! -range TrimWhitespace <line1>,<line2> call TrimWhitespace()
-command! TrimNewlines call TrimNewlines()
+func PasteWorkaround()
+    :r ! wl-paste | tr -d "\r"
+endfunc
 
 " autocommands
 augroup convenience
@@ -129,13 +154,12 @@ augroup convenience
                 \ | endif
 augroup END
 
-func PasteWorkaround()
-    :r ! wl-paste | tr -d "\r"
-endfunc
-
 nnoremap <silent> <leader>ts ma :keeppatterns %s/\s\+$//e<cr>:TrimNewlines<cr>`a
 nnoremap <silent> k gk
 nnoremap <silent> j gj
+nnoremap <silent> <Up> gk
+nnoremap <silent> <Down> gj
+
 " Trash Ex mode.
 nnoremap Q <Nop>
 nnoremap <silent> <leader>p :call PasteWorkaround()<cr>

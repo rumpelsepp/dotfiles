@@ -41,5 +41,6 @@ alias hd "hexdump -C"
 alias mutt "neomutt"
 alias pacman "yay"
 alias ssh "env TERM=xterm-256color ssh"
+# alias tmux "tmux -f ~/.config/tmux/tmux.conf"
 
 bind --key btab __fzf_complete
