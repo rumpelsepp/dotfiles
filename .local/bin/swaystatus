@@ -1,30 +1,47 @@
 #!/usr/bin/python3
 
-from i3pystatus import Status
+import i3pystatus
+from i3pystatus.core.command import run_through_shell
+from i3pystatus.weather import weathercom
 
-status = Status()
 
+def lighter():
+    run_through_shell(["brightnessctl", "set", "+10%"])
+
+
+def darker():
+    run_through_shell(["brightnessctl", "set", "10%-"])
+
+
+status = i3pystatus.Status()
 status.register("clock", format="%a %-d %b %X KW%V")
-status.register("pulseaudio", format="♪ {volume}")
-status.register("backlight")
+status.register("battery",
+                format="{glyph} {status} {remaining:%E%hh:%Mm}",
+                alert=True)
+status.register("pulseaudio", format="♪ {volume}%")
+status.register("backlight",
+                on_upscroll=lighter,
+                on_downscroll=darker,
+                format="🔆 {percentage}%")
 status.register("load")
 status.register("temp", format="{temp:.0f}°C")
-status.register("battery",
-    format="{status} {remaining:%E%hh:%Mm}",
-    alert=True,
-    alert_percentage=5,
-    status={
-        "DIS":  "Discharging",
-        "CHR":  "Charging",
-        "FULL": "Bat full",
-    },)
+status.register("disk", path="/", format="/: {avail}G ({total}G)")
+status.register("mem", divisor=1024**3, format="MEM: {avail_mem}G")
 status.register("network",
                 detect_active=True,
                 unknown_up=True,
                 graph_width=10,
                 format_up="{interface}: {v4cidr} {network_graph_recv}")
-
-status.register("disk", path="/", format="{used}/{total}G [{avail}G]")
-status.register("mem_bar")
-
+status.register(
+    'weather',
+    format='{city}: {condition} {current_temp}{temp_unit}[ max: {high_temp}][ min: {low_temp}][ {update_error}]',
+    interval=900,
+    colorize=True,
+    hints={'markup': 'pango'},
+    backend=weathercom.Weathercom(
+        location_code='4eda100dcb6b7d421559e28103e7c65ab18ef92ee5844a373892626c6a3495d2',
+        units='metric',
+        update_error='<span color="#ff0000">!</span>',
+    ),
+)
 status.run()

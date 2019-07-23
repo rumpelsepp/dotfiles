@@ -13,5 +13,5 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 }
 
 input "*" {
-    xkb_layout us(altgr-intl)
+    xkb_layout de(neo)
 }
