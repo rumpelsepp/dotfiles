@@ -6,23 +6,23 @@ Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-surround'
-Plug 'cohama/lexima.vim'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-surround'
+" Plug 'cohama/lexima.vim'
+" Plug 'tpope/vim-fugitive'
 
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'prabirshrestha/asyncomplete.vim'
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-Plug 'neomake/neomake'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python'}
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+"
+" Plug 'neomake/neomake'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python'}
 " Plug 'Shougo/neosnippet.vim'
 " Plug 'Shougo/neosnippet-snippets'
 call plug#end()
@@ -51,12 +51,12 @@ set linebreak
 set hidden
 set signcolumn=yes
 
-let g:LanguageClient_serverCommands = {
-    \ 'go': ['gopls', 'serve'],
-    \ 'python': ['pyls'],
-    \ }
+" let g:LanguageClient_serverCommands = {
+"     \ 'go': ['gopls', 'serve'],
+"     \ 'python': ['pyls'],
+"     \ }
 
-let g:LanguageClient_useVirtualText = 0	
+" let g:LanguageClient_useVirtualText = 0	
 
 " augroup LSP
 "     autocmd!
@@ -75,7 +75,7 @@ let g:LanguageClient_useVirtualText = 0
 "     autocmd BufWritePre *.go LspDocumentFormatSync
 " augroup END
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 " theme
 let python_highlight_all = 1
@@ -93,9 +93,9 @@ if executable("rg")
 endif
 
 " plugins
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('auto_complete_delay', 500)
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+" let g:deoplete#enable_at_startup = 1
+" call deoplete#custom#option('auto_complete_delay', 500)
+" call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)

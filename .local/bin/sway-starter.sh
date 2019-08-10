@@ -2,6 +2,9 @@
 
 set -e
 
+# From flock manpage. Allow only one instance of this script.
+[ "${FLOCKER}" != "$0" ] && exec env FLOCKER="$0" flock -en "$0" "$0" "$@"
+
 DATADIR="$HOME/.local/share/sway-starter"
 HISTFILE="$DATADIR/history.txt"
 
