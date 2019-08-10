@@ -1,0 +1,11 @@
+{
+    "editor.fontFamily": "'Hack','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "update.enableWindowsBackgroundUpdates": false,
+    "go.lintOnSave": "off",
+    "vim.neovimPath": "/usr/bin/nvim",
+    "vim.enableNeovim": true,
+    "window.menuBarVisibility": "toggle",
+    "editor.renderWhitespace": "none",
+    "go.formatTool": "goimports",
+    "gitlens.currentLine.enabled": false,
+}
