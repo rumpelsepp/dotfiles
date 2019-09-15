@@ -15,11 +15,6 @@ Plug 'scrooloose/nerdtree'
 " Plug 'prabirshrestha/asyncomplete.vim'
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
-"
 " Plug 'neomake/neomake'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python'}
@@ -51,32 +46,6 @@ set linebreak
 set hidden
 set signcolumn=yes
 
-" let g:LanguageClient_serverCommands = {
-"     \ 'go': ['gopls', 'serve'],
-"     \ 'python': ['pyls'],
-"     \ }
-
-" let g:LanguageClient_useVirtualText = 0	
-
-" augroup LSP
-"     autocmd!
-"     autocmd User lsp_setup call lsp#register_server({
-"             \ 'name': 'pyls',
-"             \ 'cmd': {server_info->['pyls']},
-"             \ 'whitelist': ['python'],
-"             \ })
-"     autocmd BufWritePre *.py LspDocumentFormatSync
-"
-"     autocmd User lsp_setup call lsp#register_server({
-"             \ 'name': 'go',
-"             \ 'cmd': {server_info->['gopls', 'serve']},
-"             \ 'whitelist': ['go'],
-"             \ })
-"     autocmd BufWritePre *.go LspDocumentFormatSync
-" augroup END
-
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-
 " theme
 let python_highlight_all = 1
 let g:tex_flavor = 'latex'
@@ -96,10 +65,6 @@ endif
 " let g:deoplete#enable_at_startup = 1
 " call deoplete#custom#option('auto_complete_delay', 500)
 " call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],

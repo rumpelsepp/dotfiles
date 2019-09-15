@@ -15,6 +15,9 @@ end
 function fish_greeting
 end
 
+function fish_mode_prompt
+end
+
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
@@ -32,7 +35,7 @@ function __fish_set_gitroot --on-variable PWD
     set -g GITROOT (git rev-parse --show-toplevel 2> /dev/null)
 end
 
-function sudobangbang --on-event fish_postexec
+function __sudobangbang --on-event fish_postexec
     abbr !! sudo $argv[1]
 end
 
@@ -41,6 +44,7 @@ alias hd "hexdump -C"
 alias mutt "neomutt"
 alias pacman "yay"
 alias ssh "env TERM=xterm-256color ssh"
-# alias tmux "tmux -f ~/.config/tmux/tmux.conf"
+alias fetch "curl -LOs"
+alias o "gio open"
 
 bind --key btab __fzf_complete

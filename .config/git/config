@@ -15,11 +15,14 @@
 
 [alias]
 	st = status
+	sw = switch
 	co = checkout
 	ci = commit
 	cm = commit -m
 	br = branch
 	ba = branch -a -vv
+    rs = restore
+    ri = rebase --autosquash --autostash --interactive
 	lg = log --pretty=format:'%C(auto)%h %<(55,trunc)%s %Cblue%<(18,trunc)%an%Creset %Cgreen%<(15)%ad%Creset %C(auto)%d' --abbrev-commit --date=relative
 	lol = log --decorate --oneline --abbrev-commit --all
 	changelog = log --pretty=format:'%C(auto)%h (%s, %ad)' --abbrev-commit --date=short

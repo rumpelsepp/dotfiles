@@ -4,6 +4,8 @@
 set $mod Mod4
 set $term alacritty
 set $launcher alacritty --title launcher --class launcher -e
+# set $term kitty
+# set $launcher kitty --title launcher
 
 ### Output configuration
 #
@@ -13,10 +15,10 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 ### Idle configuration
 
 exec swayidle -w \
-    lock 'swaylock -f' \
-    timeout 30 'pidof swaylock > /dev/null && swaymsg "output * dpms off"' \
-    resume 'pidof swaylock > /dev/null && swaymsg "output * dpms on"' \
-    before-sleep 'pidof swaylock > /dev/null || swaylock -f' \
+    lock         'swaylock -f' \
+    timeout 30   'pidof swaylock > /dev/null && swaymsg "output * dpms off"' \
+    resume       'pidof swaylock > /dev/null && swaymsg "output * dpms on"' \
+    before-sleep 'pidof swaylock > /dev/null || loginctl lock-session' \
 
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec xrdb -load ~/.Xresources
@@ -85,12 +87,11 @@ exec systemd-cat mako
     bindsym $mod+less move workspace to output left
     bindsym $mod+greater move workspace to output right
 
-    # Workspaces from right to left: 1,2,3,4
     # Workspaces above 5 are dedicated to:
-    #    3: Wireshark
+    #    7: Wireshark
     #    5: Browser
     #   10: Messages (email, chat, ...)
-    for_window [app_id="wireshark"] move container to workspace 3
+    for_window [app_id="wireshark"] move container to workspace 4
     for_window [app_id="firefox"] move container to workspace 5
     for_window [app_id="gajim"] move container to workspace 10
     for_window [app_id="evolution"] move container to workspace 10
@@ -179,7 +180,8 @@ exec systemd-cat mako
 #
 # Applications:
 #
-    bindsym $mod+m exec nautilus
+    bindsym $mod+m exec systemd-cat -t nautilus nautilus
+    bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
 
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+q kill
