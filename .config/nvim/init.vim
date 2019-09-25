@@ -6,6 +6,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'tpope/vim-surround'
 " Plug 'cohama/lexima.vim'
 " Plug 'tpope/vim-fugitive'

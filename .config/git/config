@@ -31,14 +31,19 @@
 	pushall = !git remote | xargs -L1 git push --all
 	rg = grep --heading --break
 	root = rev-parse --show-toplevel
-    fuckpush = !git stash && git pull --rebase && git push && git stash pop
-    fuckpull = !git stash && git pull --rebase && git stash pop
+    fuckpush = !git pull --rebase --autostash && git push
 
 [log]
 	decorate = short
 
 [status]
 	short = yes
+
+[pull]
+    rebase = true
+
+[rebase]
+    autosquash = true
 
 [pager]
 	diff = perl /usr/share/git/diff-highlight/diff-highlight | less

@@ -16,7 +16,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 exec swayidle -w \
     lock         'swaylock -f' \
-    timeout 30   'pidof swaylock > /dev/null && swaymsg "output * dpms off"' \
+    timeout 20   'pidof swaylock > /dev/null && swaymsg "output * dpms off"' \
     resume       'pidof swaylock > /dev/null && swaymsg "output * dpms on"' \
     before-sleep 'pidof swaylock > /dev/null || loginctl lock-session' \
 
@@ -43,7 +43,6 @@ exec systemd-cat mako
 # Basics:
 #
     bindsym $mod+grave workspace back_and_forth
-    # bindsym $mod+l exec lock.sh
     bindsym $mod+l exec loginctl lock-session
     bindsym $mod+x [urgent="latest"] focus
 
@@ -82,16 +81,16 @@ exec systemd-cat mako
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
 
-    bindsym $mod+b workspace prev_on_output
-    bindsym $mod+n workspace next_on_output
+    # bindsym $mod+b workspace prev_on_output
+    # bindsym $mod+n workspace next_on_output
     bindsym $mod+less move workspace to output left
     bindsym $mod+greater move workspace to output right
 
     # Workspaces above 5 are dedicated to:
-    #    7: Wireshark
     #    5: Browser
-    #   10: Messages (email, chat, ...)
-    for_window [app_id="wireshark"] move container to workspace 4
+    #    7: Wireshark
+    #   10: Messages (email, chat, …)
+    for_window [app_id="wireshark"] move container to workspace 7
     for_window [app_id="firefox"] move container to workspace 5
     for_window [app_id="gajim"] move container to workspace 10
     for_window [app_id="evolution"] move container to workspace 10
@@ -182,6 +181,10 @@ exec systemd-cat mako
 #
     bindsym $mod+m exec systemd-cat -t nautilus nautilus
     bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
+
+    # mako
+    bindsym $mod+n exec makoctl dismiss
+    bindsym $mod+Shift+n exec makoctl dismiss -a
 
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+q kill

@@ -31,10 +31,6 @@ function __fish_set_oldpwd --on-variable dirprev
     set -g OLDPWD $dirprev[-1]
 end
 
-function __fish_set_gitroot --on-variable PWD
-    set -g GITROOT (git rev-parse --show-toplevel 2> /dev/null)
-end
-
 function __sudobangbang --on-event fish_postexec
     abbr !! sudo $argv[1]
 end

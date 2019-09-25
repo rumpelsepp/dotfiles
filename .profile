@@ -20,16 +20,14 @@ export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export QT_QPA_PLATFORM=wayland-egl
 export GDK_BACKEND=wayland
 
-# Only works when ssh component of gnome-keyring is disabled
-# https://wiki.archlinux.org/index.php/GNOME/Keyring#Disable_keyring_daemon_components
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
 
 if [ -d "$HOME/.local/bin" ] ; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d "$HOME/go" ] ; then
-    export GOPATH=$HOME/go
+if [ -d "$HOME/.local/share/go" ] ; then
+    export GOPATH=$HOME/.local/share/go
     export PATH="$GOPATH/bin:$PATH"
 fi
 

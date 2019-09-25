@@ -22,7 +22,8 @@ c.url.searchengines = {
     'DEFAULT': 'https://duckduckgo.com/?q={}',
     'dict': 'https://dict.cc/?s={}',
     'man': 'https://manpages.debian.org/{}',
-    'deb': 'https://packages.debian.org/search?keywords={}&searchon=names&suite=stable'
+    'deb': 'https://packages.debian.org/search?keywords={}&searchon=names&suite=stable',
+    "wa": "https://wiki.archlinux.org/?search={}",
 }
 
 # Format to use for the tab title. The following placeholders are
@@ -47,4 +48,7 @@ c.window.title_format = '{current_title}{title_sep}qutebrowser'
 config.bind('<Ctrl-l>', 'set-cmd-text :open -t -r {url:pretty}')
 config.bind('<Alt-left>', 'back')
 config.bind('<Alt-right>', 'forward')
+config.bind('m', 'spawn umpv {url}')
+config.bind('M', 'hint links spawn umpv {hint-url}')
+config.bind(';M', ';M hint --rapid links spawn umpv {hint-url}')
 
