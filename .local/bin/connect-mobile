@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-bluetoothctl -- power on
-nmcli conn up "Nokia 7 plus Network"
-nmcli conn up "wg0-all"
-

@@ -1,4 +1,4 @@
 #!/bin/bash
 
 export GDK_BACKEND=x11 
-/usr/bin/code "$@"
+exec /usr/bin/code "$@"

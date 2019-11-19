@@ -1,13 +1,18 @@
+source /usr/share/doc/mutt/samples/gpg.rc
+source /usr/share/doc/mutt/samples/colors.linux
+
 set realname = "Stefan Tatschner"
 set from = "stefan@rumpelsepp.org"
 alternates "stefan@sevenbyte.org" "rumpelsepp@sevenbyte.org" "stefan.tatschner@gmail.com" "stefan.tatschner@googlemail.com"
- set imap_user = "stefan@rumpelsepp.org"
-# set imap_pass = `pass private/rumpelsepp-mail`
+set imap_user = "stefan@rumpelsepp.org"
+set imap_pass = `pass private/rumpelsepp-mail`
 # set folder = "imaps://coruscant.sevenbyte.org:993"
 set folder = "~/mail/stefan@rumpelsepp.org"
-set smtp_url = "smtp://$imap_user@coruscant.sevenbyte.org:587"
-set smtp_pass = `pass private/rumpelsepp-mail`
-set ssl_starttls = yes
+
+set sendmail="msmtp-enqueue.sh"
+# set smtp_url = "smtp://$imap_user@coruscant.sevenbyte.org:587"
+# set smtp_pass = `pass private/rumpelsepp-mail`
+# set ssl_starttls = yes
 
 set header_cache = "~/.cache/mutt"
 set message_cachedir = "~/.cache/mutt"
@@ -15,22 +20,21 @@ set message_cachedir = "~/.cache/mutt"
 set spoolfile = "+INBOX"
 set postponed = "+Drafts"
 set record = "+Sent"
-set virtual_spoolfile = yes
-
-virtual-mailboxes "inbox" "notmuch://?query=tag:inbox or folder:Sent"
-
-# Delete via trash
-unset confirmappend
-set trash="=Trash"
+set trash = "+Trash"
 
 # Change the following line to a different editor you prefer.
 set editor = 'nvim + -c "set textwidth=72" -c "set wrap"'
+set edit_headers = yes
+
+set menu_scroll = yes
 
 # Basic config
 set imap_idle = yes
 set imap_check_subscribed = yes
-unset imap_passive
-set mail_check = 120
+set imap_qresync = yes
+# unset imap_passive
+set beep_new = yes
+set pager_stop = yes
 
 set include
 set sort = 'threads'
@@ -40,23 +44,16 @@ set pager_index_lines = 10
 hdr_order Date From To Cc
 alternative_order text/plain text/html *
 auto_view text/html
-bind editor <Tab> complete-query
+
 bind editor ^T complete
+bind editor <Tab> complete-query
 bind editor <space> noop
 
-macro index A "<modify-labels>+archive -unread -inbox\\n" "Archive message"
-macro index c "<change-vfolder>?" "Change to vfolder overview"
-macro index \\\\ "<vfolder-from-query>" "Search mailbox"
-macro index,pager \ct "<entire-thread>" "Show entire thread of current message"
+#bind pager <up> previous-line
+#bind pager <down> next-line
 
-#bind pager j next-line
-#bind pager k previous-line
-#bind attach,index,pager \CD next-page
-#bind attach,index,pager \CU previous-page
-#bind pager g top
-#bind pager G bottom
-#bind attach,index g first-entry
-#bind attach,index G last-entry
+macro index a '<save-message>=Archive<enter>y'
 
-source /usr/share/doc/neomutt/samples/colors.linux
-source /usr/share/doc/neomutt/samples/gpg.rc
+set header_color_partial
+# color header bold green default '^.+?:'
+

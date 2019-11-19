@@ -6,18 +6,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'tpope/vim-surround'
 " Plug 'cohama/lexima.vim'
 " Plug 'tpope/vim-fugitive'
 
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-" Plug 'neomake/neomake'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neomake/neomake'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python'}
 " Plug 'Shougo/neosnippet.vim'
 " Plug 'Shougo/neosnippet-snippets'
@@ -67,21 +63,6 @@ endif
 " call deoplete#custom#option('auto_complete_delay', 500)
 " call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
 " language specific
 let g:go_fmt_command = "goimports"
 let g:man_hardwrap = 1
@@ -106,6 +87,15 @@ function! s:todo() abort
 endfunction
 command! TODO call s:todo()
 
+func EnableCompletion()
+    call deoplete#enable()
+    call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+endfunc
+
+func EnableNeoMake()
+    call neomake#configure#automake('w')
+endfunc
+
 func PasteWorkaround()
     :r ! wl-paste | tr -d "\r"
 endfunc
@@ -125,10 +115,14 @@ nnoremap <silent> k gk
 nnoremap <silent> j gj
 nnoremap <silent> <Up> gk
 nnoremap <silent> <Down> gj
+nnoremap <silent> <leader>f :FZF<cr>
+nnoremap <silent> <leader>r :Rg<cr>
+nnoremap <silent> <leader>b :Buffers<cr>
+map <silent> <leader>y "+y
+nnoremap <silent> <leader>p :call PasteWorkaround()<cr>
 
 " Trash Ex mode.
 nnoremap Q <Nop>
-nnoremap <silent> <leader>p :call PasteWorkaround()<cr>
 
 " TODO: to be the default int the future
 nnoremap <silent> <C-L> :nohlsearch<CR><C-L>

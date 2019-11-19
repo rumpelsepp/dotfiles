@@ -12,6 +12,7 @@ restic backup                                 \
     --password-command 'pass private/backups/restic/kronos' \
     --verbose \
     --exclude-caches                          \
+    --exclude "$HOME/.npm"              \
     --exclude "$HOME/.cache"              \
     --exclude "$HOME/.mozilla"              \
     --exclude "$HOME/.cargo/registry"              \

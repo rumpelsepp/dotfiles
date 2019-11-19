@@ -13,6 +13,9 @@
 	editor = nvim +1
 	hooksPath = /home/rumpelsepp/.config/git/hooks
 
+[credential]
+	helper = cache
+
 [alias]
 	st = status
 	sw = switch
@@ -21,17 +24,20 @@
 	cm = commit -m
 	br = branch
 	ba = branch -a -vv
-    rs = restore
-    ri = rebase --autosquash --autostash --interactive
-	lg = log --pretty=format:'%C(auto)%h %<(55,trunc)%s %Cblue%<(18,trunc)%an%Creset %Cgreen%<(15)%ad%Creset %C(auto)%d' --abbrev-commit --date=relative
-	lol = log --decorate --oneline --abbrev-commit --all
-	changelog = log --pretty=format:'%C(auto)%h (%s, %ad)' --abbrev-commit --date=short
-	unstage = reset HEAD --
-	aliases = config --get-regexp alias
-	pushall = !git remote | xargs -L1 git push --all
+	rs = restore
+	ri = rebase --autosquash --autostash --interactive
+	lg = log --pretty=table --abbrev-commit --date=relative
 	rg = grep --heading --break
+	changelog = log --pretty=changelog --abbrev-commit --date=short
+	unstage = reset HEAD --
+	pushall = !git remote | xargs -L1 git push --all
 	root = rev-parse --show-toplevel
-    fuckpush = !git pull --rebase --autostash && git push
+	fuckpush = !git pull --rebase --autostash && git push
+	cleantracking = git branch --remote --merged | grep -v master | xargs git branch -r -d
+
+[pretty]
+	table = format:%C(auto)%h %<(55,trunc)%s %Cblue%<(18,trunc)%an%Creset %Cgreen%<(15)%ad%Creset %C(auto)%d
+	changelog = format:* %C(auto)%h %s (%ad)
 
 [log]
 	decorate = short
@@ -40,24 +46,24 @@
 	short = yes
 
 [pull]
-    rebase = true
+	rebase = true
 
 [rebase]
-    autosquash = true
+	autosquash = true
 
 [pager]
 	diff = perl /usr/share/git/diff-highlight/diff-highlight | less
 	log = perl /usr/share/git/diff-highlight/diff-highlight | less
 	show = perl /usr/share/git/diff-highlight/diff-highlight | less
 
-[color "grep"]
-    filename = magenta
-	match = bold red
-	linenumber = green
-
 [grep]
 	linenumber = true
 	fallbackToNoIndex = true
+
+[color "grep"]
+	filename = magenta
+	match = bold red
+	linenumber = green
 
 [sendemail]
 	smtpserver = coruscant.sevenbyte.org
@@ -74,5 +80,3 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[credential]
-	helper = cache

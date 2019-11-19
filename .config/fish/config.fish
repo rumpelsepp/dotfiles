@@ -31,16 +31,12 @@ function __fish_set_oldpwd --on-variable dirprev
     set -g OLDPWD $dirprev[-1]
 end
 
-function __sudobangbang --on-event fish_postexec
-    abbr !! sudo $argv[1]
-end
-
 alias now "date +%F_%T"
+alias today "date +%F"
 alias hd "hexdump -C"
-alias mutt "neomutt"
-alias pacman "yay"
 alias ssh "env TERM=xterm-256color ssh"
 alias fetch "curl -LOs"
+alias mutt-aisec "mutt -F ~/.muttrc-aisec"
 alias o "gio open"
 
 bind --key btab __fzf_complete

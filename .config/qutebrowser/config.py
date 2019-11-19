@@ -23,7 +23,7 @@ c.url.searchengines = {
     'dict': 'https://dict.cc/?s={}',
     'man': 'https://manpages.debian.org/{}',
     'deb': 'https://packages.debian.org/search?keywords={}&searchon=names&suite=stable',
-    "wa": "https://wiki.archlinux.org/?search={}",
+    "aw": "https://wiki.archlinux.org/?search={}",
 }
 
 # Format to use for the tab title. The following placeholders are
