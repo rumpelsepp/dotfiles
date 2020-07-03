@@ -1,23 +1,40 @@
+if exists('g:vscode')
+    finish
+endif
+
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tomtom/tcomment_vim'
+Plug 'machakann/vim-sandwich'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
-Plug 'sheerun/vim-polyglot'
-Plug 'scrooloose/nerdtree'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'sheerun/vim-polyglot'
 " Plug 'tpope/vim-surround'
 " Plug 'cohama/lexima.vim'
 " Plug 'tpope/vim-fugitive'
 
-Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python'}
-" Plug 'Shougo/neosnippet.vim'
-" Plug 'Shougo/neosnippet-snippets'
+Plug 'morhetz/gruvbox'
+Plug 'neovim/nvim-lsp'
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
 call plug#end()
+
+" Disable built-in plugins
+let g:loaded_2html_plugin      = 1
+" let g:loaded_gzip              = 1
+let g:loaded_matchparen        = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_spellfile_plugin  = 1
+" let g:loaded_tarPlugin         = 1
+" let g:loaded_zipPlugin         = 1
+let g:loaded_matchit           = 1
+let g:loaded_tutor_mode_plugin = 1
 
 " settings
 set autowrite
@@ -38,19 +55,46 @@ set splitright
 set secure
 set magic
 set showmatch
-set wrapmargin=2
+" set wrapmargin=2
 set linebreak
-set hidden
-set signcolumn=yes
+" set signcolumn=yes
 
 " theme
 let python_highlight_all = 1
 let g:tex_flavor = 'latex'
 let g:is_bash = 1
 set number
+let g:lua_tree_auto_close = 1 
+
 " set termguicolors
+" let g:gruvbox_contrast_dark = 'hard'
+" let g:gruvbox_contrast_light = 'hard'
+" colorscheme gruvbox
+
 " highlight OverLength ctermbg=red ctermfg=white
 " match OverLength /\%81v.\+/
+
+" LSP stuff
+" https://github.com/neovim/nvim-lsp/issues/127
+lua << EOF
+-- require'nvim_lsp'.gopls.setup{{on_attach=on_attach}}
+-- require'nvim_lsp'.gopls.setup{}
+-- require'nvim_lsp'.pyls.setup{}
+-- require'nvim_lsp'.bashls.setup{}
+EOF
+
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
+autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 " speed up grep if available
 if executable("rg")
@@ -59,45 +103,27 @@ if executable("rg")
 endif
 
 " plugins
-" let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option('auto_complete_delay', 500)
-" call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('auto_complete_delay', 500)
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+set completeopt="noselect"
 
 " language specific
-let g:go_fmt_command = "goimports"
 let g:man_hardwrap = 1
+set cinoptions=l1
+let g:go_fmt_command = "goimports"
 
-function! s:todo() abort
-  let entries = []
-  for cmd in ['git grep -niI -e TODO -e FIXME -e XXX 2> /dev/null',
-            \ 'grep -rniI -e TODO -e FIXME -e XXX * 2> /dev/null']
-    let lines = split(system(cmd), '\n')
-    if v:shell_error != 0 | continue | endif
-    for line in lines
-      let [fname, lno, text] = matchlist(line, '^\([^:]*\):\([^:]*\):\(.*\)')[1:3]
-      call add(entries, { 'filename': fname, 'lnum': lno, 'text': text })
-    endfor
-    break
-  endfor
-
-  if !empty(entries)
-    call setqflist(entries)
-    copen
-  endif
-endfunction
-command! TODO call s:todo()
-
-func EnableCompletion()
-    call deoplete#enable()
-    call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-endfunc
-
-func EnableNeoMake()
-    call neomake#configure#automake('w')
-endfunc
+augroup languages
+    autocmd!
+    autocmd Filetype c setlocal ts=8 noexpandtab
+augroup END
 
 func PasteWorkaround()
     :r ! wl-paste | tr -d "\r"
+endfunc
+
+func PasteFromTMUX()
+    :r ! tmux show-buffer
 endfunc
 
 " autocommands
@@ -120,6 +146,11 @@ nnoremap <silent> <leader>r :Rg<cr>
 nnoremap <silent> <leader>b :Buffers<cr>
 map <silent> <leader>y "+y
 nnoremap <silent> <leader>p :call PasteWorkaround()<cr>
+nnoremap <silent> <leader>pt :call PasteFromTMUX()<cr>
+"
+" vim-sandwich; use cl instead; it's the same.
+nmap s <Nop>
+xmap s <Nop>
 
 " Trash Ex mode.
 nnoremap Q <Nop>

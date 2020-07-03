@@ -34,9 +34,11 @@ end
 alias now "date +%F_%T"
 alias today "date +%F"
 alias hd "hexdump -C"
-alias ssh "env TERM=xterm-256color ssh"
 alias fetch "curl -LOs"
 alias mutt-aisec "mutt -F ~/.muttrc-aisec"
 alias o "gio open"
+alias m "make -j(nproc)"
+alias h "hr -j '.|select(.component != \"ipc\" and .component != \"hsfz\")'"
+
 
 bind --key btab __fzf_complete

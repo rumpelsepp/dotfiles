@@ -1,14 +1,10 @@
 #!/bin/bash
 
-if ! ping -c3 cube.muc > /dev/null; then
-    echo "cube is not available!"
-    exit 1
-fi
-
 # Setting this, so the repo does not need to be given on the commandline:
-export RESTIC_REPOSITORY="sftp:cube.muc:backups/restic/kronos"
+export RESTIC_REPOSITORY="sftp:u160551@u160551.your-storagebox.de:backups/kronos"
+# export RESTIC_REPOSITORY="/run/user/1000/gvfs/smb-share:server=storage.sevenbyte.org,share=backup/backups/kronos"
 
-restic backup                                 \
+exec restic backup                                 \
     --password-command 'pass private/backups/restic/kronos' \
     --verbose \
     --exclude-caches                          \

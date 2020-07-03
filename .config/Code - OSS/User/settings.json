@@ -9,17 +9,64 @@
     "editor.wordWrap": "on",
     "editor.wrappingIndent": "indent",
     "go.useLanguageServer": true,
+    // "go.languageServerExperimentalFeatures": {
+    //     "format": true,
+    //     "diagnostics": true,
+    //     "documentLink": true
+    // },
     "workbench.tree.renderIndentGuides": "none",
     "search.smartCase": true,
     "terminal.external.linuxExec": "alacritty",
     "telemetry.enableTelemetry": false,
     "update.mode": "none",
-    "todo-tree.defaultHighlight": {
-        "type": "tag",
-        "background": "yellow",
-    },
-    "todo-tree.highlights.defaultHighlight": {
-        "type": "tag",
-        "background": "yellow"
-    },
+    "latex-workshop.message.update.show": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.formatting.provider": "yapf",
+    "vim.highlightedyank.enable": true,
+    "vim.visualModeKeyBindings": [
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "o"
+            ],
+            "after": [
+                "o", "_", "<ESC>" , "=", "=", "x", "a"
+            ]
+        }
+    ],
+    // "vim.normalModeKeyBindingsNonRecursive": [
+    //     {
+    //         "before": ["j"],
+    //         "after": ["g", "j"]
+    //     },
+    //     {
+    //         "before": ["k"],
+    //         "after": ["g", "k"]
+    //     },
+    //     {
+    //         "before": ["down"],
+    //         "after": ["g", "j"]
+    //     },
+    //     {
+    //         "before": ["up"],
+    //         "after": ["g", "k"]
+    //     }
+    // ],
+    "editor.cursorSurroundingLines": 3,
+    "editor.rulers": [
+        80, 120
+    ],
+    "workbench.editor.showTabs": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "files.trimTrailingWhitespace": true,
+    "workbench.enableExperiments": false,
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "go.installDependenciesWhenBuilding": false,
+    "vim.easymotion": true,
+    "vim.easymotionKeys": "uiaeosnrtdy",
+    "vim.easymotionMarkerFontFamily": "Hack",
+    "vim.easymotionMarkerFontSize": "12",
+    "workbench.colorTheme": "Default Light+",
 }

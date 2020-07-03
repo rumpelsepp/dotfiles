@@ -3,7 +3,6 @@
 import socket
 import i3pystatus
 from i3pystatus.core.command import run_through_shell
-from i3pystatus.weather import weathercom
 
 
 def lighter():
@@ -34,24 +33,12 @@ status.register("network",
                 graph_width=10,
                 format_up="{interface}: {v4cidr} {network_graph_recv}")
 
-host = socket.gethostname()
-if host == 'alderaan':
-    loc_code = 'e38c65b2538e987b4a811915946df4f28bd83e87a506a663d572eb210ed8fc32'
-elif host == 'kronos':
-    loc_code = '4eda100dcb6b7d421559e28103e7c65ab18ef92ee5844a373892626c6a3495d2'
-else:
-    loc_code = ''
+# host = socket.gethostname()
+# if host == 'alderaan':
+#     loc_code = 'e38c65b2538e987b4a811915946df4f28bd83e87a506a663d572eb210ed8fc32'
+# elif host == 'kronos':
+#     loc_code = '4eda100dcb6b7d421559e28103e7c65ab18ef92ee5844a373892626c6a3495d2'
+# else:
+#     loc_code = ''
 
-status.register(
-    'weather',
-    format='{city}: {condition} {current_temp}{temp_unit}[ max: {high_temp}][ min: {low_temp}][ {update_error}]',
-    interval=900,
-    colorize=True,
-    hints={'markup': 'pango'},
-    backend=weathercom.Weathercom(
-        location_code=loc_code,
-        units='metric',
-        update_error='<span color="#ff0000">!</span>',
-    ),
-)
 status.run()

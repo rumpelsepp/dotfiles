@@ -14,16 +14,21 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ### Idle configuration
 
-exec swayidle -w \
-    lock         'swaylock -f' \
-    timeout 20   'pidof swaylock > /dev/null && swaymsg "output * dpms off"' \
-    resume       'pidof swaylock > /dev/null && swaymsg "output * dpms on"' \
-    before-sleep 'pidof swaylock > /dev/null || loginctl lock-session' \
+# exec swayidle -w \
+#     lock         'swaylock -f' \
+#     timeout 20   'pidof swaylock > /dev/null && swaymsg "output * dpms off"' \
+#     resume       'pidof swaylock > /dev/null && swaymsg "output * dpms on"' \
+#     before-sleep 'pidof swaylock > /dev/null || loginctl lock-session' \
+#     idlehint 300
+exec swayidle \
+    lock         'lock.sh' \
+    before-sleep 'lock.sh' \
+    idlehint 300
 
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# https://github.com/swaywm/sway/wiki#after-unplugging-an-external-display-some-applications-appear-too-large-on-my-hidpi-screen
 exec xrdb -load ~/.Xresources
 exec systemd-cat mako
-# exec i3-cycle-focus
 
 ### Input configuration
 
@@ -65,8 +70,8 @@ exec systemd-cat mako
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
-    bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+    bindsym XF86MonBrightnessUp exec light -A 10
+    bindsym XF86MonBrightnessDown exec light -U 10
 
 #
 # Moving around:
@@ -90,7 +95,7 @@ exec systemd-cat mako
     #    5: Browser
     #    7: Wireshark
     #   10: Messages (email, chat, …)
-    for_window [app_id="wireshark"] move container to workspace 7
+    for_window [app_id="wireshark"] move container to workspace 9
     for_window [app_id="firefox"] move container to workspace 5
     for_window [app_id="gajim"] move container to workspace 10
     for_window [app_id="evolution"] move container to workspace 10
@@ -180,7 +185,8 @@ exec systemd-cat mako
 # Applications:
 #
     bindsym $mod+m exec systemd-cat -t nautilus nautilus
-    bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
+    # bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
+    bindsym $mod+q exec systemd-cat -t firefox firefox
 
     # mako
     bindsym $mod+n exec makoctl dismiss
@@ -199,27 +205,13 @@ exec systemd-cat mako
     bindsym $mod+Print exec screenshot.sh -s
 
 #
-# Resizing containers:
-#
-mode "resize" {
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
-
-#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position bottom
-    status_command swaystatus
-    # status_command i3status-rs ~/.config/i3status-rs/config.toml
+    # status_command swaystatus
+    status_command i3status-rs ~/.config/i3status-rs/config.toml
 }
 
 include /etc/sway/config.d/*

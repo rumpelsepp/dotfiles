@@ -6,13 +6,13 @@ set from = "stefan@rumpelsepp.org"
 alternates "stefan@sevenbyte.org" "rumpelsepp@sevenbyte.org" "stefan.tatschner@gmail.com" "stefan.tatschner@googlemail.com"
 set imap_user = "stefan@rumpelsepp.org"
 set imap_pass = `pass private/rumpelsepp-mail`
-# set folder = "imaps://coruscant.sevenbyte.org:993"
-set folder = "~/mail/stefan@rumpelsepp.org"
+set folder = "imaps://coruscant.sevenbyte.org:993"
+# set folder = "~/mail/stefan@rumpelsepp.org"
 
-set sendmail="msmtp-enqueue.sh"
-# set smtp_url = "smtp://$imap_user@coruscant.sevenbyte.org:587"
-# set smtp_pass = `pass private/rumpelsepp-mail`
-# set ssl_starttls = yes
+# set sendmail="msmtp-enqueue.sh"
+set smtp_url = "smtp://$imap_user@coruscant.sevenbyte.org:587"
+set smtp_pass = `pass private/rumpelsepp-mail`
+set ssl_starttls = yes
 
 set header_cache = "~/.cache/mutt"
 set message_cachedir = "~/.cache/mutt"

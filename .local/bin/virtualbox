@@ -1,5 +1,6 @@
 #!/bin/bash
 
-export QT_QPA_PLATFORM=
+export QT_QPA_PLATFORM=xcb
+export QT_FONT_DPI=96
 swaymsg "input '*' xkb_layout de"
-/usr/bin/virtualbox "$@"
+exec /usr/bin/virtualbox "$@"

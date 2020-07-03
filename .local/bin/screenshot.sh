@@ -37,4 +37,4 @@ if (( $# < 1 )); then
     exit 1
 fi
 
-ln -sf "$SCREENFILE" "$LINKLATEST"
+ln -f "$SCREENFILE" "$LINKLATEST"

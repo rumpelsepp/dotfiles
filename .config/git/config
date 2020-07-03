@@ -11,7 +11,7 @@
 [core]
 	autocrlf = input
 	editor = nvim +1
-	hooksPath = /home/rumpelsepp/.config/git/hooks
+	# hooksPath = /home/rumpelsepp/.config/git/hooks
 
 [credential]
 	helper = cache
@@ -33,7 +33,7 @@
 	pushall = !git remote | xargs -L1 git push --all
 	root = rev-parse --show-toplevel
 	fuckpush = !git pull --rebase --autostash && git push
-	cleantracking = git branch --remote --merged | grep -v master | xargs git branch -r -d
+	cleantracking = !git branch --remote --merged | grep -v master | xargs git branch -r -d
 
 [pretty]
 	table = format:%C(auto)%h %<(55,trunc)%s %Cblue%<(18,trunc)%an%Creset %Cgreen%<(15)%ad%Creset %C(auto)%d

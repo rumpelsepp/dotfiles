@@ -4,11 +4,11 @@
 
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
-# config.load_autoconfig()
+config.load_autoconfig()
 
 c.content.default_encoding = 'utf-8'
 c.content.host_blocking.whitelist = []
-#c.qt.highdpi = True
+# c.qt.highdpi = True
 c.scrolling.bar = 'always'
 c.tabs.background = True
 c.hints.chars = 'uiaeosnrtdy'
@@ -48,6 +48,8 @@ c.window.title_format = '{current_title}{title_sep}qutebrowser'
 config.bind('<Ctrl-l>', 'set-cmd-text :open -t -r {url:pretty}')
 config.bind('<Alt-left>', 'back')
 config.bind('<Alt-right>', 'forward')
+config.bind('<Ctrl-right>', 'tab-next')
+config.bind('<Ctrl-left>', 'tab-prev')
 config.bind('m', 'spawn umpv {url}')
 config.bind('M', 'hint links spawn umpv {hint-url}')
 config.bind(';M', ';M hint --rapid links spawn umpv {hint-url}')

@@ -1,2 +1,2 @@
 #!/bin/sh
-curl -Ls "http://api.icndb.com/jokes/random" | jq '.value.joke' | cat
+curl -Ls "http://api.icndb.com/jokes/random" | jq -r '.value.joke' | perl -MHTML::Entities -pe 'decode_entities($_);'
