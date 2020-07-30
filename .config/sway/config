@@ -14,12 +14,6 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ### Idle configuration
 
-# exec swayidle -w \
-#     lock         'swaylock -f' \
-#     timeout 20   'pidof swaylock > /dev/null && swaymsg "output * dpms off"' \
-#     resume       'pidof swaylock > /dev/null && swaymsg "output * dpms on"' \
-#     before-sleep 'pidof swaylock > /dev/null || loginctl lock-session' \
-#     idlehint 300
 exec swayidle \
     lock         'lock.sh' \
     before-sleep 'lock.sh' \
@@ -28,7 +22,6 @@ exec swayidle \
 exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # https://github.com/swaywm/sway/wiki#after-unplugging-an-external-display-some-applications-appear-too-large-on-my-hidpi-screen
 exec xrdb -load ~/.Xresources
-exec systemd-cat mako
 
 ### Input configuration
 
@@ -197,7 +190,8 @@ exec systemd-cat mako
 
     # start your launcher
     bindsym $mod+d exec $launcher sway-starter.sh
-    bindsym $mod+Tab exec $launcher sway-apps.py
+    bindsym $mod+Shift+d exec $launcher sway-desktop-starter.sh
+    bindsym $mod+Tab exec $launcher sway-apps.sh
     for_window [title="^launcher$"] floating enable
 
     # screenshot

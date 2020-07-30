@@ -22,7 +22,7 @@
     "latex-workshop.message.update.show": false,
     "python.linting.flake8Enabled": true,
     "python.linting.mypyEnabled": true,
-    "python.formatting.provider": "yapf",
+    "python.formatting.provider": "none",
     "vim.highlightedyank.enable": true,
     "vim.visualModeKeyBindings": [
     ],
@@ -68,5 +68,5 @@
     "vim.easymotionKeys": "uiaeosnrtdy",
     "vim.easymotionMarkerFontFamily": "Hack",
     "vim.easymotionMarkerFontSize": "12",
-    "workbench.colorTheme": "Default Light+",
+    "python.showStartPage": false,
 }

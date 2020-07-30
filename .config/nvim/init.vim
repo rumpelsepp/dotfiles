@@ -9,19 +9,18 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'dense-analysis/ale'
+" Plug 'davidhalter/jedi-vim'
+" Plug 'kyazdani42/nvim-tree.lua'
 " Plug 'sheerun/vim-polyglot'
 " Plug 'tpope/vim-surround'
 " Plug 'cohama/lexima.vim'
 " Plug 'tpope/vim-fugitive'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'morhetz/gruvbox'
+" Plug 'nvim-lua/completion-nvim'
 Plug 'neovim/nvim-lsp'
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
 call plug#end()
 
 " Disable built-in plugins
@@ -57,19 +56,15 @@ set magic
 set showmatch
 " set wrapmargin=2
 set linebreak
-" set signcolumn=yes
+set signcolumn=yes
 
 " theme
 let python_highlight_all = 1
 let g:tex_flavor = 'latex'
 let g:is_bash = 1
 set number
-let g:lua_tree_auto_close = 1 
 
 " set termguicolors
-" let g:gruvbox_contrast_dark = 'hard'
-" let g:gruvbox_contrast_light = 'hard'
-" colorscheme gruvbox
 
 " highlight OverLength ctermbg=red ctermfg=white
 " match OverLength /\%81v.\+/
@@ -77,24 +72,27 @@ let g:lua_tree_auto_close = 1
 " LSP stuff
 " https://github.com/neovim/nvim-lsp/issues/127
 lua << EOF
--- require'nvim_lsp'.gopls.setup{{on_attach=on_attach}}
 -- require'nvim_lsp'.gopls.setup{}
 -- require'nvim_lsp'.pyls.setup{}
 -- require'nvim_lsp'.bashls.setup{}
 EOF
+augroup LuaHighlight
+  autocmd!
+  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
 
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-
-autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
-autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.omnifunc
+" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+"
+" autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
+" autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 " speed up grep if available
 if executable("rg")
@@ -105,13 +103,44 @@ endif
 " plugins
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('auto_complete_delay', 500)
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+" call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 set completeopt="noselect"
+" set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+
+nmap <silent> <leader>l <Plug>(ale_previous_wrap)
+nmap <silent> <leader>a <Plug>(ale_next_wrap)
+nmap <silent> <F5> <Plug>(ale_previous_wrap)
+nmap <silent> <F6> <Plug>(ale_next_wrap)
+nmap <F8> <Plug>(ale_fix)
+nmap <leader>af <Plug>(ale_fix)
+nmap K <Plug>(ale_hover)
+nmap gr <Plug>(ale_find_references)
+nmap gd <Plug>(ale_go_to_definition)
+nmap gD <Plug>(ale_go_to_type_definition)
+nmap <F12> <Plug>(ale_go_to_definition)
+
+let g:ale_linters = {
+      \   'go': ['gopls'],
+      \   'python': ['flake8', 'mypy', 'pyls'],
+      \}
+let g:ale_fixers = {
+      \   'go': ['goimports'],
+      \}
+" Avoid conflicts with flake8 linter
+let g:ale_python_pyls_config = {
+    \ 'pyls': {
+    \   'plugins': {
+    \       'pycodestyle': {'enabled': v:false},
+    \       'mccabe': {'enabled': v:false},
+    \       'pyflakes': {'enabled': v:false},
+    \   }
+    \  }
+    \ }
 
 " language specific
 let g:man_hardwrap = 1
 set cinoptions=l1
-let g:go_fmt_command = "goimports"
 
 augroup languages
     autocmd!
@@ -136,7 +165,6 @@ augroup convenience
                 \ | endif
 augroup END
 
-nnoremap <silent> <leader>ts ma :keeppatterns %s/\s\+$//e<cr>:TrimNewlines<cr>`a
 nnoremap <silent> k gk
 nnoremap <silent> j gj
 nnoremap <silent> <Up> gk

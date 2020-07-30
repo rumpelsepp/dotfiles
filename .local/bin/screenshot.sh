@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -e
+set -eu
 
 SCREENDIR="$HOME/Pictures/screenshots"
 SCREENFILE="${SCREENDIR}/screenshot-$(date +'%F-%T').png"
-LINKLATEST="${SCREENDIR}/latest"
+LINKLATEST="${SCREENDIR}/latest.png"
 
 usage() {
-    echo "usage: $(basename $0) [-sch]"
+    echo "usage: $(basename "$0") [-sch]"
     echo ""
     echo "options:"
     echo " -c   capture current workspace"

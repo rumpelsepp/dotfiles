@@ -31,14 +31,13 @@ function __fish_set_oldpwd --on-variable dirprev
     set -g OLDPWD $dirprev[-1]
 end
 
+alias pass "gopass"
+complete -c pass -w gopass
 alias now "date +%F_%T"
+alias now-raw "date +%Y%m%d%H%M"
 alias today "date +%F"
 alias hd "hexdump -C"
-alias fetch "curl -LOs"
-alias mutt-aisec "mutt -F ~/.muttrc-aisec"
+complete -c hd -w hexdump
 alias o "gio open"
 alias m "make -j(nproc)"
-alias h "hr -j '.|select(.component != \"ipc\" and .component != \"hsfz\")'"
-
-
-bind --key btab __fzf_complete
+complete -c m -w make

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eu
 
 if pidof swaylock > /dev/null; then
     echo "error: already locked?"
@@ -17,8 +17,5 @@ swayidle timeout 10 'swaymsg "output * dpms off"' \
 
 # Be sure to kill swayidle.
 trap 'cleanup' SIGINT SIGTERM QUIT EXIT
-
-# Set gajim status when locking.
-# gajim-remote change_status away
 
 swaylock
