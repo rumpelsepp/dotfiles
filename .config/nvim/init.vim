@@ -17,6 +17,7 @@ Plug 'dense-analysis/ale'
 " Plug 'tpope/vim-surround'
 " Plug 'cohama/lexima.vim'
 " Plug 'tpope/vim-fugitive'
+" Plug 'fenetikm/falcon'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'nvim-lua/completion-nvim'
@@ -45,6 +46,7 @@ set expandtab
 set undofile
 set smartindent
 set list
+" set listchars=tab:▸\ ,eol:¬,space:.
 set smartcase
 set mouse=a
 set inccommand=nosplit
@@ -137,6 +139,8 @@ let g:ale_python_pyls_config = {
     \   }
     \  }
     \ }
+let g:ale_lint_on_text_changed = 0
+let g:ale_fix_on_save = 1
 
 " language specific
 let g:man_hardwrap = 1
