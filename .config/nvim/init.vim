@@ -17,7 +17,6 @@ Plug 'dense-analysis/ale'
 " Plug 'tpope/vim-surround'
 " Plug 'cohama/lexima.vim'
 " Plug 'tpope/vim-fugitive'
-" Plug 'fenetikm/falcon'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'nvim-lua/completion-nvim'
@@ -121,6 +120,7 @@ nmap gr <Plug>(ale_find_references)
 nmap gd <Plug>(ale_go_to_definition)
 nmap gD <Plug>(ale_go_to_type_definition)
 nmap <F12> <Plug>(ale_go_to_definition)
+" let g:ale_history_log_output = 1
 
 let g:ale_linters = {
       \   'go': ['gopls'],
@@ -129,6 +129,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
       \   'go': ['goimports'],
       \}
+      " \   'python': ['yapf'],
 " Avoid conflicts with flake8 linter
 let g:ale_python_pyls_config = {
     \ 'pyls': {

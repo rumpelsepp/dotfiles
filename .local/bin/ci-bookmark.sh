@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 cd "$HOME/Projects/private/blog"
-git commit -m "commit bookmarks" "./_stuff/bookmarks.adoc"
+git commit -m "commit bookmarks" "./content/stuff/bookmarks.md"
 git push

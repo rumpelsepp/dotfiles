@@ -26,12 +26,3 @@ HISTCONTROL="ignoreboth"
 HISTTIMEFORMAT="[%F %T] "
 HISTIGNORE='ls:bg:fg:history:htop'
 
-# If running from tty1 start sway
-if [[ "$(tty)" == "/dev/tty1" ]]; then
-    eval $(gnome-keyring-daemon --start)
-    export SSH_AUTH_SOCK
-    # https://github.com/systemd/systemd/issues/14489
-    export XDG_SESSION_TYPE=wayland
-    exec systemd-cat -t sway sway
-fi
-
