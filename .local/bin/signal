@@ -1,3 +1,3 @@
 #!/bin/bash
 
-GDK_BACKEND=x11 exec signal-desktop "$@" > /dev/null
+GDK_BACKEND=x11 exec signal-desktop "$@" 2>&1 > /dev/null
