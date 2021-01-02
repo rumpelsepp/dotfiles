@@ -26,7 +26,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # export GDK_BACKEND=wayland
 
 # export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
-export SSH_AUTH_SOCK="/run/user/$(id -u)/keyring/ssh"
+# export SSH_AUTH_SOCK="/run/user/$UID/keyring/ssh"
 
 if [[ -d "$HOME/.local/bin" ]] ; then
     export PATH="$HOME/.local/bin:$PATH"
@@ -34,11 +34,13 @@ fi
 
 # If running from tty1 start sway
 if [[ "$(tty)" == "/dev/tty1" ]]; then
-    eval $(gnome-keyring-daemon --start)
+    eval "$(gnome-keyring-daemon --start)"
     export SSH_AUTH_SOCK
     # https://github.com/systemd/systemd/issues/14489
     # export XDG_SESSION_TYPE=wayland
     exec systemd-cat -t sway sway
 fi
 
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+if [[ -f "$HOME/.bashrc" ]]; then
+    source "$HOME/.bashrc"
+fi

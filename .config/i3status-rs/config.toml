@@ -20,6 +20,13 @@ backlight_partial2 = "🌓 "
 backlight_partial3 = "🌔 "
 backlight_full = "🌕 "
 
+# [[block]]
+# block = "networkmanager"
+# on_click = "alacritty -e nmtui"
+# interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
+# interface_name_include = []
+# ap_format = "{ssid} [{strength}%]"
+
 [[block]]
 block = "disk_space"
 path = "/"
@@ -61,5 +68,5 @@ block = "sound"
 [[block]]
 block = "time"
 interval = 1
-format = "%a %d.%m.%y %T KW%U"
+format = "%a %d.%m.%y %T KW%V"
 

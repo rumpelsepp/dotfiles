@@ -86,11 +86,10 @@ exec xrdb -load ~/.Xresources
 
     # Workspaces above 5 are dedicated to:
     #    5: Browser
-    #    7: Wireshark
+    #    9: Wireshark
     #   10: Messages (email, chat, …)
     for_window [app_id="wireshark"] move container to workspace 9
     for_window [app_id="firefox"] move container to workspace 5
-    for_window [app_id="gajim"] move container to workspace 10
     for_window [app_id="evolution"] move container to workspace 10
 
 #

@@ -1,16 +1,16 @@
-if exists('g:vscode')
-    finish
-endif
-
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tomtom/tcomment_vim'
-Plug 'machakann/vim-sandwich'
+" Plug 'machakann/vim-sandwich'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'dense-analysis/ale'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Plug 'liuchengxu/space-vim-theme'
+" Plug 'lifepillar/vim-gruvbox8'
+" Plug 'KeitaNakamura/neodark.vim'
 " Plug 'davidhalter/jedi-vim'
 " Plug 'kyazdani42/nvim-tree.lua'
 " Plug 'sheerun/vim-polyglot'
@@ -20,7 +20,7 @@ Plug 'dense-analysis/ale'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'nvim-lua/completion-nvim'
-Plug 'neovim/nvim-lsp'
+" Plug 'neovim/nvim-lsp'
 call plug#end()
 
 " Disable built-in plugins
@@ -66,17 +66,32 @@ let g:is_bash = 1
 set number
 
 " set termguicolors
+" colorscheme ron
+highlight Search ctermbg=12
+highlight clear SignColumn
+highlight ColorColumn ctermbg=darkgrey
+highlight lineNr ctermfg=grey
+highlight Pmenu ctermbg=white ctermfg=black
+highlight PmenuSel ctermbg=black ctermfg=white
 
 " highlight OverLength ctermbg=red ctermfg=white
 " match OverLength /\%81v.\+/
 
 " LSP stuff
 " https://github.com/neovim/nvim-lsp/issues/127
-lua << EOF
--- require'nvim_lsp'.gopls.setup{}
--- require'nvim_lsp'.pyls.setup{}
--- require'nvim_lsp'.bashls.setup{}
-EOF
+" lua << EOF
+"     require'nvim_lsp'.gopls.setup{}
+"     require'nvim_lsp'.pyls.setup{}
+"     require'nvim_lsp'.bashls.setup{}
+" EOF
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+"   highlight = {
+"     enable = true,              -- false will disable the whole extension
+"   },
+" }
+" EOF
 augroup LuaHighlight
   autocmd!
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
@@ -109,8 +124,6 @@ set completeopt="noselect"
 " set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
-nmap <silent> <leader>l <Plug>(ale_previous_wrap)
-nmap <silent> <leader>a <Plug>(ale_next_wrap)
 nmap <silent> <F5> <Plug>(ale_previous_wrap)
 nmap <silent> <F6> <Plug>(ale_next_wrap)
 nmap <F8> <Plug>(ale_fix)
@@ -119,7 +132,6 @@ nmap K <Plug>(ale_hover)
 nmap gr <Plug>(ale_find_references)
 nmap gd <Plug>(ale_go_to_definition)
 nmap gD <Plug>(ale_go_to_type_definition)
-nmap <F12> <Plug>(ale_go_to_definition)
 " let g:ale_history_log_output = 1
 
 let g:ale_linters = {
@@ -150,6 +162,7 @@ set cinoptions=l1
 augroup languages
     autocmd!
     autocmd Filetype c setlocal ts=8 noexpandtab
+    autocmd Filetype go setlocal ts=4 noexpandtab
 augroup END
 
 func PasteWorkaround()
@@ -175,15 +188,15 @@ nnoremap <silent> j gj
 nnoremap <silent> <Up> gk
 nnoremap <silent> <Down> gj
 nnoremap <silent> <leader>f :FZF<cr>
-nnoremap <silent> <leader>r :Rg<cr>
+nnoremap <silent> <leader>g :Rg<cr>
 nnoremap <silent> <leader>b :Buffers<cr>
 map <silent> <leader>y "+y
 nnoremap <silent> <leader>p :call PasteWorkaround()<cr>
 nnoremap <silent> <leader>pt :call PasteFromTMUX()<cr>
-"
+
 " vim-sandwich; use cl instead; it's the same.
-nmap s <Nop>
-xmap s <Nop>
+" nmap s <Nop>
+" xmap s <Nop>
 
 " Trash Ex mode.
 nnoremap Q <Nop>

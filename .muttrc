@@ -9,6 +9,8 @@ set imap_pass = `gopass show private/rumpelsepp-mail`
 set folder = "imaps://coruscant.sevenbyte.org:993"
 # set folder = "~/mail/stefan@rumpelsepp.org"
 
+mailboxes =INBOX
+
 set smtp_url = "smtp://$imap_user@coruscant.sevenbyte.org:587"
 set smtp_pass = `gopass show private/rumpelsepp-mail`
 set ssl_starttls = yes
