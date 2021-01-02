@@ -3,5 +3,5 @@
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
-output "Samsung Electric Company SyncMaster H9MB102769" pos 0 0
+output "Dell Inc. DELL U2412M 4RFMK58E0TYS" pos 0 0
 output "Goldstar Company Ltd E2350 " pos 1920 0

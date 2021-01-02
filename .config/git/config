@@ -33,7 +33,6 @@
 	unstage = reset HEAD --
 	pushall = !git remote | xargs -L1 git push --all
 	root = rev-parse --show-toplevel
-	fuckpush = !git pull --rebase --autostash && git push
 	cleantracking = !git branch --remote --merged | grep -v master | xargs git branch -r -d
 	cleanmerged = !git branch --merged | grep -v master | xargs git branch -d
 
@@ -68,7 +67,7 @@
 	linenumber = green
 
 [sendemail]
-	smtpserver = coruscant.sevenbyte.org
+	smtpserver = smtp.mailbox.org
 	smtpuser = stefan@rumpelsepp.org
 	smtpencryption = tls
 	smtpserverport = 587
