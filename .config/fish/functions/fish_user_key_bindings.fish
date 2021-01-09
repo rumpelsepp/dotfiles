@@ -3,7 +3,7 @@ function panewidget
         commandline -f repaint
         return
     end
-    set -l selection (fzf-tmux.sh)
+    set -l selection (fzf-tmux-buffer.sh)
     if test -z "$selection"
         commandline -f repaint
         return
