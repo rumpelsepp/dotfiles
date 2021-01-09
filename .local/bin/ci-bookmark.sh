@@ -2,6 +2,12 @@
 
 set -eu
 
+BOOKMARKS="./content/stuff/bookmarks.md"
+
 cd "$HOME/Projects/private/blog"
-git commit -m "commit bookmarks" "./content/stuff/bookmarks.md"
+
+s="$(git status --porcelain "$BOOKMARKS")"
+if [[ -n "$s" ]]; then
+    git commit -m "commit bookmarks" "$BOOKMARKS"
+fi
 git push

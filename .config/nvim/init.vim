@@ -6,7 +6,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
 Plug 'dense-analysis/ale'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Plug 'liuchengxu/space-vim-theme'
 " Plug 'lifepillar/vim-gruvbox8'
@@ -29,7 +29,7 @@ let g:loaded_2html_plugin      = 1
 let g:loaded_matchparen        = 1
 let g:loaded_netrwPlugin       = 1
 let g:loaded_rrhelper          = 1
-let g:loaded_spellfile_plugin  = 1
+" let g:loaded_spellfile_plugin  = 1
 " let g:loaded_tarPlugin         = 1
 " let g:loaded_zipPlugin         = 1
 let g:loaded_matchit           = 1
@@ -66,7 +66,6 @@ let g:is_bash = 1
 set number
 
 " set termguicolors
-" colorscheme ron
 highlight Search ctermbg=12
 highlight clear SignColumn
 highlight ColorColumn ctermbg=darkgrey
@@ -84,14 +83,14 @@ highlight PmenuSel ctermbg=black ctermfg=white
 "     require'nvim_lsp'.pyls.setup{}
 "     require'nvim_lsp'.bashls.setup{}
 " EOF
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-"   highlight = {
-"     enable = true,              -- false will disable the whole extension
-"   },
-" }
-" EOF
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+}
+EOF
 augroup LuaHighlight
   autocmd!
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()

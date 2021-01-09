@@ -2,8 +2,8 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-set $term alacritty
-set $launcher alacritty --title launcher --class launcher -e
+set $term systemd-cat -t alacritty alacritty
+set $launcher systemd-cat -t alacritty alacritty --title launcher --class launcher -e
 # set $term kitty
 # set $launcher kitty --title launcher
 
@@ -14,14 +14,12 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ### Idle configuration
 
-exec swayidle \
+exec systemd-cat -t swayidle swayidle \
     lock         'lock.sh' \
     before-sleep 'lock.sh' \
     idlehint 300
 
 exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# https://github.com/swaywm/sway/wiki#after-unplugging-an-external-display-some-applications-appear-too-large-on-my-hidpi-screen
-exec xrdb -load ~/.Xresources
 
 ### Input configuration
 
@@ -41,6 +39,7 @@ exec xrdb -load ~/.Xresources
 # Basics:
 #
     bindsym $mod+grave workspace back_and_forth
+    bindsym $mod+dead_circumflex workspace back_and_forth
     bindsym $mod+l exec loginctl lock-session
     bindsym $mod+x [urgent="latest"] focus
 

@@ -33,6 +33,7 @@ end
 
 alias pass "gopass"
 complete -c pass -w gopass
+alias ip "ip --color=auto"
 alias now "date +%F_%T"
 alias now-raw "date +%Y%m%d%H%M"
 alias today "date +%F"

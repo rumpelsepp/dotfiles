@@ -1,37 +1,46 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -u
+set -ue
 
 COMMIT='yes'
+REPO="$HOME/Projects/private/blog"
+BOOKMARKFILE="$HOME/Projects/private/blog/content/stuff/bookmarks.md"
 
 # $1: url
 gettitle() {
+    local script
     script="$(cat <<'EOF'
 import sys
 from bs4 import BeautifulSoup
 
 data = sys.stdin.read()
 soup = BeautifulSoup(data, 'html.parser')
-print(soup.title.text)
+print(soup.title.text.strip().replace('\n', ''))
 EOF
 )"
     curl -Ls "$1" | python -c "$script" | trimws.sed | sed -E "s/\[//;s/\]//"
 }
 
-title="$(gettitle "$1")"
-if [[ "$?" != 0 ]]; then
-    echo "gettitle() failed"
-    COMMIT='no'
-fi
-line="* $(date +%F): [$title]($1)"
+process_url() {
+    local title
+    local line
+    title="$(gettitle "$1")"
+    line="* $(date +%F): [$title]($1)"
 
-echo "$line"
-sed -i --follow-symlinks "3 i $line" "$HOME/bookmarks.md"
+    echo "$line"
+    sed -i --follow-symlinks "3 i $line" "$BOOKMARKFILE"
 
-if [[ "$COMMIT" != 'yes' ]]; then
-    exit 1
-fi
+    if [[ "$COMMIT" != 'yes' ]]; then
+        exit 1
+    fi
 
-cd "$HOME/Projects/private/blog"
-git commit -m "add $title" "./content/stuff/bookmarks.md"
-git push
+    # cd "$REPO"
+    # git commit -m "add $title" "$BOOKMARKFILE"
+}
+
+readarray -t lines
+
+for line in "${lines[@]}"; do
+    process_url "$line"
+done
+
