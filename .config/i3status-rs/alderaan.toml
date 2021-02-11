@@ -1,0 +1,63 @@
+[theme]
+name = "plain"
+
+[theme.overrides]
+idle_fg = "#ffffff"
+good_fg = "#00ff00"
+info_fg = "#00ff00"
+warning_fg = "#ffa500"
+critical_fg = "#ff0000"
+
+[icons]
+name = "awesome5"
+
+[icons.overrides]
+time = ""
+net_wired = ""
+backlight_empty = "🌑 "
+backlight_partial1 = "🌒 "
+backlight_partial2 = "🌓 "
+backlight_partial3 = "🌔 "
+backlight_full = "🌕 "
+
+# [[block]]
+# block = "networkmanager"
+# on_click = "alacritty -e nmtui"
+# interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
+# interface_name_include = []
+# ap_format = "{ssid} [{strength}%]"
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mup}%"
+format_swap = "{SUp}%"
+
+[[block]]
+block = "cpu"
+interval = 1
+format = "{barchart} {utilization}% {frequency}GHz"
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+# [[block]]
+# block = "temperature"
+# collapsed = false
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "time"
+interval = 1
+format = "%a %d.%m.%y %T KW%V"
+

@@ -1,6 +1,7 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
+set $mod Mod4
 set $term foot
 set $launcher foot --title launcher --app-id launcher
 # set $launcher alacritty --title launcher --class launcher -e
@@ -206,7 +207,7 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 bar {
     position bottom
     # status_command swaystatus
-    status_command i3status-rs $HOME/.config/i3status-rs/config.toml
+    status_command i3status-rs $HOME/.config/i3status-rs/$(hostname).toml
 }
 
 include /etc/sway/config.d/*
