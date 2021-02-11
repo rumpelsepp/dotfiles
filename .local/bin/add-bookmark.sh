@@ -41,6 +41,9 @@ process_url() {
 readarray -t lines
 
 for line in "${lines[@]}"; do
+    if [[ -z "$line" ]]; then
+        continue
+    fi
     process_url "$line"
 done
 

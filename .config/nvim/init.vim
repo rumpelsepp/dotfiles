@@ -20,7 +20,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'tpope/vim-fugitive'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'nvim-lua/completion-nvim'
 " Plug 'neovim/nvim-lsp'
 call plug#end()
 
@@ -68,14 +67,13 @@ let g:is_bash = 1
 set number
 
 " set termguicolors
-colorscheme ron
+colorscheme default
 highlight Search ctermbg=12
 highlight clear SignColumn
 highlight ColorColumn ctermbg=darkgrey
 highlight lineNr ctermfg=grey
 highlight Pmenu ctermbg=white ctermfg=black
 highlight PmenuSel ctermbg=black ctermfg=white
-"
 " highlight OverLength ctermbg=red ctermfg=white
 " match OverLength /\%81v.\+/
 
@@ -129,7 +127,6 @@ set shortmess+=c
 nmap <silent> <F5> <Plug>(ale_previous_wrap)
 nmap <silent> <F6> <Plug>(ale_next_wrap)
 nmap <F8> <Plug>(ale_fix)
-nmap <leader>af <Plug>(ale_fix)
 nmap K <Plug>(ale_hover)
 nmap gr <Plug>(ale_find_references)
 nmap gd <Plug>(ale_go_to_definition)
@@ -143,7 +140,6 @@ let g:ale_linters = {
 let g:ale_fixers = {
       \   'go': ['goimports'],
       \}
-      " \   'python': ['yapf'],
 " Avoid conflicts with flake8 linter
 let g:ale_python_pyls_config = {
     \ 'pyls': {
@@ -196,10 +192,6 @@ nnoremap <silent> <leader>b :Buffers<cr>
 map <silent> <leader>y "+y
 nnoremap <silent> <leader>p :call PasteWorkaround()<cr>
 nnoremap <silent> <leader>pt :call PasteFromTMUX()<cr>
-
-" vim-sandwich; use cl instead; it's the same.
-" nmap s <Nop>
-" xmap s <Nop>
 
 " Trash Ex mode.
 nnoremap Q <Nop>
