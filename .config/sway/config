@@ -41,6 +41,7 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
     bindsym $mod+grave workspace back_and_forth
     bindsym $mod+dead_circumflex workspace back_and_forth
     bindsym $mod+l exec loginctl lock-session
+    bindsym $mod+Shift+s exec systemctl suspend
     bindsym $mod+x [urgent="latest"] focus
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -205,7 +206,7 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 bar {
     position bottom
     # status_command swaystatus
-    status_command i3status-rs ~/.config/i3status-rs/config.toml
+    status_command i3status-rs $HOME/.config/i3status-rs/config.toml
 }
 
 include /etc/sway/config.d/*
