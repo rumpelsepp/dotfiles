@@ -1,9 +1,9 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $mod Mod4
-set $term systemd-cat -t alacritty alacritty
-set $launcher systemd-cat -t alacritty alacritty --title launcher --class launcher -e
+set $term foot
+set $launcher foot --title launcher --app-id launcher
+# set $launcher alacritty --title launcher --class launcher -e
 # set $term kitty
 # set $launcher kitty --title launcher
 
@@ -64,6 +64,8 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
     bindsym XF86MonBrightnessUp exec light -A 10
     bindsym XF86MonBrightnessDown exec light -U 10
+
+    # bindsym $mod+Shift+
 
 #
 # Moving around:
@@ -175,21 +177,21 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #
 # Applications:
 #
-    bindsym $mod+m exec systemd-cat -t nautilus nautilus
+    bindsym $mod+m exec systemd-cat -t thunar thunar
     # bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
     bindsym $mod+q exec systemd-cat -t firefox firefox
 
     # mako
-    bindsym $mod+n exec makoctl dismiss
-    bindsym $mod+Shift+n exec makoctl dismiss -a
+    bindsym $mod+n exec systemd-cat -t makoctl makoctl dismiss
+    bindsym $mod+Shift+n exec systemd-cat -t makoctl makoctl dismiss -a
 
-    bindsym $mod+Return exec $term
+    bindsym $mod+Return exec systemd-cat -t $term $term
     bindsym $mod+Shift+q kill
 
     # start your launcher
-    bindsym $mod+d exec $launcher sway-starter.sh
-    bindsym $mod+Shift+d exec $launcher sway-desktop-starter.sh
-    bindsym $mod+Tab exec $launcher sway-apps.sh
+    bindsym $mod+d exec systemd-cat -t $term $launcher sway-starter.sh
+    bindsym $mod+Shift+d exec systemd-cat -t $term $launcher sway-desktop-starter.sh
+    bindsym $mod+Tab exec systemd-cat -t $term $launcher sway-apps.sh
     for_window [title="^launcher$"] floating enable
 
     # screenshot

@@ -8,6 +8,7 @@ Plug 'dag/vim-fish'
 Plug 'dense-analysis/ale'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+" Plug 'rakr/vim-one'
 " Plug 'liuchengxu/space-vim-theme'
 " Plug 'lifepillar/vim-gruvbox8'
 " Plug 'KeitaNakamura/neodark.vim'
@@ -46,6 +47,7 @@ set undofile
 set smartindent
 set list
 " set listchars=tab:▸\ ,eol:¬,space:.
+set ignorecase
 set smartcase
 set mouse=a
 set inccommand=nosplit
@@ -66,13 +68,14 @@ let g:is_bash = 1
 set number
 
 " set termguicolors
+colorscheme ron
 highlight Search ctermbg=12
 highlight clear SignColumn
 highlight ColorColumn ctermbg=darkgrey
 highlight lineNr ctermfg=grey
 highlight Pmenu ctermbg=white ctermfg=black
 highlight PmenuSel ctermbg=black ctermfg=white
-
+"
 " highlight OverLength ctermbg=red ctermfg=white
 " match OverLength /\%81v.\+/
 
@@ -153,6 +156,7 @@ let g:ale_python_pyls_config = {
     \ }
 let g:ale_lint_on_text_changed = 0
 let g:ale_fix_on_save = 1
+let g:ale_floating_preview = 1
 
 " language specific
 let g:man_hardwrap = 1

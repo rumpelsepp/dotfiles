@@ -31,6 +31,13 @@ function __fish_set_oldpwd --on-variable dirprev
     set -g OLDPWD $dirprev[-1]
 end
 
+# Workaround for foot until terminfo is in upstream
+# ncurses like kitty and alacritty. Will eventually
+# happen but take some time.
+if echo "$TERM" | string match "foot" > /dev/null
+    alias ssh "TERM=xterm-256color command ssh"
+end
+
 alias pass "gopass"
 complete -c pass -w gopass
 alias ip "ip --color=auto"
@@ -42,3 +49,4 @@ complete -c hd -w hexdump
 alias o "gio open"
 alias m "make -j(nproc)"
 complete -c m -w make
+alias ip "ip --color=always"
