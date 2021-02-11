@@ -67,7 +67,12 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
     bindsym XF86MonBrightnessUp exec light -A 10
     bindsym XF86MonBrightnessDown exec light -U 10
 
-    # bindsym $mod+Shift+
+#
+# mpris foo
+#
+    bindsym $mod+Shift+greater playerctl next
+    bindsym $mod+Shift+less playerctl previous
+    bindsym $mod+Shift+p playerctl play-pause
 
 #
 # Moving around:
