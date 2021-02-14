@@ -2,9 +2,9 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-set $term foot
-set $launcher foot --title launcher --app-id launcher
-# set $launcher alacritty --title launcher --class launcher -e
+set $term alacritty
+# set $launcher foot --title launcher --app-id launcher
+set $launcher alacritty --title launcher --class launcher -e
 # set $term kitty
 # set $launcher kitty --title launcher
 
@@ -70,9 +70,14 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #
 # mpris foo
 #
-    bindsym $mod+Shift+greater playerctl next
-    bindsym $mod+Shift+less playerctl previous
-    bindsym $mod+Shift+p playerctl play-pause
+    bindsym $mod+Ctrl+greater exec playerctl -a next
+    bindsym $mod+Ctrl+less exec playerctl -a previous
+    bindsym $mod+Ctrl+p exec playerctl -a play-pause
+    bindsym $mod+Ctrl+XF86AudioRaiseVolume exec playerctl -a volume 0.05+
+    bindsym $mod+Ctrl+XF86AudioLowerVolume exec playerctl -a volume 0.05-
+# FIXME: doesn't work. Better keybindings needed.
+    bindsym $mod+Ctrl+Right exec playerctl -a position 5+
+    bindsym $mod+Ctrl+Left exec playerctl -a position 5-
 
 #
 # Moving around:
@@ -94,10 +99,13 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
     # Workspaces above 5 are dedicated to:
     #    5: Browser
+    #    6: mpv
     #    9: Wireshark
     #   10: Messages (email, chat, …)
     for_window [app_id="wireshark"] move container to workspace 9
     for_window [app_id="firefox"] move container to workspace 5
+    for_window [app_id="mpv"] move container to workspace 6
+    for_window [app_id="qutebrowser"] move container to workspace 5
     for_window [app_id="evolution"] move container to workspace 10
 
 #
@@ -185,8 +193,8 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # Applications:
 #
     bindsym $mod+m exec systemd-cat -t thunar thunar
-    # bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
-    bindsym $mod+q exec systemd-cat -t firefox firefox
+    bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
+    # bindsym $mod+q exec systemd-cat -t firefox firefox
 
     # mako
     bindsym $mod+n exec systemd-cat -t makoctl makoctl dismiss

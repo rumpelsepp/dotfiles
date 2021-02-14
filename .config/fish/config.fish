@@ -38,8 +38,6 @@ if echo "$TERM" | string match "foot" > /dev/null
     alias ssh "TERM=xterm-256color command ssh"
 end
 
-alias pass "gopass"
-complete -c pass -w gopass
 alias ip "ip --color=auto"
 alias now "date +%F_%T"
 alias now-raw "date +%Y%m%d%H%M"
@@ -49,4 +47,3 @@ complete -c hd -w hexdump
 alias o "gio open"
 alias m "make -j(nproc)"
 complete -c m -w make
-alias ip "ip --color=always"
