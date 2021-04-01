@@ -4,15 +4,20 @@ source /usr/share/doc/mutt/samples/colors.linux
 set realname = "Stefan Tatschner"
 set from = "stefan@rumpelsepp.org"
 alternates "stefan@sevenbyte.org" "rumpelsepp@sevenbyte.org" "stefan.tatschner@gmail.com" "stefan.tatschner@googlemail.com"
+set mbox_type=Maildir
+set folder=~/.local/share/mail/stefan@rumpelsepp.org
+set spoolfile=+/
+set header_cache=~/.cache/mutt
+
 set imap_user = "stefan@rumpelsepp.org"
-set imap_pass = `gopass show private/rumpelsepp-mail`
-set folder = "imaps://coruscant.sevenbyte.org:993"
+# set imap_pass = `gopass show private/rumpelsepp-mail`
+# set folder = "imaps://imap.mailbox.org:993"
 # set folder = "~/mail/stefan@rumpelsepp.org"
 
-mailboxes =INBOX
+mailboxes =INBOX =Sent =Trash
 
-set smtp_url = "smtp://$imap_user@coruscant.sevenbyte.org:587"
-set smtp_pass = `gopass show private/rumpelsepp-mail`
+set smtp_url = "smtp://$imap_user@smtp.mailbox.org:587"
+set smtp_pass = `pass show websites/mailbox.org/stefan@rumpelsepp.org`
 set ssl_starttls = yes
 
 set spoolfile = "+INBOX"
@@ -20,19 +25,18 @@ set postponed = "+Drafts"
 set record = "+Sent"
 set trash = "+Trash"
 
-set sidebar_visible = yes
+# set sidebar_visible = yes
 
 # Change the following line to a different editor you prefer.
 set editor = 'nvim + -c "set textwidth=72" -c "set wrap"'
 set edit_headers = yes
 
+set mailcap_path 	= "~/.config/mutt/mailcap"
+auto_view text/html
+alternative_order text/plain text/html
+
 set menu_scroll = yes
 
-# Basic config
-set imap_idle = yes
-set imap_check_subscribed = yes
-set imap_qresync = yes
-# unset imap_passive
 set beep_new = yes
 set pager_stop = yes
 

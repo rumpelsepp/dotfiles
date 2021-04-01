@@ -64,6 +64,7 @@ set signcolumn=yes
 let python_highlight_all = 1
 let g:tex_flavor = 'latex'
 let g:is_bash = 1
+let g:vimsyn_embed = 'lp'
 set number
 
 " set termguicolors
@@ -184,6 +185,7 @@ augroup END
 
 nnoremap <silent> k gk
 nnoremap <silent> j gj
+nnoremap <silent> Y y$
 nnoremap <silent> <Up> gk
 nnoremap <silent> <Down> gj
 nnoremap <silent> <leader>f :FZF<cr>

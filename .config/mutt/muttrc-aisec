@@ -1,0 +1,53 @@
+source /usr/share/doc/mutt/samples/gpg.rc
+source /usr/share/doc/mutt/samples/colors.linux
+
+set realname = "Stefan Tatschner"
+set from = "stefan.tatschner@aisec.fraunhofer.de"
+set mbox_type=Maildir
+set folder=~/.local/share/mail/stefan.tatschner@aisec.fraunhofer.de
+set spoolfile=+/
+set header_cache=~/.cache/mutt
+
+mailboxes =INBOX "=Sent Items" "=Deleted Items"
+
+set smtp_url = "smtp://$from@smtp.office365.com:587"
+set smtp_pass = `pass show aisec/email`
+set ssl_starttls = yes
+
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+unset record
+set trash = "+Deleted Items"
+
+# Change the following line to a different editor you prefer.
+set editor = 'nvim + -c "set textwidth=72" -c "set wrap"'
+set edit_headers = yes
+
+set mailcap_path = "~/.config/mutt/mailcap"
+auto_view text/html
+alternative_order text/plain text/html
+
+set menu_scroll = yes
+set beep_new = yes
+set pager_stop = yes
+
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+set pager_index_lines = 10
+hdr_order Date From To Cc
+alternative_order text/plain text/html *
+auto_view text/html
+
+bind editor ^T complete
+bind editor <Tab> complete-query
+bind editor <space> noop
+
+#bind pager <up> previous-line
+#bind pager <down> next-line
+
+macro index a '<save-message>=Archive<enter>y'
+
+set header_color_partial
+# color header bold green default '^.+?:'

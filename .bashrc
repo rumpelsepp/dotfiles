@@ -26,3 +26,5 @@ HISTCONTROL="ignoreboth"
 HISTTIMEFORMAT="[%F %T] "
 HISTIGNORE='ls:bg:fg:history:htop'
 
+
+source /home/rumpelsepp/.config/broot/launcher/bash/br
