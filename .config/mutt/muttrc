@@ -8,13 +8,16 @@ set mbox_type=Maildir
 set folder=~/.local/share/mail/stefan@rumpelsepp.org
 set spoolfile=+/
 set header_cache=~/.cache/mutt
+set message_cachedir=~/.cache/mutt
 
 set imap_user = "stefan@rumpelsepp.org"
-# set imap_pass = `gopass show private/rumpelsepp-mail`
+set imap_pass = `pass show websites/mailbox.org/stefan@rumpelsepp.org`
+# set imap_deflate = yes
+# set imap_idle = yes
+# unset imap_passive
 # set folder = "imaps://imap.mailbox.org:993"
-# set folder = "~/mail/stefan@rumpelsepp.org"
 
-mailboxes =INBOX =Sent =Trash
+mailboxes =INBOX
 
 set smtp_url = "smtp://$imap_user@smtp.mailbox.org:587"
 set smtp_pass = `pass show websites/mailbox.org/stefan@rumpelsepp.org`

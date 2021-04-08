@@ -7,6 +7,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'dag/vim-fish'
 Plug 'dense-analysis/ale'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'challenger-deep-theme/vim'
 
 " Plug 'rakr/vim-one'
 " Plug 'liuchengxu/space-vim-theme'
@@ -32,7 +33,6 @@ let g:loaded_rrhelper          = 1
 " let g:loaded_spellfile_plugin  = 1
 " let g:loaded_tarPlugin         = 1
 " let g:loaded_zipPlugin         = 1
-let g:loaded_matchit           = 1
 let g:loaded_tutor_mode_plugin = 1
 
 " settings
