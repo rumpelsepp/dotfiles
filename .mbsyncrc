@@ -1,0 +1,50 @@
+IMAPAccount stefan@rumpelsepp.org
+Host imap.mailbox.org
+User stefan@rumpelsepp.org
+PassCmd "pass show websites/mailbox.org/stefan@rumpelsepp.org"
+SSLType IMAPS
+# DisableExtension COMPRESS=DEFLATE
+#PipelineDepth 12
+Timeout 60
+
+IMAPStore stefan@rumpelsepp.org-remote
+Account stefan@rumpelsepp.org
+
+MaildirStore stefan@rumpelsepp.org-local
+Path ~/.local/share/mail/stefan@rumpelsepp.org/
+Inbox ~/.local/share/mail/stefan@rumpelsepp.org/INBOX
+SubFolders Verbatim
+#AltMap yes
+
+Channel private
+Far :stefan@rumpelsepp.org-remote:
+Near :stefan@rumpelsepp.org-local:
+Pattern *
+Create Both
+Expunge Both
+SyncState *
+
+IMAPAccount stefan.tatschner@aisec.fraunhofer.de
+Host outlook.office365.com
+User stefan.tatschner@aisec.fraunhofer.de
+PassCmd "pass show aisec/email"
+SSLType IMAPS
+# DisableExtension COMPRESS=DEFLATE
+PipelineDepth 1
+
+IMAPStore stefan.tatschner@aisec.fraunhofer.de-remote
+Account stefan.tatschner@aisec.fraunhofer.de
+
+MaildirStore stefan.tatschner@aisec.fraunhofer.de-local
+Path ~/.local/share/mail/stefan.tatschner@aisec.fraunhofer.de/
+Inbox ~/.local/share/mail/stefan.tatschner@aisec.fraunhofer.de/INBOX
+SubFolders Verbatim
+#AltMap yes
+
+Channel work
+Far :stefan.tatschner@aisec.fraunhofer.de-remote:
+Near :stefan.tatschner@aisec.fraunhofer.de-local:
+Pattern *
+Create Both
+Expunge Both
+SyncState *
