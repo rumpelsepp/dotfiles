@@ -1,6 +1,6 @@
 conf_home() {
     configure_output "$(get_output_by_serial 24KBZ13)" "3840x2160" "0" "0" "2"
-    configure_output "$(get_output_by_serial 0x00000000)" "2560x1440" "1920" "0" "1.3"
+    configure_output "$(get_output_by_serial 0x00000000)" "2560x1440" "1920" "0" "1.5"
 }
 
 conf_laptop() {

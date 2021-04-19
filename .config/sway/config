@@ -2,16 +2,17 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-set $term alacritty
-# set $launcher foot --title launcher --app-id launcher
-set $launcher alacritty --title launcher --class launcher -e
-# set $term kitty
-# set $launcher kitty --title launcher
+set $term_prog foot
+set $term_args --log-level warning
+set $launcher_prog foot
+set $launcher_args --log-level warning --title launcher --app-id launcher
+# set $launcher alacritty --title launcher --class launcher -e
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * background ~/Pictures/wallpaper.jpg fill
 
 ### Idle configuration
 
@@ -20,7 +21,7 @@ exec systemd-cat -t swayidle swayidle \
     before-sleep 'lock.sh' \
     idlehint 300
 
-exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 ### Input configuration
 
@@ -72,12 +73,12 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #
     bindsym $mod+Ctrl+greater exec playerctl -a next
     bindsym $mod+Ctrl+less exec playerctl -a previous
-    bindsym $mod+Ctrl+p exec playerctl -a play-pause
+    bindsym $mod+Ctrl+Space exec playerctl -a play-pause
     bindsym $mod+Ctrl+XF86AudioRaiseVolume exec playerctl -a volume 0.05+
     bindsym $mod+Ctrl+XF86AudioLowerVolume exec playerctl -a volume 0.05-
 # FIXME: doesn't work. Better keybindings needed.
-    bindsym $mod+Ctrl+Right exec playerctl -a position 5+
-    bindsym $mod+Ctrl+Left exec playerctl -a position 5-
+    # bindsym $mod+Ctrl+Right exec playerctl -a position 5+
+    # bindsym $mod+Ctrl+Left exec playerctl -a position 5-
 
 #
 # Moving around:
@@ -200,13 +201,13 @@ exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
     bindsym $mod+n exec systemd-cat -t makoctl makoctl dismiss
     bindsym $mod+Shift+n exec systemd-cat -t makoctl makoctl dismiss -a
 
-    bindsym $mod+Return exec systemd-cat -t $term $term
+    bindsym $mod+Return exec systemd-cat -t $term_prog $term_prog $term_args
     bindsym $mod+Shift+q kill
 
     # start your launcher
-    bindsym $mod+d exec systemd-cat -t $term $launcher sway-starter.sh
-    bindsym $mod+Shift+d exec systemd-cat -t $term $launcher sway-desktop-starter.sh
-    bindsym $mod+Tab exec systemd-cat -t $term $launcher sway-apps.sh
+    bindsym $mod+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-starter.sh
+    bindsym $mod+Shift+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-desktop-starter.sh
+    bindsym $mod+Tab exec systemd-cat -t $laucher_prog $launcher_args sway-apps.sh
     for_window [title="^launcher$"] floating enable
 
     # screenshot
