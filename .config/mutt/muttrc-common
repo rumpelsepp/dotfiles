@@ -1,0 +1,60 @@
+source /usr/share/doc/mutt/samples/gpg.rc
+
+color hdrdefault color117 black
+color quoted color246 black
+color signature white black
+color attachment yellow black
+color prompt white black
+color message white black
+color error brightred black
+color indicator black white
+color status white blue
+color tree white black
+color normal white black
+color markers red black
+color search white black
+color tilde brightmagenta black
+color index bold white black ~F
+color index yellow black "~N|~O"
+
+set header_cache=~/.cache/mutt
+set message_cachedir=~/.cache/mutt
+
+# set sidebar_visible = yes
+#
+# Change the following line to a different editor you prefer.
+set editor = 'nvim + -c "set textwidth=72" -c "set wrap"'
+set edit_headers = yes
+
+set mailcap_path = "~/.config/mutt/mailcap"
+auto_view text/html
+alternative_order text/plain text/html *
+
+set menu_scroll = yes
+
+set beep_new = yes
+set pager_stop = yes
+
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+set pager_index_lines = 10
+hdr_order Date From To Cc
+
+bind editor ^T complete
+bind editor <Tab> complete-query
+bind editor <space> noop
+
+#bind pager <up> previous-line
+#bind pager <down> next-line
+
+macro index a '<save-message>=Archive<enter>y'
+set pipe_decode=yes
+macro index \cu <pipe-entry>'xurls'<enter> 'Follow links with urlview'
+macro pager \cu <pipe-entry>'xurls'<enter> 'Follow links with urlview'
+
+# set header_color_partial
+# color header bold green default '^.+?:'
+
+set index_format='%4C %Z %{%b %d %R} %-35.35L %s'
