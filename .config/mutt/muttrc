@@ -1,14 +1,13 @@
 source /usr/share/doc/mutt/samples/gpg.rc
 source /usr/share/doc/mutt/samples/colors.linux
+source ~/.config/mutt/muttrc-common
 
 set realname = "Stefan Tatschner"
 set from = "stefan@rumpelsepp.org"
 alternates "stefan@sevenbyte.org" "rumpelsepp@sevenbyte.org" "stefan.tatschner@gmail.com" "stefan.tatschner@googlemail.com"
 set mbox_type=Maildir
+
 set folder=~/.local/share/mail/stefan@rumpelsepp.org
-set spoolfile=+/
-set header_cache=~/.cache/mutt
-set message_cachedir=~/.cache/mutt
 
 set imap_user = "stefan@rumpelsepp.org"
 set imap_pass = `pass show websites/mailbox.org/stefan@rumpelsepp.org`
@@ -27,40 +26,3 @@ set spoolfile = "+INBOX"
 set postponed = "+Drafts"
 set record = "+Sent"
 set trash = "+Trash"
-
-# set sidebar_visible = yes
-
-# Change the following line to a different editor you prefer.
-set editor = 'nvim + -c "set textwidth=72" -c "set wrap"'
-set edit_headers = yes
-
-set mailcap_path 	= "~/.config/mutt/mailcap"
-auto_view text/html
-alternative_order text/plain text/html
-
-set menu_scroll = yes
-
-set beep_new = yes
-set pager_stop = yes
-
-set include
-set sort = 'threads'
-set sort_aux = 'reverse-last-date-received'
-set auto_tag = yes
-set pager_index_lines = 10
-hdr_order Date From To Cc
-alternative_order text/plain text/html *
-auto_view text/html
-
-bind editor ^T complete
-bind editor <Tab> complete-query
-bind editor <space> noop
-
-#bind pager <up> previous-line
-#bind pager <down> next-line
-
-macro index a '<save-message>=Archive<enter>y'
-
-set header_color_partial
-# color header bold green default '^.+?:'
-

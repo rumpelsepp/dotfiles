@@ -37,10 +37,6 @@ fi
 if [[ "$(tty)" == "/dev/tty1" ]]; then
     eval "$(gnome-keyring-daemon --start)"
     export SSH_AUTH_SOCK
-    systemctl --user import-environment
-    systemctl --user start graphical-session.target
-    # https://github.com/systemd/systemd/issues/14489
-    # export XDG_SESSION_TYPE=wayland
     exec systemd-cat -t sway sway
 fi
 

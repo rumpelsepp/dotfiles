@@ -39,5 +39,6 @@ config.bind('<Ctrl-right>', 'tab-next')
 config.bind('<Ctrl-left>', 'tab-prev')
 config.bind('<Ctrl-Shift-right>', 'tab-move +')
 config.bind('<Ctrl-Shift-left>', 'tab-move -')
+
 config.bind(',m', 'spawn mpv {url}')
 config.bind(',M', 'hint links spawn mpv {hint-url}')

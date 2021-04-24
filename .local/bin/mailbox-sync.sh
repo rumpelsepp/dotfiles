@@ -1,16 +1,13 @@
 #!/bin/bash
 
-set -eu
+set -u
 
-if [[ "$(nmcli network connectivity)" != "full" ]]; then
-    exit 1
-fi
-
-if [[ "$1" == "-l" ]]; then
-    while true; do
-        mbsync -a
+while true; do
+    if [[ "$(nmcli network connectivity)" != "full" ]]; then
         sleep 5m
-    done
-else
-    mbsync -a
-fi
+        continue
+    fi
+
+    mbsync -aq
+    sleep 5m
+done

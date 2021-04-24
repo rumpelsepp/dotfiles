@@ -207,7 +207,7 @@ exec systemd-cat -t swayidle swayidle \
     # start your launcher
     bindsym $mod+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-starter.sh
     bindsym $mod+Shift+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-desktop-starter.sh
-    bindsym $mod+Tab exec systemd-cat -t $laucher_prog $launcher_args sway-apps.sh
+    bindsym $mod+Tab exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-apps.sh
     for_window [title="^launcher$"] floating enable
 
     # screenshot
