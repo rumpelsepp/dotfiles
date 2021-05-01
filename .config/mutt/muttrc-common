@@ -57,4 +57,4 @@ macro pager \cu <pipe-entry>'xurls'<enter> 'Follow links with urlview'
 # set header_color_partial
 # color header bold green default '^.+?:'
 
-set index_format='%4C %Z %{%b %d %R} %-35.35L %s'
+set index_format='%4C %Z %-18{%d.%m.%Y %R} %-35.35L %s'

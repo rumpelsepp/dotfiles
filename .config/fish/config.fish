@@ -18,6 +18,9 @@ end
 function fish_mode_prompt
 end
 
+function fish_command_not_found
+end
+
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
