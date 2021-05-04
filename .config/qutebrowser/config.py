@@ -15,7 +15,7 @@ c.scrolling.bar = 'always'
 c.hints.chars = 'uiaeosnrtdy'
 c.editor.command = [
     'foot',
-    '--log-level warning',
+    '--log-level', 'warning',
     'nvim',
     '-f', '{file}',
     '-c', 'normal {line}G{column0}l',

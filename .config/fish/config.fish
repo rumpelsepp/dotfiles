@@ -48,5 +48,6 @@ alias today "date +%F"
 alias hd "hexdump -C"
 complete -c hd -w hexdump
 alias o "gio open"
-alias m "make -j(nproc)"
-complete -c m -w make
+complete -c o -w "gio open"
+alias t "task"
+complete -c t -w task
