@@ -4,7 +4,7 @@ conf_home() {
 }
 
 conf_laptop() {
-    configure_output "$(get_output_by_serial 0x00000000)" "2560x1440" "0" "0" "1.4"
+    configure_output "$(get_output_by_serial 0x00000000)" "2560x1440" "0" "0" "1.3"
 }
 
 conf_aisec_buero() {
