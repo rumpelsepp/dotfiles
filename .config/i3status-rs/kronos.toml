@@ -62,6 +62,6 @@ block = "sound"
 
 [[block]]
 block = "time"
-format = "KW%V: %a %d.%m.%y; %R"
+format = "KW%V: %a %d.%m.%y %R"
 locale = "de_DE"
 
