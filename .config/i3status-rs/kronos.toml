@@ -50,7 +50,7 @@ format = "{barchart} {utilization} {frequency}"
 [[block]]
 block = "battery"
 driver = "upower"
-format = "{percentage}% {time}"
+format = "{percentage} {time}"
 
 [[block]]
 block = "backlight"

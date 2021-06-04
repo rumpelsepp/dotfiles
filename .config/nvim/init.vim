@@ -4,10 +4,16 @@ Plug 'tomtom/tcomment_vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+
+" " dependencies
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" " telescope
+" Plug 'nvim-telescope/telescope.nvim'
+
 Plug 'dag/vim-fish'
 Plug 'dense-analysis/ale'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'challenger-deep-theme/vim'
 
 " Plug 'rakr/vim-one'
 " Plug 'liuchengxu/space-vim-theme'
@@ -21,8 +27,9 @@ Plug 'challenger-deep-theme/vim'
 " Plug 'tpope/vim-fugitive'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'neovim/nvim-lsp'
+" Plug 'neovim/nvim-lspconfig'
 call plug#end()
+
 
 " Disable built-in plugins
 let g:loaded_2html_plugin      = 1
@@ -86,6 +93,8 @@ highlight PmenuSel ctermbg=black ctermfg=white
 "     require'nvim_lsp'.bashls.setup{}
 " EOF
 lua <<EOF
+-- require'lspconfig'.gopls.setup{}
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {

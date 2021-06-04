@@ -43,7 +43,6 @@ exec systemd-cat -t swayidle swayidle \
     bindsym $mod+grave workspace back_and_forth
     bindsym $mod+dead_circumflex workspace back_and_forth
     bindsym $mod+l exec loginctl lock-session
-    bindsym $mod+Shift+s exec systemctl suspend
     bindsym $mod+x [urgent="latest"] focus
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -60,7 +59,6 @@ exec systemd-cat -t swayidle swayidle \
 #
 # Media Keys
 #
-
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -198,9 +196,10 @@ exec systemd-cat -t swayidle swayidle \
     # bindsym $mod+q exec systemd-cat -t firefox firefox
 
     # mako
-    bindsym $mod+n exec systemd-cat -t makoctl makoctl dismiss
-    bindsym $mod+Shift+n exec systemd-cat -t makoctl makoctl dismiss -a
+    bindsym $mod+n exec systemd-cat -t dunstctl dunstctl close
+    bindsym $mod+Shift+n exec systemd-cat -t dunstctl dunstctl close-all
 
+    # terminal
     bindsym $mod+Return exec systemd-cat -t $term_prog $term_prog $term_args
     bindsym $mod+Shift+q kill
 
