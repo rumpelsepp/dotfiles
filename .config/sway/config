@@ -66,12 +66,15 @@ exec systemd-cat -t swayidle swayidle \
     bindsym XF86MonBrightnessUp exec light -A 10
     bindsym XF86MonBrightnessDown exec light -U 10
 
-#
-# mpris foo
-#
-    bindsym $mod+Ctrl+greater exec playerctl -a next
-    bindsym $mod+Ctrl+less exec playerctl -a previous
-    bindsym $mod+Ctrl+Space exec playerctl -a play-pause
+    bindsym XF86AudioPlay exec playerctl -a play-pause
+    bindsym XF86AudioStop exec playerctl -a stop
+    bindsym XF86AudioNext exec playerctl -a next
+    bindsym XF86AudioPrev exec playerctl -a previous
+
+    bindsym Pause exec playerctl -a play-pause
+    bindsym $mod+Next exec playerctl -a next
+    bindsym $mod+Prior exec playerctl -a previous
+
     bindsym $mod+Ctrl+XF86AudioRaiseVolume exec playerctl -a volume 0.05+
     bindsym $mod+Ctrl+XF86AudioLowerVolume exec playerctl -a volume 0.05-
 # FIXME: doesn't work. Better keybindings needed.
@@ -192,8 +195,8 @@ exec systemd-cat -t swayidle swayidle \
 # Applications:
 #
     bindsym $mod+m exec systemd-cat -t thunar thunar
-    bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
-    # bindsym $mod+q exec systemd-cat -t firefox firefox
+    # bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
+    bindsym $mod+q exec systemd-cat -t firefox firefox
 
     # mako
     bindsym $mod+n exec systemd-cat -t dunstctl dunstctl close
