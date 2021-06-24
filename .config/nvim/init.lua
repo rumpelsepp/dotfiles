@@ -1,19 +1,24 @@
--- TODO: Migrate to packer.
-require 'paq-nvim' {
-    'savq/paq-nvim';                  -- Let Paq manage itself
+-- Bootstrap packer.
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd('packadd packer.nvim')
+end
 
-    'tomtom/tcomment_vim';
-    'airblade/vim-gitgutter';
+require('packer').startup(function()
+    use 'wbthomason/packer.nvim'
+    use 'tomtom/tcomment_vim'
+    use {
+        'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
+        config = function() require('gitsigns').setup() end
+    }
+    use { 'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' }}
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-    'nvim-lua/popup.nvim';
-    'nvim-lua/plenary.nvim';
-    'nvim-telescope/telescope.nvim';
-
-    'hrsh7th/nvim-compe';
-    'dag/vim-fish';
-    'nvim-treesitter/nvim-treesitter';
-    'neovim/nvim-lspconfig';
-}
+    use 'hrsh7th/nvim-compe'
+    use 'dag/vim-fish'
+    use 'neovim/nvim-lspconfig'
+end)
 
 -- Theme
 -- vim.cmd("colorscheme default")
@@ -62,9 +67,9 @@ vim.opt.linebreak = true
 vim.opt.signcolumn = "yes"
 vim.opt.completeopt = { "menuone", "noselect" }
 
-if vim.fn["executable('rg')"] then
+if vim.fn.executable('rg') then
     vim.opt.grepprg = "rg --vimgrep --no-heading"
-    vim.opt.grepformat="%f:%l:%c:%m,%f:%l:%m"
+    vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
 -- set listchars=tab:▸\ ,eol:¬,space:.
@@ -87,7 +92,7 @@ vim.api.nvim_set_keymap("n", "<Down>", "gj", options)
 
 vim.api.nvim_set_keymap("n", "Y", "y$", options)
 vim.api.nvim_set_keymap("", "<leader>y", '"+y', { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>p", '"+p', options)
+vim.api.nvim_set_keymap("n", "<leader>p", '"+P', options)
 
 -- Trash Ex mode.
 vim.api.nvim_set_keymap("n", "Q", "<Nop>", options)
@@ -110,44 +115,49 @@ local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
   --Enable completion triggered by <c-x><c-o>
-  vim.api.buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap = true, silent = true }
+  local opts = { noremap=true, silent=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.api.buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  vim.api.buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  vim.api.buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  vim.api.buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  vim.api.buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<F5>', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', '<F6>', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { "gopls", "pylsp", "bashls" }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+    nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    -- delay update diagnostics
-    update_in_insert = false,
-  }
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- delay update diagnostics
+        update_in_insert = false,
+    }
 )
 
 -- TODO: Add lazy loading
@@ -161,7 +171,7 @@ nvim_lsp.efm.setup{
               {
                       lintCommand = 'shellcheck -f gcc -x',
                       lintSource = 'shellcheck',
-                      lintFormats= {'%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'}
+                      lintFormats = {'%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'}
               }
             }
         }
@@ -182,26 +192,26 @@ require'compe'.setup {
 
 -- https://github.com/norcalli/nvim_utils/blob/master/lua/nvim_utils.lua#L554-L56h
 function nvim_create_augroups(definitions)
-	for group_name, definition in pairs(definitions) do
-		vim.api.nvim_command('augroup '..group_name)
-		vim.api.nvim_command('autocmd!')
-		for _, def in ipairs(definition) do
-			local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
-			vim.api.nvim_command(command)
-		end
-		vim.api.nvim_command('augroup END')
-	end
+    for group_name, definition in pairs(definitions) do
+        vim.api.nvim_command('augroup '..group_name)
+        vim.api.nvim_command('autocmd!')
+        for _, def in ipairs(definition) do
+            local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
+            vim.api.nvim_command(command)
+        end
+        vim.api.nvim_command('augroup END')
+    end
 end
 
 local autocmds = {
-	filetypes = {
-		{"FileType",     "c",   "setlocal ts=8 noexpandtab"};
-		{"FileType",     "go",  "setlocal ts=4 noexpandtab"};
+    filetypes = {
+        {"FileType", "c",  "setlocal ts=8 noexpandtab"};
+        {"FileType", "go", "setlocal ts=4 noexpandtab"};
     };
     convenience = {
-		{"TextYankPost", "*",   "silent! lue require'vim.highlight'.on_yank()"};
-		{"BufReadPost",  "*",   [[if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif]]};
-	};
+        {"TextYankPost", "*", "silent! lue require'vim.highlight'.on_yank()"};
+        {"BufReadPost",  "*", [[if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif]]};
+    };
 }
 
 nvim_create_augroups(autocmds)
