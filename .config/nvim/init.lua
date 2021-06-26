@@ -33,11 +33,11 @@ vim.cmd("highlight PmenuSel ctermbg=black ctermfg=white")
 
 -- Settings
 -- Disable built-in plugins
-vim.g.loaded_2html_plugin = true
-vim.g.loaded_matchparen = true
+-- vim.g.loaded_2html_plugin = true
+-- vim.g.loaded_matchparen = true
 vim.g.loaded_netrwPlugin = true
-vim.g.loaded_rrhelper = true
-vim.g.loaded_tutor_mode_plugin = true
+-- vim.g.loaded_rrhelper = true
+-- vim.g.loaded_tutor_mode_plugin = true
 -- let g:loaded_gzip              = 1
 -- let g:loaded_spellfile_plugin  = 1
 -- let g:loaded_tarPlugin         = 1
