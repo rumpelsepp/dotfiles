@@ -18,9 +18,12 @@ require('packer').startup(function()
     use 'hrsh7th/nvim-compe'
     use 'dag/vim-fish'
     use 'neovim/nvim-lspconfig'
+    -- use 'folke/tokyonight.nvim'
 end)
 
 -- Theme
+-- vim.g.tokyonight_style = "night"
+-- vim.cmd[[colorscheme tokyonight]]
 -- vim.cmd("colorscheme default")
 vim.cmd("highlight Search ctermbg=12")
 vim.cmd("highlight clear SignColumn")
@@ -209,7 +212,7 @@ local autocmds = {
         {"FileType", "go", "setlocal ts=4 noexpandtab"};
     };
     convenience = {
-        {"TextYankPost", "*", "silent! lue require'vim.highlight'.on_yank()"};
+        {"TextYankPost", "*", "silent! lua require'vim.highlight'.on_yank()"};
         {"BufReadPost",  "*", [[if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif]]};
     };
 }

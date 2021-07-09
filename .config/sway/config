@@ -199,8 +199,8 @@ exec systemd-cat -t swayidle swayidle \
     bindsym $mod+q exec systemd-cat -t firefox firefox
 
     # mako
-    bindsym $mod+n exec systemd-cat -t dunstctl dunstctl close
-    bindsym $mod+Shift+n exec systemd-cat -t dunstctl dunstctl close-all
+    bindsym $mod+n exec systemd-cat -t makoctl makoctl dismiss
+    bindsym $mod+Shift+n exec systemd-cat -t makoctl makoctl dismiss -a
 
     # terminal
     bindsym $mod+Return exec systemd-cat -t $term_prog $term_prog $term_args
