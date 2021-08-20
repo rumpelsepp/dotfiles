@@ -37,6 +37,7 @@ fi
 if [[ "$(tty)" == "/dev/tty1" ]]; then
     eval "$(gnome-keyring-daemon --start)"
     export SSH_AUTH_SOCK
+    export WLR_NO_HARDWARE_CURSORS=1
     exec systemd-cat -t sway sway
 fi
 

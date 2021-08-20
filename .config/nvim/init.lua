@@ -22,8 +22,6 @@ require('packer').startup(function()
 end)
 
 -- Theme
--- vim.g.tokyonight_style = "night"
--- vim.cmd[[colorscheme tokyonight]]
 -- vim.cmd("colorscheme default")
 vim.cmd("highlight Search ctermbg=12")
 vim.cmd("highlight clear SignColumn")
@@ -47,45 +45,46 @@ vim.g.loaded_netrwPlugin = true
 -- let g:loaded_zipPlugin         = 1
 
 vim.opt.autowrite = true
-vim.opt.number = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 0
-vim.opt.scrolloff = 3
-vim.opt.sidescroll = 3
+vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.expandtab = true
-vim.opt.undofile = true
-vim.opt.smartindent = true
-vim.opt.list = true
 vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.mouse = "a"
 vim.opt.inccommand = "nosplit"
+vim.opt.linebreak = true
+vim.opt.list = true
+vim.opt.magic = true
+vim.opt.mouse = "a"
+vim.opt.number = true
 vim.opt.redrawtime = 200
+vim.opt.scrolloff = 3
+vim.opt.secure = true
+vim.opt.shiftwidth = 0
+vim.opt.showmatch = true
+vim.opt.sidescroll = 3
+vim.opt.signcolumn = "yes"
+vim.opt.smartcase = true
+vim.opt.smartindent = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.secure = true
-vim.opt.magic = true
-vim.opt.showmatch = true
-vim.opt.linebreak = true
-vim.opt.signcolumn = "yes"
-vim.opt.completeopt = { "menuone", "noselect" }
+vim.opt.tabstop = 4
+vim.opt.undofile = true
 
 if vim.fn.executable('rg') then
     vim.opt.grepprg = "rg --vimgrep --no-heading"
     vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
--- set listchars=tab:▸\ ,eol:¬,space:.
+-- vim.opt.listchars ="tab:▸ ,eol:¬,lead:·"
+vim.opt.listchars ="tab:▸ ,lead:·"
+vim.opt.listchars ="tab:» ,lead:·"
 -- set wrapmargin=2
 
+-- language specific
 vim.g.python_highlight_all = true
 vim.g.tex_flavor = 'latex'
 vim.g.is_bash = true
-vim.g.vimsyn_embed = 'lp'
-
--- language specific
 vim.g.man_hardwrap = true
 vim.g.cinoptions = "l1"
+vim.g.vimsyn_embed = 'lp'
 
 local options = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "k", "gk", options)
@@ -93,20 +92,17 @@ vim.api.nvim_set_keymap("n", "j", "gj", options)
 vim.api.nvim_set_keymap("n", "<Up>", "gk", options)
 vim.api.nvim_set_keymap("n", "<Down>", "gj", options)
 
-vim.api.nvim_set_keymap("n", "Y", "y$", options)
 vim.api.nvim_set_keymap("", "<leader>y", '"+y', { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>p", '"+P', options)
-
--- Trash Ex mode.
-vim.api.nvim_set_keymap("n", "Q", "<Nop>", options)
--- TODO: to be the default int the future
-vim.api.nvim_set_keymap("n", "<C-L>", ":nohlsearch<CR>", options)
 
 -- Telescope mappings.
 vim.api.nvim_set_keymap("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
+
+vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm({ 'keys': '<CR>', 'select': v:true })", { expr = true })
+
 
 -- Treesitter
 local ts = require'nvim-treesitter.configs'
@@ -185,12 +181,13 @@ require'compe'.setup {
     source = {
         path = true;
         buffer = true;
-        calc = true;
         nvim_lsp = true;
         nvim_lua = true;
-        vsnip = true;
-        emoji = true;
-    };
+        -- calc = true;
+        -- vsnip = true;
+        -- emoji = true;
+    },
+    preselect = "disable",
 }
 
 -- https://github.com/norcalli/nvim_utils/blob/master/lua/nvim_utils.lua#L554-L56h
@@ -210,6 +207,7 @@ local autocmds = {
     filetypes = {
         {"FileType", "c",  "setlocal ts=8 noexpandtab"};
         {"FileType", "go", "setlocal ts=4 noexpandtab"};
+        {"FileType", "go", "nnoremap <buffer> <space><space>f m' :silent %!goimports<CR>`'zz"};
     };
     convenience = {
         {"TextYankPost", "*", "silent! lua require'vim.highlight'.on_yank()"};
