@@ -12,7 +12,7 @@ cleanup() {
     wait
 }
 
-swayidle timeout 10 'swaymsg "output * dpms off"' \
+swayidle -C /dev/null timeout 10 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' &
 
 # Be sure to kill swayidle.
