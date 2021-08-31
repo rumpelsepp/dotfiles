@@ -1,6 +1,7 @@
 #
 # ~/.bash_profile
 #
+# shellcheck shell=bash
 
 export SHELL="/usr/bin/fish"
 export EDITOR="nvim"
@@ -38,6 +39,7 @@ if [[ "$(tty)" == "/dev/tty1" ]]; then
     eval "$(gnome-keyring-daemon --start)"
     export SSH_AUTH_SOCK
     export WLR_NO_HARDWARE_CURSORS=1
+    systemctl --user import-environment XDG_CURRENT_DESKTOP
     exec systemd-cat -t sway sway
 fi
 
