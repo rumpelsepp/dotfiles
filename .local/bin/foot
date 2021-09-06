@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Script to adjust the fontsize across my machines.
+
+args=()
+
+case "$(hostname)" in
+    alderaan)
+        args+=("-o" "font=Hack:size=11")
+esac
+
+exec /usr/bin/foot "${args[@]}" "$@"
