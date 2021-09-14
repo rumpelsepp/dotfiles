@@ -39,6 +39,7 @@ exec systemd-cat -t swayidle swayidle
     bindsym $mod+grave workspace back_and_forth
     bindsym $mod+dead_circumflex workspace back_and_forth
     bindsym $mod+l exec loginctl lock-session
+    bindsym $mod+Shift+l exec systemctl suspend
     bindsym $mod+x [urgent="latest"] focus
 
     # Drag floating windows by holding down $mod and left mouse button.

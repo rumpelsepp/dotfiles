@@ -12,10 +12,14 @@ cleanup() {
     wait
 }
 
-swayidle -C /dev/null timeout 10 'swaymsg "output * dpms off"' \
-         resume 'swaymsg "output * dpms on"' &
+swayidle -C /dev/null \
+    timeout 10 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' &
 
 # Be sure to kill swayidle.
 trap 'cleanup' SIGINT SIGTERM QUIT EXIT
+
+# Stop running music. :)
+playerctl pause || true
 
 swaylock

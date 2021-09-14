@@ -44,6 +44,7 @@ vim.g.loaded_netrwPlugin = true
 -- let g:loaded_tarPlugin         = 1
 -- let g:loaded_zipPlugin         = 1
 
+-- vim.opt.termguicolors = true
 vim.opt.autowrite = true
 vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.expandtab = true
