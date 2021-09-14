@@ -1,12 +1,29 @@
 #!/bin/bash
 
+set -eu
+
 # Script to adjust the fontsize across my machines.
+
+current_monitor() {
+    swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) | .serial'
+}
 
 args=()
 
 case "$(hostname)" in
     alderaan)
         args+=("-o" "font=Hack:size=11")
+        ;;
+
+    kronos)
+        monitor="$(current_monitor)"
+        case "$monitor" in
+            # Dell Monitor @AISEC Büro.
+            59DJP189BW8L)
+                args+=("-o" "font=Hack:size=10.5")
+                ;;
+        esac
+        ;;
 esac
 
 exec /usr/bin/foot "${args[@]}" "$@"

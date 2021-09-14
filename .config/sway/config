@@ -49,8 +49,6 @@ exec systemd-cat -t swayidle swayidle
     floating_modifier $mod normal
 
     bindsym $mod+Shift+c reload
-    # exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 #
 # Media Keys
@@ -103,7 +101,6 @@ exec systemd-cat -t swayidle swayidle
     for_window [app_id="wireshark"] move container to workspace 9
     for_window [app_id="firefox"] move container to workspace 5
     for_window [app_id="mpv"] move container to workspace 6
-    for_window [app_id="qutebrowser"] move container to workspace 5
     for_window [app_id="evolution"] move container to workspace 10
 
 #
@@ -191,7 +188,6 @@ exec systemd-cat -t swayidle swayidle
 # Applications:
 #
     bindsym $mod+m exec systemd-cat -t thunar thunar
-    # bindsym $mod+q exec systemd-cat -t qutebrowser qutebrowser
     bindsym $mod+q exec systemd-cat -t firefox firefox
 
     # mako

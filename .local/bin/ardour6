@@ -1,3 +1,4 @@
 #!/bin/bash
 
-PIPEWIRE_LATENCY="64/48000" exec pw-jack /usr/bin/ardour6 "$@"
+GDK_BACKEND=wayland PIPEWIRE_LATENCY="64/48000" exec pw-jack /usr/bin/ardour6 "$@"
+
