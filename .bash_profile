@@ -30,13 +30,17 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
 # export SSH_AUTH_SOCK="/run/user/$UID/keyring/ssh"
 
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+
 if [[ -d "$HOME/.local/bin" ]] ; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # If running from tty1 start sway
 if [[ "$(tty)" == "/dev/tty1" ]]; then
-    eval "$(gnome-keyring-daemon --start)"
+    eval "$(gnome-keyring-daemon --daemonize)"
     export SSH_AUTH_SOCK
     export WLR_NO_HARDWARE_CURSORS=1
     systemctl --user import-environment XDG_CURRENT_DESKTOP

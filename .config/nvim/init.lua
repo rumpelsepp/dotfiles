@@ -15,7 +15,15 @@ require('packer').startup(function()
     use { 'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' }}
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-    use 'hrsh7th/nvim-compe'
+    -- use 'hrsh7th/nvim-compe'
+    use {
+    "hrsh7th/nvim-cmp",
+      requires = {
+        "hrsh7th/vim-vsnip",
+        "hrsh7th/cmp-buffer",
+      }
+  }
+  use 'hrsh7th/cmp-nvim-lsp'
     use 'dag/vim-fish'
     use 'neovim/nvim-lspconfig'
     -- use 'folke/tokyonight.nvim'
@@ -49,7 +57,6 @@ vim.opt.autowrite = true
 vim.opt.completeopt = { "menuone", "noselect" }
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
-vim.opt.inccommand = "nosplit"
 vim.opt.linebreak = true
 vim.opt.list = true
 vim.opt.magic = true
@@ -75,7 +82,7 @@ if vim.fn.executable('rg') then
 end
 
 -- vim.opt.listchars ="tab:▸ ,eol:¬,lead:·"
-vim.opt.listchars ="tab:▸ ,lead:·"
+-- vim.opt.listchars ="tab:▸ ,lead:·"
 vim.opt.listchars ="tab:» ,lead:·"
 -- set wrapmargin=2
 
@@ -102,8 +109,16 @@ vim.api.nvim_set_keymap("n", "<leader>fg", "<cmd>lua require('telescope.builtin'
 vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
 
-vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm({ 'keys': '<CR>', 'select': v:true })", { expr = true })
 
+local cmp = require'cmp'
+cmp.setup({
+    sources = {
+        {name = 'buffer'}, 
+        {name = 'nvim_lsp'},
+        {name = 'nvim_lua'},
+        {name = 'path'},
+    }
+})
 
 -- Treesitter
 local ts = require'nvim-treesitter.configs'
@@ -146,11 +161,17 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { "gopls", "pylsp", "bashls" }
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup { on_attach = on_attach }
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+    }
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -176,19 +197,6 @@ nvim_lsp.efm.setup{
             }
         }
     }
-}
-
-require'compe'.setup {
-    source = {
-        path = true;
-        buffer = true;
-        nvim_lsp = true;
-        nvim_lua = true;
-        -- calc = true;
-        -- vsnip = true;
-        -- emoji = true;
-    },
-    preselect = "disable",
 }
 
 -- https://github.com/norcalli/nvim_utils/blob/master/lua/nvim_utils.lua#L554-L56h

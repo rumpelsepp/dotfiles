@@ -188,6 +188,9 @@ exec systemd-cat -t swayidle swayidle
 #
 # Applications:
 #
+    bindsym $mod+Shift+q kill
+
+    # shortcuts
     bindsym $mod+m exec systemd-cat -t thunar thunar
     bindsym $mod+q exec systemd-cat -t firefox firefox
 
@@ -197,7 +200,6 @@ exec systemd-cat -t swayidle swayidle
 
     # terminal
     bindsym $mod+Return exec systemd-cat -t $term_prog $term_prog $term_args
-    bindsym $mod+Shift+q kill
 
     # start your launcher
     bindsym $mod+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-starter.sh
@@ -206,8 +208,9 @@ exec systemd-cat -t swayidle swayidle
     for_window [title="^launcher$"] floating enable
 
     # screenshot
-    bindsym Print exec screenshot.sh -c
-    bindsym $mod+Print exec screenshot.sh -s
+    bindsym Print exec screenshot.sh -an
+    bindsym Shift+Print exec screenshot.sh -Wn
+    bindsym $mod+Print exec screenshot.sh -on
 
 #
 # Status Bar:
