@@ -99,6 +99,7 @@ vim.api.nvim_set_keymap("n", "k", "gk", options)
 vim.api.nvim_set_keymap("n", "j", "gj", options)
 vim.api.nvim_set_keymap("n", "<Up>", "gk", options)
 vim.api.nvim_set_keymap("n", "<Down>", "gj", options)
+vim.api.nvim_set_keymap("i", "<C-e>", "<C-o>de", options)
 
 vim.api.nvim_set_keymap("", "<leader>y", '"+y', { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>p", '"+P', options)
@@ -169,32 +170,41 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 local servers = { "gopls", "pylsp", "bashls" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
-        on_attach = on_attach,
         capabilities = capabilities,
+        flags = {
+            debounce_text_changes = 150,
+        },
+        on_attach = on_attach,
     }
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        -- delay update diagnostics
-        update_in_insert = false,
-    }
-)
-
--- TODO: Add lazy loading
 nvim_lsp.efm.setup{
-  init_options = {documentFormatting = true},
-    filetypes = {"sh"},
+    init_options = {documentFormatting = true},
+    filetypes = {"sh", "python", "go"},
     settings = {
         rootMarkers = {".git/"},
         languages = {
+            python = {
+                {
+                    formatCommand = 'black --quiet --target-version py39 -',
+                    formatStdin = true,
+                }
+            },
+            go = {
+                {
+                    formatCommand = 'goimports',
+                    formatStdin = true,
+                }
+            },
             sh = {
-              {
-                  lintCommand = 'shellcheck -f gcc -x',
-                  lintSource = 'shellcheck',
-                  lintFormats = {'%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'}
-              }
-            }
+                {
+                    lintCommand = 'shellcheck -f gcc -x',
+                    lintSource = 'shellcheck',
+                    lintFormats = {'%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'},
+                    formatCommand = 'shfmt -',
+                    formatStdin = true,
+                }
+            },
         }
     }
 }
@@ -216,7 +226,6 @@ local autocmds = {
     filetypes = {
         {"FileType", "c",  "setlocal ts=8 noexpandtab"};
         {"FileType", "go", "setlocal ts=4 noexpandtab"};
-        {"FileType", "go", "nnoremap <buffer> <space><space>f m' :silent %!goimports<CR>`'zz"};
     };
     convenience = {
         {"TextYankPost", "*", "silent! lua require'vim.highlight'.on_yank()"};

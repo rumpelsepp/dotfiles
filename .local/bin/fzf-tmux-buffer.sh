@@ -14,5 +14,5 @@ fzf_flags=(
 )
 
 lines="$(tmux capture-pane -pJ | sed '/^\s*$/d' | sort -ur)"
-selection="$(fzf-tmux "${fzf_flags[@]}" <<< "$lines" | sed -E 's/^\s+|\s+$//g' | tr -d "\n")"
+selection="$(fzf-tmux -p -- "${fzf_flags[@]}" <<< "$lines" | sed -E 's/^\s+|\s+$//g' | tr -d "\n")"
 echo "$selection"
