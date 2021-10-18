@@ -5,4 +5,12 @@ export MOZ_ENABLE_WAYLAND=1
 export MOZ_DBUS_REMOTE=1
 export MOZ_WEBRENDER=1
 #export LIBVA_DRIVER_NAME=iHD
-exec /usr/bin/firefox-developer-edition --profile ~/.mozilla/firefox/3a7u61yu.default-1467727279286-1598421748863 "$@"
+
+case "$(hostname)" in
+    alderaan)
+        exec /usr/bin/firefox "$@"
+        ;;
+    kronos)
+        exec /usr/bin/firefox-developer-edition --profile ~/.mozilla/firefox/3a7u61yu.default-1467727279286-1598421748863 "$@"
+        ;;
+esac

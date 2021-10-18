@@ -13,7 +13,7 @@ name = "awesome5"
 
 [[block]]
 block = "music"
-buttons = ["play", "next"]
+buttons = ["play", "prev", "next"]
 
 [[block]]
 block = "networkmanager"
