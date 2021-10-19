@@ -1,8 +1,8 @@
 -- Bootstrap packer.
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  vim.cmd('packadd packer.nvim')
+    vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd('packadd packer.nvim')
 end
 
 require('packer').startup(function()
@@ -15,18 +15,24 @@ require('packer').startup(function()
     use { 'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' }}
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-    -- use 'hrsh7th/nvim-compe'
     use {
-    "hrsh7th/nvim-cmp",
-      requires = {
-        "hrsh7th/vim-vsnip",
-        "hrsh7th/cmp-buffer",
-      }
-  }
-  use 'hrsh7th/cmp-nvim-lsp'
+        "hrsh7th/nvim-cmp",
+        requires = {
+            "hrsh7th/vim-vsnip",
+            "hrsh7th/cmp-buffer",
+        }
+    }
+    use 'hrsh7th/cmp-nvim-lsp'
     use 'dag/vim-fish'
     use 'neovim/nvim-lspconfig'
-    -- use 'folke/tokyonight.nvim'
+    use {
+        'phaazon/hop.nvim',
+        as = 'hop',
+        config = function()
+            -- you can configure Hop the way you like here; see :h hop-config
+            require'hop'.setup { keys = 'uiaeosnrtdy' }
+        end
+    }
 end)
 
 -- Theme
@@ -94,6 +100,26 @@ vim.g.man_hardwrap = true
 vim.g.cinoptions = "l1"
 vim.g.vimsyn_embed = 'lp'
 
+vim.g.mapleader = ' '
+
+if vim.env.TMUX then
+    vim.g.clipboard = {
+        name = 'tmux',
+        copy = {
+            ["+"] = {'tmux', 'load-buffer', '-w', '-'},
+            ["*"] = {'tmux', 'load-buffer', '-w', '-'},
+        },
+        paste = {
+            -- TODO: Fix this to use tmux magic.
+            -- ["+"] = {'bash', '-c', 'tmux refresh-client -l && tmux save-buffer -'},
+            -- ["*"] = {'bash', '-c', 'tmux refresh-client -l && tmux save-buffer -'},
+            ["+"] = {'wl-paste'},
+            ["*"] = {'wl-paste', '--primary'},
+        },
+        cache_enabled = false,
+    }
+end
+
 local options = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "k", "gk", options)
 vim.api.nvim_set_keymap("n", "j", "gj", options)
@@ -104,11 +130,14 @@ vim.api.nvim_set_keymap("i", "<C-e>", "<C-o>de", options)
 vim.api.nvim_set_keymap("", "<leader>y", '"+y', { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>p", '"+P', options)
 
--- Telescope mappings.
+-- Telescope Mappings
 vim.api.nvim_set_keymap("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
+
+-- Hop Mappings
+vim.api.nvim_set_keymap("n", "<leader>h", "<cmd>HopWord<cr>", options)
 
 
 local cmp = require'cmp'

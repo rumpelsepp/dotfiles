@@ -5,7 +5,7 @@ set $mod Mod4
 set $term_prog foot
 set $term_args --log-level warning
 set $launcher_prog foot
-set $launcher_args --log-level warning --title launcher --app-id launcher
+set $launcher_args --log-level none --title launcher --app-id launcher
 # set $launcher alacritty --title launcher --class launcher -e
 
 ### Output configuration
