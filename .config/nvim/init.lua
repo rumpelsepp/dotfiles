@@ -100,7 +100,8 @@ vim.g.man_hardwrap = true
 vim.g.cinoptions = "l1"
 vim.g.vimsyn_embed = 'lp'
 
-vim.g.mapleader = ' '
+-- I bet this leader is not in use! :D
+vim.g.mapleader = 'ä'
 
 if vim.env.TMUX then
     vim.g.clipboard = {
@@ -110,11 +111,8 @@ if vim.env.TMUX then
             ["*"] = {'tmux', 'load-buffer', '-w', '-'},
         },
         paste = {
-            -- TODO: Fix this to use tmux magic.
-            -- ["+"] = {'bash', '-c', 'tmux refresh-client -l && tmux save-buffer -'},
-            -- ["*"] = {'bash', '-c', 'tmux refresh-client -l && tmux save-buffer -'},
-            ["+"] = {'wl-paste'},
-            ["*"] = {'wl-paste', '--primary'},
+            ["+"] = {'bash', '-c', 'tmux refresh-client -l && sleep 0.2 && tmux save-buffer -'},
+            ["*"] = {'bash', '-c', 'tmux refresh-client -l && sleep 0.2 && tmux save-buffer -'},
         },
         cache_enabled = false,
     }
