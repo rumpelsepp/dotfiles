@@ -7,7 +7,6 @@ end
 
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'
-    use 'tomtom/tcomment_vim'
     use {
         'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
         config = function() require('gitsigns').setup() end
@@ -31,6 +30,12 @@ require('packer').startup(function()
         config = function()
             -- you can configure Hop the way you like here; see :h hop-config
             require'hop'.setup { keys = 'uiaeosnrtdy' }
+        end
+    }
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
         end
     }
 end)
@@ -81,11 +86,6 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.tabstop = 4
 vim.opt.undofile = true
-
-if vim.fn.executable('rg') then
-    vim.opt.grepprg = "rg --vimgrep --no-heading"
-    vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
-end
 
 -- vim.opt.listchars ="tab:▸ ,eol:¬,lead:·"
 -- vim.opt.listchars ="tab:▸ ,lead:·"
@@ -208,6 +208,7 @@ end
 nvim_lsp.efm.setup{
     init_options = {documentFormatting = true},
     filetypes = {"sh", "python", "go"},
+    on_attach = on_attach,
     settings = {
         rootMarkers = {".git/"},
         languages = {
@@ -253,6 +254,7 @@ local autocmds = {
     filetypes = {
         {"FileType", "c",  "setlocal ts=8 noexpandtab"};
         {"FileType", "go", "setlocal ts=4 noexpandtab"};
+        {"FileType", "sh", "setlocal ts=4 noexpandtab"};
     };
     convenience = {
         {"TextYankPost", "*", "silent! lua require'vim.highlight'.on_yank()"};
