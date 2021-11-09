@@ -34,13 +34,6 @@ function __fish_set_oldpwd --on-variable dirprev
     set -g OLDPWD $dirprev[-1]
 end
 
-# Workaround for foot until terminfo is in upstream
-# ncurses like kitty and alacritty. Will eventually
-# happen but take some time.
-if echo "$TERM" | string match "foot" > /dev/null
-    alias ssh "TERM=xterm-256color command ssh"
-end
-
 alias ip "ip --color=auto"
 alias now "date +%F_%T"
 alias now-raw "date +%Y%m%d%H%M"

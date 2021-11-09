@@ -11,6 +11,7 @@ case "$(hostname)" in
         exec /usr/bin/firefox "$@"
         ;;
     kronos)
-        exec /usr/bin/firefox-developer-edition --profile ~/.mozilla/firefox/3a7u61yu.default-1467727279286-1598421748863 "$@"
+        # exec /usr/bin/firefox-developer-edition --profile ~/.mozilla/firefox/3a7u61yu.default-1467727279286-1598421748863 "$@"
+        exec /usr/bin/firefox "$@"
         ;;
 esac

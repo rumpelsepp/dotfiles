@@ -11,19 +11,21 @@ require('packer').startup(function()
         'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
         config = function() require('gitsigns').setup() end
     }
-    use { 'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' }}
+    use 'neovim/nvim-lspconfig'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' }}
 
     use {
         "hrsh7th/nvim-cmp",
         requires = {
             "hrsh7th/vim-vsnip",
+            "hrsh7th/cmp-vsnip",
             "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-cmdline",
+            "hrsh7th/cmp-nvim-lsp",
         }
     }
-    use 'hrsh7th/cmp-nvim-lsp'
     use 'dag/vim-fish'
-    use 'neovim/nvim-lspconfig'
     use {
         'phaazon/hop.nvim',
         as = 'hop',
@@ -41,13 +43,15 @@ require('packer').startup(function()
 end)
 
 -- Theme
--- vim.cmd("colorscheme default")
+-- vim.opt.termguicolors = true
+vim.cmd("colorscheme default")
 vim.cmd("highlight Search ctermbg=12")
 vim.cmd("highlight clear SignColumn")
 vim.cmd("highlight ColorColumn ctermbg=darkgrey")
 vim.cmd("highlight LineNr ctermfg=grey")
 vim.cmd("highlight Pmenu ctermbg=white ctermfg=black")
 vim.cmd("highlight PmenuSel ctermbg=black ctermfg=white")
+vim.cmd("highlight NormalFloat cterm=inverse")
 -- highlight OverLength ctermbg=red ctermfg=white
 -- match OverLength /\%81v.\+/
 
@@ -63,9 +67,8 @@ vim.g.loaded_netrwPlugin = true
 -- let g:loaded_tarPlugin         = 1
 -- let g:loaded_zipPlugin         = 1
 
--- vim.opt.termguicolors = true
 vim.opt.autowrite = true
-vim.opt.completeopt = { "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noselect"}
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.linebreak = true
@@ -139,12 +142,41 @@ vim.api.nvim_set_keymap("n", "<leader>h", "<cmd>HopWord<cr>", options)
 
 
 local cmp = require'cmp'
+
+mapping = {
+  ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+  ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+  ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+  ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+  ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+  ['<C-f>'] = cmp.mapping.scroll_docs(4),
+  ['<C-Space>'] = cmp.mapping.complete(),
+  ['<C-e>'] = cmp.mapping.close(),
+  ['<CR>'] = cmp.mapping.confirm({
+    behavior = cmp.ConfirmBehavior.Replace,
+    select = true,
+  })
+}
+
 cmp.setup({
     sources = {
         {name = 'buffer'}, 
         {name = 'nvim_lsp'},
         {name = 'nvim_lua'},
         {name = 'path'},
+        {name = 'vsnip'},
+    },
+    mapping = mapping,
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+})
+
+cmp.setup.cmdline('/', {
+    sources = {
+        { name = 'buffer' }
     }
 })
 
@@ -161,7 +193,7 @@ local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    --Enable completion triggered by <c-x><c-o>
+    -- Enable completion triggered by <c-x><c-o>
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
@@ -209,6 +241,10 @@ nvim_lsp.efm.setup{
     init_options = {documentFormatting = true},
     filetypes = {"sh", "python", "go"},
     on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+        debounce_text_changes = 150,
+    },
     settings = {
         rootMarkers = {".git/"},
         languages = {
