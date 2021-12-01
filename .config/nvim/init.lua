@@ -27,14 +27,6 @@ require('packer').startup(function()
     }
     use 'dag/vim-fish'
     use {
-        'phaazon/hop.nvim',
-        as = 'hop',
-        config = function()
-            -- you can configure Hop the way you like here; see :h hop-config
-            require'hop'.setup { keys = 'uiaeosnrtdy' }
-        end
-    }
-    use {
         'numToStr/Comment.nvim',
         config = function()
             require('Comment').setup()
@@ -136,9 +128,6 @@ vim.api.nvim_set_keymap("n", "<leader>ff", "<cmd>lua require('telescope.builtin'
 vim.api.nvim_set_keymap("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", options)
 vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
-
--- Hop Mappings
-vim.api.nvim_set_keymap("n", "<leader>h", "<cmd>HopWord<cr>", options)
 
 
 local cmp = require'cmp'
