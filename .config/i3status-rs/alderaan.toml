@@ -11,9 +11,9 @@ critical_fg = "#ff0000"
 [icons]
 name = "awesome5"
 
-[[block]]
-block = "music"
-buttons = ["play", "prev", "next"]
+# [[block]]
+# block = "music"
+# buttons = ["play", "prev", "next"]
 
 [[block]]
 block = "networkmanager"
