@@ -7,7 +7,7 @@ qemu-system-x86_64 \
     -m $((1024*16)) \
     -drive file="$HOME/qemu/win10-aisec.qcow2" \
     -k en \
-    -nic user,smb="$HOME/Projects" \
+    -nic user,smb="$HOME/Projects",hostfwd=tcp::5555-:3389 \
     -vga qxl \
     -audiodev spice,id=0 \
     -device virtio-serial-pci \
@@ -22,5 +22,6 @@ qemu-system-x86_64 \
     -chardev spicevmc,name=usbredir,id=usbredirchardev2 -device usb-redir,chardev=usbredirchardev2,id=usbredirdev2 \
     -chardev spicevmc,name=usbredir,id=usbredirchardev3 -device usb-redir,chardev=usbredirchardev3,id=usbredirdev3 \
     -display spice-app,gl=on
-    # -usb -device usb-tablet
+    -usb -device usb-tablet
 
+	# -nographic

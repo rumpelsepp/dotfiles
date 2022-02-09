@@ -61,6 +61,9 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 #
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym $mod+Ctrl+Up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym $mod+Ctrl+Down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
     bindsym XF86MonBrightnessUp exec light -A 10
@@ -71,7 +74,7 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
     bindsym XF86AudioNext exec playerctl -a next
     bindsym XF86AudioPrev exec playerctl -a previous
 
-    bindsym Pause exec playerctl -a play-pause
+    bindsym $mod+Pause exec playerctl -a play-pause
     bindsym $mod+Next exec playerctl -a next
     bindsym $mod+Prior exec playerctl -a previous
 

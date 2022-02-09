@@ -47,10 +47,10 @@ format = "{1m}"
 block = "temperature"
 collapsed = false
 
-[[block]]
-block = "battery"
-driver = "upower"
-format = "{percentage} {time}"
+# [[block]]
+# block = "battery"
+# driver = "upower"
+# format = "{percentage} {time}"
 
 [[block]]
 block = "backlight"

@@ -24,7 +24,7 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = 300
+    width = (300, 500)
 
     # The maximum height of a single notification, excluding the frame.
     height = 300
@@ -33,7 +33,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = 10x50
+    offset = 20x20
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -164,7 +164,7 @@
     # Show age of message if message is older than show_age_threshold
     # seconds.
     # Set to -1 to disable.
-    show_age_threshold = 60
+    show_age_threshold = 300
 
     # Specify where to make an ellipsis in long lines.
     # Possible values are "start", "middle" and "end".
@@ -288,7 +288,7 @@
     # dunst will attempt to calculate an appropriate dpi value for each monitor
     # using the resolution and physical size. This might be useful in setups
     # where there are multiple screens with very different dpi values.
-    per_monitor_dpi = false
+    per_monitor_dpi = true
 
 
 [urgency_low]
