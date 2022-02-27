@@ -199,7 +199,8 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
     bindsym $mod+Shift+q kill
 
     # shortcuts
-    bindsym $mod+m exec systemd-cat -t thunar thunar
+    # bindsym $mod+m exec systemd-cat -t thunar thunar
+    bindsym $mod+m exec systemd-cat -t nautilus nautilus
     bindsym $mod+q exec systemd-cat -t firefox firefox
 
     # mako

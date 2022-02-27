@@ -5,8 +5,8 @@ set -eu
 prefix="$HOME"
 
 restic_args=(
-	--repo "rclone:gdrive:mnt/backups/nodes"
-	--password-command 'pass show backups/nodes-gdrive'
+	--repo "sftp://u160551@u160551.your-storagebox.de/backups/nodes"
+	--password-command 'pass show backups/alderaan-storagebox'
 	--verbose
 	--one-file-system
 	--exclude-caches
@@ -18,6 +18,7 @@ restic_args=(
 	--exclude "$prefix/.cargo/registry"
 	--exclude "$prefix/.config/Code/Cache*"
 	--exclude "$prefix/.config/Code/User"
+	--exclude "$prefix/.config/chromium"
 	--exclude "$prefix/.local/share/Trash"
 	--exclude "$prefix/.var"
 	--exclude "$prefix/fuse"
