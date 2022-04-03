@@ -13,7 +13,10 @@ require('packer').startup(function()
     }
     use 'neovim/nvim-lspconfig'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use { 'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' }}
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
 
     use {
         "hrsh7th/nvim-cmp",
@@ -32,18 +35,25 @@ require('packer').startup(function()
             require('Comment').setup()
         end
     }
+    use "projekt0n/github-nvim-theme"
 end)
 
 -- Theme
--- vim.opt.termguicolors = true
-vim.cmd("colorscheme default")
-vim.cmd("highlight Search ctermbg=12")
-vim.cmd("highlight clear SignColumn")
-vim.cmd("highlight ColorColumn ctermbg=darkgrey")
-vim.cmd("highlight LineNr ctermfg=grey")
-vim.cmd("highlight Pmenu ctermbg=white ctermfg=black")
-vim.cmd("highlight PmenuSel ctermbg=black ctermfg=white")
-vim.cmd("highlight NormalFloat cterm=inverse")
+vim.opt.termguicolors = true
+require("github-theme").setup({
+    -- theme_style = "light_default",
+    theme_style = "dark_default",
+    overrides = function(c)
+        local types = require('github-theme.types')
+        local Styles = types.gt.HighlightStyle
+
+        return {
+            StatusLine = { fg = c.bg, bg = c.blue, style = Styles.Bold },
+            StatusLineNC = { fg = c.bg, bg = c.bright_blue },
+        }
+    end
+})
+
 -- highlight OverLength ctermbg=red ctermfg=white
 -- match OverLength /\%81v.\+/
 
@@ -84,7 +94,7 @@ vim.opt.undofile = true
 
 -- vim.opt.listchars ="tab:▸ ,eol:¬,lead:·"
 -- vim.opt.listchars ="tab:▸ ,lead:·"
-vim.opt.listchars ="tab:» ,lead:·"
+vim.opt.listchars = "tab:» ,lead:·,trail:·,extends:»,precedes:«"
 -- set wrapmargin=2
 
 -- language specific

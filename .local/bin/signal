@@ -1,4 +1,4 @@
 #!/bin/bash
 
-# GDK_BACKEND=wayland exec flatpak run org.signal.Signal --enable-features=UseOzonePlatform --ozone-platform=wayland "$@" #> /dev/null 2>&1
+# GDK_BACKEND=wayland exec flatpak --user --socket=session-bus --socket=system-bus --socket=wayland run org.signal.Signal --enable-features=UseOzonePlatform --enable-features=WaylandWindowDecorations --ozone-platform=wayland "$@" #> /dev/null 2>&1
 exec flatpak run org.signal.Signal "$@" > /dev/null 2>&1

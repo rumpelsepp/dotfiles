@@ -2,31 +2,32 @@
 
 set -eu
 
-prefix="$HOME"
-
 restic_args=(
-	--repo "sftp://u160551@u160551.your-storagebox.de/backups/nodes"
-	--password-command 'pass show backups/alderaan-storagebox'
 	--verbose
 	--one-file-system
 	--exclude-caches
-	--exclude "$prefix/go"
-	--exclude "$prefix/.local/share/go"
-	--exclude "$prefix/.npm"
-	--exclude "$prefix/.cache"
-	--exclude "$prefix/.mozilla"
-	--exclude "$prefix/.cargo/registry"
-	--exclude "$prefix/.config/Code/Cache*"
-	--exclude "$prefix/.config/Code/User"
-	--exclude "$prefix/.config/chromium"
-	--exclude "$prefix/.local/share/Trash"
-	--exclude "$prefix/.var"
-	--exclude "$prefix/fuse"
+	--exclude "$HOME/go"
+	--exclude "$HOME/.local/share/go"
+	--exclude "$HOME/.npm"
+	--exclude "$HOME/.cargo"
+	--exclude "$HOME/.cache"
+	--exclude "$HOME/.mozilla"
+	--exclude "$HOME/.cargo/registry"
+	--exclude "$HOME/.config/Code/Cache*"
+	--exclude "$HOME/.config/Code/User"
+	--exclude "$HOME/.config/chromium"
+	--exclude "$HOME/.config/syncthing"
+	--exclude "$HOME/.mozilla"
+	--exclude "$HOME/.local/share/Trash"
+	--exclude "$HOME/.local/share/flatpak"
+	--exclude "$HOME/.var"
+	--exclude "$HOME/fuse"
 	--exclude '*.o'
 	--exclude '*.ko'
 	--exclude '*.rlib'
 	--exclude '*.lldb'
-	"$prefix"
+	"$HOME"
 )
 
-exec restic backup "${restic_args[@]}"
+# restic check
+restic-wrapper.sh backup "${restic_args[@]}"

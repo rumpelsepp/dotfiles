@@ -16,11 +16,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ### Idle configuration
 exec systemd-cat -t swayidle swayidle
-
-# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# exec systemd-cat -t nm-applet nm-applet --indicator
 
 # exec systemd-cat /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
@@ -211,8 +207,10 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
     bindsym $mod+Return exec systemd-cat -t $term_prog $term_prog $term_args
 
     # start your launcher
-    bindsym $mod+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-starter.sh
-    bindsym $mod+Shift+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-desktop-starter.sh
+    # bindsym $mod+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-starter.sh
+    bindsym $mod+d exec systemd-cat -t rofi rofi -show drun -show-icons
+    # bindsym $mod+Shift+d exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-desktop-starter.sh
+    bindsym $mod+Shift+d exec systemd-cat -t rofi rofi -show run
     bindsym $mod+Tab exec systemd-cat -t $launcher_prog $launcher_prog $launcher_args sway-apps.sh
     for_window [title="^launcher$"] floating enable
 
@@ -226,8 +224,9 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position bottom
+    # position bottom
     # status_command swaystatus
+    # swaybar_command waybar
     status_command i3status-rs $HOME/.config/i3status-rs/$(hostname).toml
 }
 
