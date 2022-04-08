@@ -8,7 +8,7 @@ export EDITOR="nvim"
 export PAGER="less"
 export MANWIDTH="80"
 export MANOPT="--nj --nh"
-export MANPAGER="nvim -u NORC +Man!"
+export MANPAGER="nvim +Man!"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games:/usr/bin/vendor_perl"
 export GOPATH="$HOME/.local/share/go"
 

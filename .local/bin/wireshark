@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # export QT_QPA_PLATFORM=xcb
-# export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORM=wayland
 exec /usr/bin/wireshark "$@"
