@@ -42,5 +42,3 @@ alias hd "hexdump -C"
 complete -c hd -w hexdump
 alias o "gio open"
 complete -c o -w "gio open"
-alias t "task"
-complete -c t -w task
