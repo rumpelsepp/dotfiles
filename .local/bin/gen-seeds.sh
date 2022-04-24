@@ -1,1 +1,0 @@
-/home/rumpelsepp/Projects/private/frankencert/utils/gen-seeds.sh

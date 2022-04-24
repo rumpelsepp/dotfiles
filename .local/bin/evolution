@@ -1,4 +1,0 @@
-#!/bin/bash
-
-#WEBKIT_FORCE_SANDBOX=0 exec /usr/bin/evolution "$@"
-exec /usr/bin/evolution "$@"
