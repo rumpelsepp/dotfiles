@@ -23,6 +23,11 @@ main() {
 	shift $((OPTIND - 1))
 
 	case "$HOST" in
+	alderaan)
+		export RESTIC_REPOSITORY="rclone:owncloud.fraunhofer.de:backups_private/nodes"
+		export RESTIC_PASSWORD_COMMAND='pass show backups/alderaan-storagebox'
+		;;
+
 	kronos)
 		export RESTIC_REPOSITORY="rclone:owncloud.fraunhofer.de:backups_private/nodes"
 		export RESTIC_PASSWORD_COMMAND='pass show backups/alderaan-storagebox'

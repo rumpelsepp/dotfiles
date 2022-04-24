@@ -66,15 +66,15 @@ require("github-theme").setup({
 
 -- Settings
 -- Disable built-in plugins
--- vim.g.loaded_2html_plugin = true
--- vim.g.loaded_matchparen = true
-vim.g.loaded_netrwPlugin = true
--- vim.g.loaded_rrhelper = true
--- vim.g.loaded_tutor_mode_plugin = true
--- let g:loaded_gzip              = 1
--- let g:loaded_spellfile_plugin  = 1
--- let g:loaded_tarPlugin         = 1
--- let g:loaded_zipPlugin         = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_matchparen = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_rrhelper = 1
+vim.g.loaded_tutor_mode_plugin = 1
+vim.g.loaded_gzip              = 1
+vim.g.loaded_spellfile_plugin  = 1
+vim.g.loaded_tarPlugin         = 1
+vim.g.loaded_zipPlugin         = 1
 
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
@@ -111,7 +111,7 @@ vim.opt.listchars = "tab:» ,lead:·,trail:·,extends:»,precedes:«"
 local filetype_autocmds = {
     c = { command = "setlocal ts=8 noexpandtab" },
     go = { command = "setlocal ts=4 noexpandtab" },
-    sh = { command = "setlocal ts=4 noexpandtab" }
+    sh = { command = "setlocal ts=4 noexpandtab" },
 }
 
 vim.g.python_highlight_all = true
@@ -151,7 +151,6 @@ vim.keymap.set('n', '<Up>',   "v:count == 0 ? 'gk' : 'k'", { expr = true, silent
 vim.keymap.set('n', '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Telescope Mappings
--- TODO: use git_files and fall back to find_files
 vim.keymap.set("n", "<leader>ff", require('telescope.builtin').find_files)
 vim.keymap.set("n", "<leader>fg", require('telescope.builtin').live_grep)
 vim.keymap.set("n", "<leader>fb", require('telescope.builtin').buffers)
@@ -203,7 +202,7 @@ ts.setup {
     ensure_installed = 'all',
     highlight = { enable = true },
     additional_vim_regex_highlighting = false,
-    indent = { enable = true },
+    -- indent = { enable = true },
     textobjects = {
         select = {
             enable = true,
