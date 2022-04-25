@@ -151,10 +151,11 @@ vim.keymap.set('n', '<Up>',   "v:count == 0 ? 'gk' : 'k'", { expr = true, silent
 vim.keymap.set('n', '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Telescope Mappings
-vim.keymap.set("n", "<leader>ff", require('telescope.builtin').find_files)
-vim.keymap.set("n", "<leader>fg", require('telescope.builtin').live_grep)
-vim.keymap.set("n", "<leader>fb", require('telescope.builtin').buffers)
-vim.keymap.set("n", "<leader>fh", require('telescope.builtin').help_tags)
+telescope_builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files)
+vim.keymap.set("n", "<leader>fg", telescope_builtin.live_grep)
+vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers)
+vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags)
 
 
 local cmp = require('cmp')
