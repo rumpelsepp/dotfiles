@@ -46,9 +46,25 @@ require('packer').startup(function()
 end)
 
 -- Theme
+
+function determine_theme()
+    -- https://stackoverflow.com/a/9676174
+    local handle = io.popen("gsettings get org.gnome.desktop.interface color-scheme")
+    local system_theme = vim.trim(handle:read("*a"))
+    handle:close()
+
+    if system_theme == "'default'" then
+        return "light_default"
+    elseif system_theme == "'prefer_dark'" then
+        return "dark_default"
+    else
+        return "dark_default"
+    end
+end
+
 vim.opt.termguicolors = true
 require("github-theme").setup({
-    -- theme_style = "light_default",
+    -- theme_style = determine_theme(),
     theme_style = "dark_default",
     overrides = function(c)
         local types = require('github-theme.types')

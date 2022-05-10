@@ -1,6 +1,9 @@
+import re
 from prompt_toolkit.keys import Keys
 from xonsh.built_ins import XSH
 
+# https://stackoverflow.com/a/50790119
+url_regex = re.compile(r'\b((?:https?://)?(?:(?:www\.)?(?:[\da-z\.-]+)\.(?:[a-z]{2,6})|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|(?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:(?:(?::[0-9a-fA-F]{1,4}){1,6})|:(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(?::[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(?:ffff(?::0{1,4}){0,1}:){0,1}(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])|(?:[0-9a-fA-F]{1,4}:){1,4}:(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])))(?::[0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])?(?:/[\w\.-]*)*/?)\b')
 
 # https://github.com/xonsh/xonsh/issues/3639#issuecomment-654215680
 @events.on_ptk_create
@@ -28,8 +31,7 @@ def alt_right_fill_word_suggestion(bindings, **kw):
         b.insert_text(next(x for x in t if x))
 
 
-# TODO
-def fzf_tmux_buffer():
+def fzf_tmux_buffer() -> str:
     fzf_flags = [
         "-d" "35%",
         "--multi",
@@ -40,39 +42,29 @@ def fzf_tmux_buffer():
         "--bind=ctrl-s:toggle-sort",
         "--no-preview",
     ]
-    # lines="$(tmux capture-pane -pJ | sed '/^\s*$/d' | sort -ur)"
-    # selection="$(fzf-tmux -p -- "${fzf_flags[@]}" <<< "$lines" | sed -E 's/^\s+|\s+$//g' | tr -d "\n")"
-    # echo "$selection"
+    lines = sorted(set($(tmux capture-pane -pJ).strip().splitlines()))
+    if len(lines) == 0:
+        return ""
+    return $(echo @('\n'.join(lines)) | fzf-tmux -p -- @(fzf_flags)).strip()
 
 
-@events.on_ptk_create
-def custom_keybindings(bindings, **kw):
-
-    @bindings.add(Keys.ControlF)
-    def fzf_tmux_buffer(event):
-        selection = $(fzf-tmux-buffer.sh).strip()
-        event.current_buffer.insert_text(selection)
-
-
-def _pass_search(args):
-    $[gopass list -f | grep @(args)]
+def url_popup() -> None:
+    buffer = $(tmux capture-pane -pJ)
+    urls = set(url_regex.findall(buffer))
+    if len(urls) == 0:
+        return
+    $(tmux display-popup echo @('\n'.join(urls)))
 
 
-aliases['pass_search'] = _pass_search
-
-
-def _poetry_shell():
+def poetry_shell():
     from pathlib import Path
-    p = $(poetry env info -p)
-    source @(Path(p.strip()).joinpath("bin/activate.xsh"))
-
-
-aliases['poetry_shell'] = _poetry_shell
+    source @(Path($(poetry env info -p).strip()).joinpath("bin/activate.xsh"))
 
 
 env = XSH.env
-env["LS_COLORS"] = 'rs=0:di=01;36:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:'
-env["DYNAMIC_CWD_WIDTH"] = "20%"
+if $(gsettings get org.gnome.desktop.interface color-scheme).strip() == "'prefer-dark'":
+    env["LS_COLORS"] = 'rs=0:di=01;36:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:'
+env["DYNAMIC_CWD_WIDTH"] = "30%"
 env["AUTO_PUSHD"] = True
 
 aliases['hd'] = "hexdump -C"

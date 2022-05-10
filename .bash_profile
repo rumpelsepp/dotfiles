@@ -3,7 +3,7 @@
 #
 # shellcheck shell=bash
 
-export SHELL="/usr/bin/xonsh"
+export SHELL="/usr/bin/fish"
 export EDITOR="nvim"
 export PAGER="less"
 export MANWIDTH="80"
