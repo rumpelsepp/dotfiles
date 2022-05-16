@@ -1,3 +1,0 @@
-# [screencast]
-# exec_before="notify-send 'sharing screen'"
-# exec_after="notify-send 'sharing screen ended'"
