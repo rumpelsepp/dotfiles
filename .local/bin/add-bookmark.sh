@@ -4,7 +4,7 @@ set -ue
 
 COMMIT='yes'
 REPO="$HOME/Projects/private/blog"
-BOOKMARKFILE="$HOME/Projects/private/blog/content/stuff/bookmarks.md"
+BOOKMARKFILE="$REPO/content/stuff/bookmarks.md"
 
 # $1: url
 gettitle() {
@@ -38,6 +38,8 @@ process_url() {
 	# cd "$REPO"
 	# git commit -m "add $title" "$BOOKMARKFILE"
 }
+
+git -C "$REPO" pull --autostash --rebase
 
 readarray -t lines
 

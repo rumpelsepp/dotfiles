@@ -7,7 +7,6 @@ restic_args=(
 	--one-file-system
 	--exclude-caches
 	--exclude "$HOME/go"
-	--exclude "$HOME/.local/share/go"
 	--exclude "$HOME/.npm"
 	--exclude "$HOME/.cargo"
 	--exclude "$HOME/.cache"
@@ -18,10 +17,12 @@ restic_args=(
 	--exclude "$HOME/.config/chromium"
 	--exclude "$HOME/.config/syncthing"
 	--exclude "$HOME/.mozilla"
-	--exclude "$HOME/.local/share/Trash"
-	--exclude "$HOME/.local/share/flatpak"
+	--exclude "$HOME/.local/share"
 	--exclude "$HOME/.var"
+	--exclude "$HOME/.venvs"
 	--exclude "$HOME/fuse"
+	--exclude "*.so"
+	--exclude "*.whl"
 	--exclude '*.o'
 	--exclude '*.ko'
 	--exclude '*.rlib'

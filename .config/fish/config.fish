@@ -34,7 +34,12 @@ function __fish_set_oldpwd --on-variable dirprev
     set -g OLDPWD $dirprev[-1]
 end
 
+function cd-root
+    cd $(git rev-parse --show-toplevel)
+end
+
 alias ip "ip --color=auto"
+alias ls "ls --color=auto --hyperlink=auto"
 alias now "date +%F_%T"
 alias now-raw "date +%Y%m%d%H%M"
 alias today "date +%F"
